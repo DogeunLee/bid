@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class Member {
 
 	private int memberNo;
-	
+	private String memberId;
+	private String memberPw;
 }
