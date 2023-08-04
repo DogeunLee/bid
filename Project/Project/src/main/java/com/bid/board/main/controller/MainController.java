@@ -32,4 +32,7 @@ public class MainController {
 		
 		return "common/main";
 	}
+	
+	
+	
 }

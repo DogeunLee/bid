@@ -98,7 +98,7 @@
 											<td>${memberList.memberHire}</td>
 											<td>${memberList.memberLv}</td>
 											<td>${memberList.memberTel}</td>
-											<td>${memberList.memberTel}</td>
+											<td>${memberList.memberAddr}</td>
 											<td>${memberList.memberSt}</td>
 										</tr>
 									</c:forEach>

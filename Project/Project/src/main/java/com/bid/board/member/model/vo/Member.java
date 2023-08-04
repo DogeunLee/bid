@@ -19,5 +19,6 @@ public class Member {
 	private String memberHire;
 	private String memberSt;
 	private String memberLv;
+	private String memberAddr;
 	
 }

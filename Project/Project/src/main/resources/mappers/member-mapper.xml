@@ -13,6 +13,7 @@
 		<result property="memberHire" column="MEMBER_HIRE" />
 		<result property="memberSt" column="MEMBER_ST" />
 		<result property="memberLv" column="MEMBER_LV" />
+		<result property="memberAddr" column="MEMBER_ADDR" />
 	</resultMap>
 			
 	<select id="selectMemberNo" resultType="_int">
@@ -40,7 +41,8 @@
   		TO_CHAR(MEMBER_HIRE, 'YYYY-MM-DD') AS
 		MEMBER_HIRE,
   		MEMBER_ST,
-  		MEMBER_LV
+  		MEMBER_LV,
+  		MEMBER_ADDR
   		FROM MEMBER
   	</select>
   	
