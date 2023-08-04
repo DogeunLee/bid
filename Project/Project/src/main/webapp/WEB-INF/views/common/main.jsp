@@ -106,6 +106,42 @@
 
 							</table>
 
+							<div class="page_Nation">
+								<c:set var="url" value="?cp=" />
+								<c:set var="pagination" value="${lostList['pagination']}" />
+								<c:set var="currentPage" value="${pagination.currentPage}"
+									scope="request" />
+								<div>
+									<a href="${url}1">&lt;&lt;</a>
+								</div>
+								<div>
+									<a href="${url}${pagination.prevPage}">&lt;</a>
+								</div>
+								<c:forEach var="i" begin="${pagination.startPage}"
+									end="${pagination.endPage}" step="1">
+									<c:choose>
+										<c:when test="${i == currentPage}">
+											<div>
+												<a class="selected_Cp">${i}</a>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div>
+												<a href="${url}${i}">${i}</a>
+											</div>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								<div>
+									<a href="${url}${pagination.nextPage}">&gt;</a>
+								</div>
+								<div>
+									<a href="${url}${pagination.maxPage}">&gt;&gt;</a>
+								</div>
+							</div>
+
+
+
 
 
 						</div>
