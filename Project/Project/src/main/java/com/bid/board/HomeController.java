@@ -61,7 +61,7 @@ public class HomeController {
 		if(loginMember != null) { // 로그인 성공 시
 			ra.addFlashAttribute("message", "로그인성공");
 			model.addAttribute("loginMember", loginMember);
-			path = "redirect:/";
+			path = "redirect:/main";
 
 		} else {
 			ra.addFlashAttribute("message", "실패");

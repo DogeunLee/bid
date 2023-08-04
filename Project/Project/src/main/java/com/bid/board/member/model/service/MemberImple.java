@@ -1,8 +1,13 @@
 package com.bid.board.member.model.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bid.board.main.model.MemberPageNation;
 import com.bid.board.member.model.dao.MemberDAO;
 import com.bid.board.member.model.vo.Member;
 
@@ -37,6 +42,24 @@ public class MemberImple implements MemberService{
 		}
 
 		return loginMember;
+	}
+
+
+
+	@Override
+	public Map<String, Object> getMemberList(int cp) {
+		
+		int memberListCount = dao.getMmberListCount();
+
+		MemberPageNation pagination = new MemberPageNation(cp, memberListCount);
+
+		List<Member> memberList = dao.getMemberList(pagination);
+		Map<String, Object> getMemberList = new HashMap<String, Object>();
+		getMemberList.put("pagination", pagination);
+		getMemberList.put("memberList", memberList);
+		
+		return getMemberList;
+			
 	}
 
 

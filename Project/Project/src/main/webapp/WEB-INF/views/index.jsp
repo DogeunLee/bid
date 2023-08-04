@@ -61,7 +61,22 @@
 
 
 </body>
+<c:if test="${ !empty sessionScope.message }">
+	<script>
+                                alert("${message}");
+				
+                            </script>
 
+	<%-- message 1회 출력 후 session에서 제거 --%>
+	<c:remove var="message" scope="session" />
+</c:if>
+
+<c:if test="${ !empty message }">
+	<script>
+                                alert("${message}");
+        					
+                            </script>
+</c:if>
 <script src="${contextPath}/resources/js/script.js"></script>
 
 </html>

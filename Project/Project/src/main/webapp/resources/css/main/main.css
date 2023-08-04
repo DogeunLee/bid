@@ -1,0 +1,266 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    list-style: none;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color:white;
+}
+
+
+
+
+main {
+    width:100vw;
+    height:100vh;
+    display: flex;
+    align-items: center;
+    margin:0 auto;
+
+}
+
+.leftSide{
+    flex:1.7;
+    height:100%;
+    background-color: rgb(51,51,51);
+    display: flex;
+    flex-direction: column;
+}
+
+.photo-area{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.photo-area > img {
+    width: 120px;
+    height:120px;
+    margin:0 auto;
+    border-radius: 50%;
+}
+.photo-area> p {
+    text-align: center;
+    padding-top: 15px;
+    color:white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.myPageWrap{
+    padding-top: 30px;
+    height:50%;
+}
+
+.myPageWrap > ul:nth-child(1){
+    display: flex;
+    flex-direction: column;
+    height:100%;
+    width:90%;
+    margin:0 auto;
+}
+
+.myPageWrap > ul:nth-child(1) > li{
+    height:20%;
+    text-align: center;
+    line-height: 66px;
+    color:white;
+    font-size: 1.2rem;
+    cursor: pointer;
+
+border-radius: 10px;
+    }
+
+
+
+.myPageWrap > ul:nth-child(1) > li:hover{
+    background-color: rgb(21,21,21);
+}
+
+.search-area {
+    display: flex;
+    border:2px solid white;
+    border-radius: 10px;
+    height:90px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 30px auto 0 auto;
+    width: 95%;
+}
+
+
+.search-area > input{
+    padding-left:10px;
+    height:40%;
+    outline: none;
+    border: none;
+    width: 60%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.search-area > div{
+    border:none;
+    outline: none;
+    height:40%;
+    background-color: rgb(91,91,91);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    line-height: 29px;
+    padding:0 5px;
+    cursor: pointer;
+
+}
+
+.search-area > div:hover{
+    background-color: rgb(21,21,21);
+    color: white;
+}
+
+.search-area >p{
+    width:100%;
+    text-align: center;
+    color:white;
+}
+.highlighted {
+    background-color: rgb(21,21,21);
+}
+
+.rightDiv{
+    flex: 8.3;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.rightDiv > div:nth-child(1){
+    width:100%;
+    background-color: rgb(71,71,71);
+    height:7%;
+    padding:5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rightDiv > div:nth-child(1)>p{
+    font-size: 1.2rem;
+    color:white;
+    font-weight: bold;
+    width:20%;
+    padding: 10px;
+    line-height: 42px;
+}
+
+.rightDiv > div:nth-child(1) > div{
+    width:10%;
+    background-color: rgb(91,91,91);
+    border-radius: 10px;
+    color:white;
+    font-weight: bold;
+    text-align: center;
+    line-height: 28px;
+    cursor: pointer;
+}
+
+.rightDiv > div:nth-child(1) > div:hover{
+    background-color: rgb(21,21,21);   
+}
+
+
+.rightDiv > div:nth-child(2) {
+    width:100%;
+    height:93%;
+    background-color: rgb(71,71,71);
+    padding:5px;
+    display: flex;
+}
+
+.content-wrap{
+    flex:1;
+    background-color: white;
+    border-radius: 10px;
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrap > div:nth-child(1){
+    width:100%;
+    padding:0px 15px 15px 15px;
+    color:black;
+    border-bottom: 3px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-wrap > div > p{
+    font-weight: bold;    font-size: 1.5rem;
+}
+
+.impl-search-area{
+    display: flex;
+}
+
+.impl-search-area > input{
+    outline: none;
+    border: 1px solid black;
+    border-left: none;
+    padding-left: 10px;
+}
+
+.impl-search-area > a{
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: rgb(91,91,91);
+    line-height: 30px;
+    padding:0 5px;
+}
+
+.impl-search-area > a:hover{
+    background-color: rgb(21,21,21);
+}
+
+.table-wrap{
+    width:100%;
+    height:85%;
+}
+
+.table-wrap > table{
+    width:100%;
+    border-collapse: collapse;
+}
+
+.table-wrap > table > thead{
+    height:50px;
+}
+
+.table-wrap > table > thead > tr> th:nth-child(1){
+    width:10%;
+}
+
+.table-wrap > table > tbody > tr {
+    height:40px;
+}
+
+.table-wrap > table > tbody > tr > td{
+    text-align: center;
+}
+
+
+.row:nth-child(odd) {
+    background-color: lightgray;
+}
+
+.row{
+    cursor: pointer;
+}
+
+.row:hover{
+    background-color: rgb(251,122,10);
+}

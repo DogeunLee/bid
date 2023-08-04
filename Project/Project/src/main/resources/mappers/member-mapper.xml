@@ -6,10 +6,17 @@
 		<id property="memberNo" column="MEMBER_NO" />
 		<result property="memberId" column="MEMBER_ID" />
 		<result property="memberPw" column="MEMBER_PW" />
+		<result property="memberName" column="MEMBER_NAME" />
+		<result property="memberGender" column="MEMBER_GENDER" />
+		<result property="memberTel" column="MEMBER_TEL" />
+		<result property="memberBirth" column="MEMBER_BIRTH" />
+		<result property="memberHire" column="MEMBER_HIRE" />
+		<result property="memberSt" column="MEMBER_ST" />
+		<result property="memberLv" column="MEMBER_LV" />
 	</resultMap>
-	
+			
 	<select id="selectMemberNo" resultType="_int">
-		SELECT * FROM MEMBER
+		SELECT COUNT(*) FROM MEMBER
 	</select>
 	
 	<select id="login"  parameterType="member"  resultMap="member_rm"  >
@@ -17,5 +24,25 @@
  		FROM MEMBER
 		WHERE MEMBER_ID = #{memberId}
   	</select>
+  	
+<!--   	<select id="countMember" resultType="_int">
+  		SELECT COUNT(*) FROM MEMBER
+  	</select>
+ -->  	
+ 
+  	<select id="getMemberList" resultMap="member_rm">
+  	SELECT 
+  		MEMBER_ID,
+  		MEMBER_NAME,
+  		MEMBER_GENDER,
+  		MEMBER_TEL,
+  		FLOOR(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) AS MEMBER_BIRTH,
+  		TO_CHAR(MEMBER_HIRE, 'YYYY-MM-DD') AS
+		MEMBER_HIRE,
+  		MEMBER_ST,
+  		MEMBER_LV
+  		FROM MEMBER
+  	</select>
+  	
 
 </mapper>
