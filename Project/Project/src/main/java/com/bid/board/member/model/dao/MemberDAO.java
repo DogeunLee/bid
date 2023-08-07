@@ -44,5 +44,10 @@ public class MemberDAO {
 	}
 
 
+	public int memberIdDupCheck(String memberId) {
+		return sqlSession.selectOne("memberMapper.memberIdDupCheck",memberId);
+	}
+
+
 
 }

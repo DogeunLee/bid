@@ -11,5 +11,7 @@ public interface MemberService {
 	Member login(Member inputMember);
 
 	Map<String, Object> getMemberList(int cp);
+
+	int memberIdDupCheck(String memberId);
 	
 }

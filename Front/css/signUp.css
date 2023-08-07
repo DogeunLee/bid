@@ -1,0 +1,362 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    list-style: none;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color:white;
+    outline: none;
+}
+
+input{
+    outline: none;
+}
+
+
+main {
+    width:100vw;
+    height:100vh;
+    display: flex;
+    align-items: center;
+    margin:0 auto;
+
+}
+
+.leftSide{
+    flex:1.7;
+    height:100%;
+    background-color: rgb(51,51,51);
+    display: flex;
+    flex-direction: column;
+}
+
+.photo-area{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.photo-area > img {
+    width: 120px;
+    height:120px;
+    margin:0 auto;
+    border-radius: 50%;
+}
+.photo-area> p {
+    text-align: center;
+    padding-top: 15px;
+    color:white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.myPageWrap{
+    padding-top: 30px;
+    height:50%;
+}
+
+.myPageWrap > ul:nth-child(1){
+    display: flex;
+    flex-direction: column;
+    height:100%;
+    width:90%;
+    margin:0 auto;
+}
+
+.myPageWrap > ul:nth-child(1) > li{
+    height:20%;
+    text-align: center;
+    line-height: 66px;
+    color:white;
+    font-size: 1.2rem;
+    cursor: pointer;
+
+border-radius: 10px;
+    }
+
+
+
+.myPageWrap > ul:nth-child(1) > li:hover{
+    background-color: rgb(21,21,21);
+}
+
+.search-area {
+    display: flex;
+    border:2px solid white;
+    border-radius: 10px;
+    height:90px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 30px auto 0 auto;
+    width: 95%;
+}
+
+
+.search-area > input{
+    padding-left:10px;
+    height:40%;
+    outline: none;
+    border: none;
+    width: 60%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.search-area > div{
+    border:none;
+    outline: none;
+    height:40%;
+    background-color: rgb(91,91,91);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    line-height: 29px;
+    padding:0 5px;
+    cursor: pointer;
+
+}
+
+.search-area > div:hover{
+    background-color: rgb(21,21,21);
+    color: white;
+}
+
+.search-area >p{
+    width:100%;
+    text-align: center;
+    color:white;
+}
+.highlighted {
+    background-color: rgb(21,21,21);
+}
+
+.rightDiv{
+    flex: 8.3;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.rightDiv > div:nth-child(1){
+    width:100%;
+    background-color: rgb(71,71,71);
+    height:7%;
+    padding:5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rightDiv > div:nth-child(1)>p{
+    font-size: 1.2rem;
+    color:white;
+    font-weight: bold;
+    width:20%;
+    padding: 10px;
+    line-height: 42px;
+}
+
+.rightDiv > div:nth-child(1) > div{
+    width:10%;
+    background-color: rgb(91,91,91);
+    border-radius: 10px;
+    color:white;
+    font-weight: bold;
+    text-align: center;
+    line-height: 28px;
+    cursor: pointer;
+}
+
+.rightDiv > div:nth-child(1) > div:hover{
+    background-color: rgb(21,21,21);   
+}
+
+
+.rightDiv > div:nth-child(2) {
+    width:100%;
+    height:93%;
+    background-color: rgb(71,71,71);
+    padding:5px;
+    display: flex;
+}
+
+.content-wrap{
+    flex:1;
+    background-color: white;
+    border-radius: 10px;
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrap > div:nth-child(1){
+    width:100%;
+    padding:0px 15px 15px 15px;
+    color:rgb(21,21,21);
+    border-bottom: 3px solid rgb(21,21,21);
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.content-wrap > div > p{
+    font-weight: bold;    font-size: 1.5rem;
+}
+
+.content-wrap > form {
+    width:100%;
+    height:100%;
+    padding:15px;
+    display: flex;
+    justify-content: center;
+}
+
+.memberRegWrap {
+    width:100%;
+    border:2px solid rgb(21,21,21);
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.memberRegWrap > div:nth-child(1){
+    width:65%;
+    padding:20px 20px 0 20px;
+    padding-left: 120px;
+    height:88%;
+    display: flex;
+    flex-direction: column;
+}
+
+.memberRegWrap > div:nth-child(2){
+    width:35%;
+    height:88%;
+    display: flex;
+    align-items: center;
+}
+.memberRegWrap > div:nth-child(3){
+    width:80%;
+    height:50px;    margin:0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.member-tel input{
+    width:100px;
+}
+
+
+.birthpace{
+    padding:0 10px;
+}
+
+.memberRegWrap > div > div{
+    display: flex;
+    padding:5px;
+}
+
+
+.memberRegWrap > div > div >p{
+    width : 20%;
+    line-height: 28px;
+}
+
+.memberRegWrap > div > div input{
+    padding-left:10px;
+}
+
+.input-addr-wrap input{
+    height: 30px;
+    margin:5px 0;
+    width:200px;
+}
+
+#idDubCheck{
+    margin-left:10px;
+    outline: none;
+    border:none;
+    border-radius: 5px;
+    padding:0 10px;
+    color:white;
+    background-color:#5b5b5b;
+    cursor: pointer;
+}
+
+#idDubCheck:hover{
+    background-color: rgb(21,21,21);
+    color:white;
+}
+
+#insertInfo{
+    width:90%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border:none;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #5b5b5b;
+    font-size: 1.2rem;
+    font-weight: 500;
+    height:50px;
+}
+
+#insertInfo:hover{
+    background-color: rgb(21,21,21);
+    color:white;
+}
+
+.post-search-btn{
+    width:73px;
+    height:28px;
+    border:none;
+    outline: none;
+    border-radius: 5px;
+    color:white;
+    background-color:#5b5b5b;
+    cursor: pointer;
+}
+
+.post-search-btn:hover{
+    background-color: rgb(21,21,21);
+}
+
+.email-at{
+    margin:0 5px;
+}
+
+#select-mail{
+    margin-left: 10px;
+}
+
+.photo-wrap{
+    display: flex;   padding:20px;
+    padding-right:120px;
+    flex-direction: column;
+}
+
+.photo-image-wrap{
+    border-radius: 10px;
+   width:70%;
+   height:70%;
+    border:1px solid black;
+}
+
+.align_File{
+    margin-top: 15px;
+    padding-left:60px;
+}
+.upimgList{
+    width:100%;
+    height:100%;
+    display: flex;
+    align-items: center;
+}
+.upimgList > img {
+    width:100%;
+    height:90%;
+}

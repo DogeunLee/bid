@@ -30,15 +30,15 @@
 				<div class="myPageWrap">
 
 					<ul>
-						<li class="highlighted">직원 조회</li>
-						<li>직원 등록</li>
-						<li>프로젝트 목록</li>
-						<li>프로젝트 등록</li>
+						<li class="highlighted"><a href="${contextPath}/main">직원
+								조회</a></li>
+						<li><a href="${contextPath}/signUp">직원 등록</a></li>
+						<li><a href="#">프로젝트 목록</a></li>
+						<li><a href="#">프로젝트 등록</a></li>
 
 					</ul>
 
 				</div>
-
 				<div class="search-area">
 					<p>경력검색</p>
 					<input type="text">
