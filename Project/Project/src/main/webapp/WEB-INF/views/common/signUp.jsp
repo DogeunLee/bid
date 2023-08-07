@@ -26,7 +26,7 @@
                                 <aside class="leftSide">
                                     <div class="photo-area">
                                         <img src="${contextPath}/resources/images/main/shin.png" alt="">
-                                        <p>${userName}님 어서오세요!</p>
+                                        <p>${loginMember.memberName}님 어서오세요!</p>
                                     </div>
 
                                     <div class="myPageWrap">
@@ -86,24 +86,16 @@
                                                                 id="memberName">
                                                             <div id="nameMessage"></div>
                                                         </div>
+
                                                         <div>
-                                                            <p>주민등록번호</p><input type="text"> <span
-                                                                class="birthpace">-</span> <input type="text">
+                                                            <p>주민등록번호</p>
+                                                            <input type="text" id="firstPart" placeholder="input only number"> <span class="birthpace">-</span> 
+                                                            <input type="text" id="secondPart" placeholder="input only number">
                                                         </div>
 
                                                         <div class="member-tel">
                                                             <p>전화번호</p>
-                                                            <select name="" id="">
-                                                                <option disabled selected>앞자리</option>
-                                                                <option value="10">010</option>
-                                                                <option value="20">011</option>
-                                                                <option value="30">016</option>
-                                                                <option value="40">019</option>
-                                                            </select>
-                                                            <span class="birthpace">-</span>
-                                                            <input type="text">
-                                                            <span class="birthpace">-</span>
-                                                            <input type="text">
+                                                            <input type="text" placeholder="input without ' - '" id="memberTel"> <div id="telMessage"></div>
 
                                                         </div>
 
@@ -198,7 +190,22 @@
 
                     </body>
 
+<c:if test="${ !empty sessionScope.message }">
+	<script>
+                                alert("${message}");
+				
+                            </script>
 
+	<%-- message 1회 출력 후 session에서 제거 --%>
+	<c:remove var="message" scope="session" />
+</c:if>
+
+<c:if test="${ !empty message }">
+	<script>
+                                alert("${message}");
+        					
+                            </script>
+</c:if>
                     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
                     <script src="${contextPath}/resources/js/main/signUp.js"></script>
 

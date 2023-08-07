@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,6 +25,7 @@ import com.bid.board.member.model.service.MemberService;
 import com.bid.board.member.model.vo.Member;
 
 @Controller
+@SessionAttributes({"loginMember"})
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -60,7 +62,9 @@ public class HomeController {
 
 		if(loginMember != null) { // 로그인 성공 시
 			ra.addFlashAttribute("message", "로그인성공");
-			model.addAttribute("loginMember", loginMember);
+		    session.setAttribute("loginMember", loginMember);
+		    Member checkMember = (Member)session.getAttribute("loginMember");
+		    System.out.println(checkMember + "=========================================="); 
 			path = "redirect:/main";
 
 		} else {

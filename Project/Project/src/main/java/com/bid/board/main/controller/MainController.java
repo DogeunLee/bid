@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bid.board.member.model.service.MemberService;
 
 @Controller
+@SessionAttributes({"loginMember"})
 public class MainController {
 
 	@Autowired
@@ -28,9 +30,11 @@ public class MainController {
 
 		getMemberList = service.getMemberList(cp);
 
-		System.out.println(cp);
 
+		System.out.println(getMemberList);
+		
 		model.addAttribute("getMemberList", getMemberList);
+	
 
 		return "common/main";
 	}
@@ -54,6 +58,15 @@ public class MainController {
 		return result;
 	}
 
+	@ResponseBody
+	@GetMapping("/telDupCheck")
+	public int telDupCheck(String memberTel) {
+		
+		System.out.println(memberTel);
 
+		int result = service.telDupCheck(memberTel);
+
+		return result;
+	}
 
 }

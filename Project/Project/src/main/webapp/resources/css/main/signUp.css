@@ -245,10 +245,6 @@ border-radius: 10px;
     justify-content: center;
 }
 
-.member-tel input{
-    width:100px;
-}
-
 
 .birthpace{
     padding:0 10px;
@@ -379,4 +375,8 @@ border-radius: 10px;
 
 #nameMessage{
     padding-left:10px;
+}
+
+#telMessage{
+    padding-left: 10px;
 }

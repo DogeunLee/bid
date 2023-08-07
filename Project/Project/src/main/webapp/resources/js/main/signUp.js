@@ -154,6 +154,7 @@ memberPw.on("input", function() {
 memberPwConfirm.on("input", checkPw);
 
 
+
 var memberName = $("#memberName");
 var nameMessage = $("#nameMessage");
 
@@ -178,74 +179,60 @@ memberName.on('input', function () {
                 }
     });
 
-
-
-//     const userTel = document.getElementById("userTel");
-// const telMessage = document.getElementById("telMessage");
-
-
-// userTel.addEventListener("input", function () {
-
-//     // 입력이 되지 않은 경우
-//     if (userTel.value.length == 0) {
-
-//         telMessage.innerText = "전화번호를 입력해주세요.(- 제외)";
-//         telMessage.classList.remove("confirm", "error");
-
-//         checkObj.userTel = false;
-//         return;
-
-//     }
-
-//     // 연락처 정규식
-//     const regExp = /^0(1[01679]|2|[3-6][1-5]|70)\d{3,4}\d{4}$/;
-
-//     if (regExp.test(userTel.value)) { // 유효한 경우
-
-//         $.ajax({
-
-//             url: "telDupCheck",
-
-//             data: { "userTel": userTel.value },
-
-//             type: "GET",
-
-//             success: function (result) {
-
-
-//                 if (result == 1) { //중복 o
-//                     telMessage.innerText = "이미 사용 중인 전화번호 입니다.";
-//                     telMessage.classList.add("error");
-//                     telMessage.classList.remove("confirm");
-
-//                     checkObj.userTel = false;
-
-//                 } else { //중복 x
-//                     telMessage.innerText = "";
-//                     telMessage.classList.add("confirm");
-//                     telMessage.classList.remove("error");
-
-//                     checkObj.userTel = true;
-
-//                 }
-//             },
-
-//             error: function () {
-
-//                 //console.log("에러 발생");
-//             }
-
-//         });
+    $(document).ready(function() {
+        $('#firstPart, #secondPart').on('input', function(e) {
+            // 숫자 외의 다른 문자가 입력되었을 경우 제거합니다.
+            this.value = this.value.replace(/[^0-9]/g, '');
+    
+            // 첫 번째 input에 6자리를 초과하여 입력할 수 없습니다.
+            if ($(this).attr('id') === 'firstPart' && this.value.length > 6) {
+                this.value = this.value.substring(0, 6);
+            }
+    
+            // 두 번째 input에 7자리를 초과하여 입력할 수 없습니다.
+            if ($(this).attr('id') === 'secondPart' && this.value.length > 7) {
+                this.value = this.value.substring(0, 7);
+            }
+        });
+    });
+    
+    
 
 
 
-
-
-//     } else { // 유효하지 않은 경우
-//         telMessage.innerText = "연락처 형식이 올바르지 않습니다.";
-//         telMessage.classList.add("error");
-//         telMessage.classList.remove("confirm");
-
-//         checkObj.userTel = false;
-//     }
-// });
+    $(document).ready(function() {
+        $("#memberTel").on("input", function() {
+            var $telMessage = $("#telMessage");
+    
+            if (this.value.length == 0) {
+                $telMessage.text("전화번호를 입력해주세요.(- 제외)");
+                $telMessage.removeClass("confirm error");
+                checkObj.userTel = false;
+                return;
+            }
+    
+            var regExp = /^0(1[01679]|2|[3-6][1-5]|70)\d{3,4}\d{4}$/;
+    
+            if (regExp.test(this.value)) {
+                $.ajax({
+                    url: "telDupCheck",
+                    data: { "memberTel": this.value },
+                    type: "GET",
+                    success: function(result) {
+                        if (result == 1) {
+                            $telMessage.text("이미 사용 중인 전화번호 입니다.");
+                            $telMessage.removeClass("confirm").addClass("error");
+                        } else {
+                            $telMessage.text("사용가능한 전화번호입니다.");
+                            $telMessage.removeClass("error").addClass("confirm");
+                        }
+                    },
+                    error: function() {
+                    }
+                });
+            } else {
+                $telMessage.text("연락처 형식이 올바르지 않습니다.");
+                $telMessage.removeClass("confirm").addClass("error");
+            }
+        });
+    });

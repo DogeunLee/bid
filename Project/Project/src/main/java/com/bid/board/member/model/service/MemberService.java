@@ -13,5 +13,7 @@ public interface MemberService {
 	Map<String, Object> getMemberList(int cp);
 
 	int memberIdDupCheck(String memberId);
+
+	int telDupCheck(String memberTel);
 	
 }
