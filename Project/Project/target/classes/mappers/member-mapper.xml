@@ -13,38 +13,51 @@
 		<result property="memberHire" column="MEMBER_HIRE" />
 		<result property="memberSt" column="MEMBER_ST" />
 		<result property="memberLv" column="MEMBER_LV" />
+		<result property="codeDescription" column="CODE_DESCRIPTION" />
 		<result property="memberAddr" column="MEMBER_ADDR" />
+		<result property="memberImg" column="MEMBER_IMAGE" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
 	</resultMap>
-			
+
 	<select id="selectMemberNo" resultType="_int">
-		SELECT COUNT(*) FROM MEMBER
+		SELECT COUNT(*) FROM
+		MEMBER
 	</select>
-	
-	<select id="login"  parameterType="member"  resultMap="member_rm"  >
- 		SELECT *
- 		FROM MEMBER
+
+	<select id="login" parameterType="member" resultMap="member_rm">
+		SELECT *
+		FROM MEMBER
 		WHERE MEMBER_ID = #{memberId}
-  	</select>
-  	
-<!--   	<select id="countMember" resultType="_int">
-  		SELECT COUNT(*) FROM MEMBER
-  	</select>
- -->  	
- 
-  	<select id="getMemberList" resultMap="member_rm">
-  	SELECT 
-  		MEMBER_ID,
-  		MEMBER_NAME,
-  		MEMBER_GENDER,
-  		MEMBER_TEL,
-  		FLOOR(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) AS MEMBER_BIRTH,
-  		TO_CHAR(MEMBER_HIRE, 'YYYY-MM-DD') AS
-		MEMBER_HIRE,
-  		MEMBER_ST,
-  		MEMBER_LV,
-  		MEMBER_ADDR
-  		FROM MEMBER
-  	</select>
-  	
+	</select>
+
+	<select id="getMemberList" resultMap="member_rm">
+		SELECT
+		M.MEMBER_ID,
+		M.MEMBER_NAME,
+		M.MEMBER_GENDER,
+		M.MEMBER_TEL,
+		FLOOR(MONTHS_BETWEEN(SYSDATE, M.MEMBER_BIRTH) / 12) AS MEMBER_BIRTH,
+		TO_CHAR(M.MEMBER_HIRE, 'YYYY-MM-DD') AS MEMBER_HIRE,
+		M.MEMBER_ST,
+		C.CODE_DESCRIPTION AS MEMBER_LV,
+		M.MEMBER_ADDR,
+		M.MEMBER_EMAIL
+		FROM MEMBER M
+		JOIN CODE_TABLE C ON M.MEMBER_LV = C.CODE_NO
+	</select>
+
+	<select id="memberIdDupCheck" parameterType="string"
+		resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+		AND MEMBER_ST = 'N'
+	</select>
+
+	<select id="telDupCheck" parameterType="string"
+		resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE MEMBER_TEL = #{memberTel}
+		AND MEMBER_ST = 'N'
+	</select>
 
 </mapper>

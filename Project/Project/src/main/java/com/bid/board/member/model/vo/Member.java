@@ -20,5 +20,7 @@ public class Member {
 	private String memberSt;
 	private String memberLv;
 	private String memberAddr;
-	
+	private String memberEmail;
+	private String memberImg;
+	private String codeDescription;
 }

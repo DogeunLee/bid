@@ -1,0 +1,32 @@
+#modalWrap{
+    width:600px;
+    height:600px;
+    border:1px solid rgb(21,21,21);
+    border-radius: 10px;
+    display: flex;
+}
+
+#modalWrap > div{
+    flex:1 1 0;
+    border:1px solid red;
+    display: flex;
+    flex-direction: column;
+}
+
+.leftDiv > div:nth-child(1){
+    height:40%;
+    border:1px solid red;
+    display: flex;
+    justify-content: center;
+}
+
+.leftDiv > div:nth-child(1) > img {
+    width:70%;
+    border:1px solid red;
+    height:100%;
+}
+
+.leftDiv > div:nth-child(2){
+    height:60%;
+    border:1px solid red;
+}
