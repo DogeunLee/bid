@@ -92,7 +92,7 @@
 
 													<tbody>
 														<c:forEach var="memberList" items="${getMemberList.memberList}">
-															<tr class="row">
+															<tr class="row" onclick="">
 																<td>${memberList.memberId}</td>
 																<td>${memberList.memberName}</td>
 																<td>${memberList.memberGender}</td>

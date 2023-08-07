@@ -30,9 +30,6 @@
 		WHERE MEMBER_ID = #{memberId}
 	</select>
 
-	<!-- <select id="countMember" resultType="_int"> SELECT COUNT(*) FROM MEMBER 
-		</select> -->
-
 	<select id="getMemberList" resultMap="member_rm">
 		SELECT
 		M.MEMBER_ID,
