@@ -56,7 +56,6 @@ public class HomeController {
 
 		Member loginMember = service.login(inputMember);
 
-		logger.info("6. service 에서 받아온 loginUser : " + loginMember);
 
 		String path = null;
 
