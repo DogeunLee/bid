@@ -36,13 +36,14 @@
 		M.MEMBER_NAME,
 		M.MEMBER_GENDER,
 		M.MEMBER_TEL,
-		FLOOR(MONTHS_BETWEEN(SYSDATE, M.MEMBER_BIRTH) / 12) AS MEMBER_BIRTH,
+		M.MEMBER_BIRTH,
 		TO_CHAR(M.MEMBER_HIRE, 'YYYY-MM-DD') AS MEMBER_HIRE,
 		M.MEMBER_ST,
 		C.CODE_DESCRIPTION AS MEMBER_LV,
 		M.MEMBER_ADDR,
 		M.MEMBER_EMAIL
-		FROM MEMBER M
+		FROM
+		MEMBER M
 		JOIN CODE_TABLE C ON M.MEMBER_LV = C.CODE_NO
 	</select>
 
@@ -59,5 +60,33 @@
 		WHERE MEMBER_TEL = #{memberTel}
 		AND MEMBER_ST = 'N'
 	</select>
+
+	<select id="emailDupCheck" parameterType="string"
+		resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE MEMBER_EMAIL =
+		#{memberEmail}
+		AND MEMBER_ST = 'N'
+	</select>
+
+	<insert id="signUp" parameterType="member">
+		INSERT INTO MEMBER VALUES(
+		MEMBER_SEQ.NEXTVAL,
+		#{memberId},
+		#{memberPw},
+		#{memberName},
+		#{memberGender},
+		#{memberTel},
+		#{memberBirth},
+		#{memberHire},
+		DEFAULT,
+		#{memberLv},
+		#{memberAddr},
+		#{memberImg},
+		#{memberEmail}
+
+		)
+	</insert>
+
 
 </mapper>

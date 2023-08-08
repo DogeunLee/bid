@@ -72,5 +72,17 @@ public class MemberImple implements MemberService{
 		return  dao.telDupCheck(memberTel);
 	}
 
+	@Override
+	public int emailDupCheck(String memberEmail) {
+		return dao.emailDupCheck(memberEmail);
+	}
+
+	@Override
+	public int signUp(Member inputMember) {
+		return dao.signUp(inputMember);
+	}
+	
+	
+
 
 }

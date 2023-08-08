@@ -81,7 +81,7 @@
 														<th>직원ID</th>
 														<th>이름</th>
 														<th>성별</th>
-														<th>나이</th>
+														<th>주민번호</th>
 														<th>입사일</th>
 														<th>등급</th>
 														<th>연락처</th>

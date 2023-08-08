@@ -62,19 +62,19 @@
                                                 <p>직원 등록</p>
                                             </div>
 
-                                            <form action="">
+                                            <form action="signUp" method="POST" name="signUp-form" onsubmit="return signUpValidate()">
 
                                                 <div class="memberRegWrap">
                                                     <div>
                                                         <div>
                                                             <p>사번</p><input type="text" placeholder="Only Number"
-                                                                id="memberId">
+                                                                id="memberId" name="memberId">
                                                             <div id="memberMessage"></div>
                                                         </div>
 
                                                         <div>
                                                             <p>비밀번호</p><input type="password"
-                                                                placeholder="Input your Password" id="memberPw">
+                                                                placeholder="Input your Password" id="memberPw" name="memberPw">
                                                         </div>
                                                         <div>
                                                             <p>비밀번호 확인</p><input type="password"
@@ -83,46 +83,37 @@
                                                         </div>
                                                         <div>
                                                             <p>이름</p><input type="text" placeholder="Name"
-                                                                id="memberName">
+                                                                id="memberName" name="memberName">
                                                             <div id="nameMessage"></div>
                                                         </div>
 
                                                         <div>
                                                             <p>주민등록번호</p>
-                                                            <input type="text" id="firstPart" placeholder="input only number"> <span class="birthpace">-</span> 
-                                                            <input type="text" id="secondPart" placeholder="input only number">
+                                                            <input type="text" name="memberBirth" maxlength="14">
                                                         </div>
 
                                                         <div class="member-tel">
                                                             <p>전화번호</p>
-                                                            <input type="text" placeholder="input without ' - '" id="memberTel"> <div id="telMessage"></div>
+                                                            <input type="text" placeholder="input without ' - '" id="memberTel" name="memberTel"> <div id="telMessage"></div>
 
                                                         </div>
 
                                                         <div>
                                                             <p>이메일</p>
-                                                            <input type="text" id="memberEmail">
-                                                            <span class="email-at">@</span>
-                                                            <input type="text" id="email-domain"
-                                                                placeholder="Input / Select your Email">
-                                                            <select name="" id="select-mail">
-                                                                <option value="type">직접입력</option>
-                                                                <option value="naver">@naver.com</option>
-                                                                <option value="google">@google.com</option>
-                                                                <option value="daum">@duam.net</option>
-                                                            </select>
+                                                            <input type="text" id="memberEmail" name="memberEmail"><div id="emailMessage"></div>
+                                                      
                                                         </div>
 
                                                         <div>
                                                             <p>입사일</p>
-                                                            <input id="hireDate" type="date"
+                                                            <input id="hireDate" type="date" name="memberHire"
                                                                 placeholder=" 입사 날짜를 입력해 주세요." class="dateBtn"
                                                                 onfocus="this.showPicker()">
                                                         </div>
 
                                                         <div>
                                                             <p>레벨</p>
-                                                            <select name="mLevel" id="mLevel">
+                                                            <select id="mLevel" name="memberLv">
                                                                 <option disabled selected>레벨</option>
                                                                 <option value="10">신입</option>
                                                                 <option value="20">초급</option>
@@ -137,7 +128,7 @@
                                                             <div class="input-addr-wrap">
                                                                 <div class="signUp-input-area">
                                                                     <input type="text" id="sample4_postcode"
-                                                                        name="userAddr" placeholder="우편번호" maxlength="6"
+                                                                        name="memberAddr" placeholder="우편번호" maxlength="6"
                                                                         readonly>
 
                                                                     <button type="button" class="post-search-btn"
@@ -146,12 +137,12 @@
 
                                                                 <div class="signUp-input-area">
                                                                     <input type="text" id="sample4_roadAddress"
-                                                                        name="userAddr" placeholder="도로명주소" readonly>
+                                                                        name="memberAddr" placeholder="도로명주소" readonly>
                                                                 </div>
 
                                                                 <div class="signUp-input-area">
                                                                     <input type="text" id="sample4_detailAddress"
-                                                                        name="userAddr" placeholder="상세주소" readonly>
+                                                                        name="memberAddr" placeholder="상세주소" readonly>
                                                                 </div>
                                                             </div>
 
@@ -163,6 +154,8 @@
                                                         <div class="photo-image-wrap addfileList"></div>
                                                         <input type="file" id="fileInput" class="align_File"
                                                             name="file">
+                                                            <input type="hidden" name="imageUrl1" id="imageURL" value="">
+
                                                     </div>
 
                                                     <div>
@@ -196,7 +189,6 @@
 				
                             </script>
 
-	<%-- message 1회 출력 후 session에서 제거 --%>
 	<c:remove var="message" scope="session" />
 </c:if>
 

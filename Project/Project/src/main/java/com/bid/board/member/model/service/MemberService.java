@@ -15,5 +15,9 @@ public interface MemberService {
 	int memberIdDupCheck(String memberId);
 
 	int telDupCheck(String memberTel);
+
+	int emailDupCheck(String memberEmail);
+
+	int signUp(Member inputMember);
 	
 }
