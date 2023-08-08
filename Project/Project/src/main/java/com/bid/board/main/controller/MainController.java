@@ -136,7 +136,7 @@ public class MainController {
 	
 	if(result > 0) {
 		message = "회원가입 성공!";
-		path = "redirect:/";
+		path = "redirect:/signUp";
 	}else {
 		message = "회원가입 실패";
 		path = "redirect:/signUp";
