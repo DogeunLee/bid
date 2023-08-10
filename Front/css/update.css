@@ -6,10 +6,6 @@
     font-family: 'Noto Sans KR', sans-serif;
 }
 
-.space_area{
-    padding:0 10px;
-}
-
 a{
     text-decoration: none;
     color:white;
@@ -230,7 +226,7 @@ border-radius: 10px;
 .memberRegWrap > div:nth-child(1){
     width:50%;
     padding:20px 20px 0 20px;
-    padding-left: 50px;
+    padding-left: 60px;
     height:88%;
     display: flex;
     flex-direction: column;
@@ -240,10 +236,8 @@ border-radius: 10px;
     width:50%;
     height:88%;
     display: flex;
-    padding:20px 50px 20px 20px;
-    flex-direction: column;
+    align-items: center;
 }
-
 .memberRegWrap > div:nth-child(3){
     width:80%;
     height:50px;    margin:0 auto;
@@ -252,9 +246,12 @@ border-radius: 10px;
 }
 
 
+
+
 .birthpace{
     padding:0 10px;
 }
+
 
 .memberRegWrap > div > div{
     display: flex;
@@ -335,16 +332,17 @@ border-radius: 10px;
     margin-left: 10px;
 }
 
+.photo-wrap{
+    display: flex;   padding:20px;
+    padding-right:120px;
+    flex-direction: column;
+}
 
 .photo-image-wrap{
     border-radius: 10px;
-   width:90%;
+   width:70%;
    height:70%;
     border:1px solid black;
-}
-
-#pwMessage {
-   padding-left: 10px; 
 }
 
 .align_File{
@@ -360,24 +358,4 @@ border-radius: 10px;
 .upimgList > img {
     width:100%;
     height:90%;
-}
-
-#memberMessage{
-    padding-left:10px;
-}
-
-.error{
-    color:red;
-}
-
-.confirm{
-    color:green;
-}
-
-#nameMessage{
-    padding-left:10px;
-}
-
-#telMessage{
-    padding-left: 10px;
 }

@@ -62,7 +62,8 @@
                                                 <p>직원 등록</p>
                                             </div>
 
-                                            <form action="signUp" method="POST" name="signUp-form" onsubmit="return signUpValidate()">
+                                            <form action="signUp" method="POST" name="signUp-form"
+                                                onsubmit="return signUpValidate()">
 
                                                 <div class="memberRegWrap">
                                                     <div>
@@ -74,7 +75,8 @@
 
                                                         <div>
                                                             <p>비밀번호</p><input type="password"
-                                                                placeholder="Input your Password" id="memberPw" name="memberPw">
+                                                                placeholder="Input your Password" id="memberPw"
+                                                                name="memberPw">
                                                         </div>
                                                         <div>
                                                             <p>비밀번호 확인</p><input type="password"
@@ -94,14 +96,17 @@
 
                                                         <div class="member-tel">
                                                             <p>전화번호</p>
-                                                            <input type="text" placeholder="input without ' - '" id="memberTel" name="memberTel"> <div id="telMessage"></div>
+                                                            <input type="text" placeholder="input without ' - '"
+                                                                id="memberTel" name="memberTel">
+                                                            <div id="telMessage"></div>
 
                                                         </div>
 
                                                         <div>
                                                             <p>이메일</p>
-                                                            <input type="text" id="memberEmail" name="memberEmail"><div id="emailMessage"></div>
-                                                      
+                                                            <input type="text" id="memberEmail" name="memberEmail">
+                                                            <div id="emailMessage"></div>
+
                                                         </div>
 
                                                         <div>
@@ -115,10 +120,11 @@
                                                             <p>레벨</p>
                                                             <select id="mLevel" name="memberLv">
                                                                 <option disabled selected>레벨</option>
-                                                                <option value="10">신입</option>
-                                                                <option value="20">초급</option>
-                                                                <option value="30">중급</option>
-                                                                <option value="40">고급</option>
+                                                                <option value="LV01">신입</option>
+                                                                <option value="LV02">초급</option>
+                                                                <option value="LV03">중급</option>
+                                                                <option value="LV04">고급</option>
+                                                                <option value="LV05">특급</option>
                                                             </select>
                                                         </div>
 
@@ -128,8 +134,8 @@
                                                             <div class="input-addr-wrap">
                                                                 <div class="signUp-input-area">
                                                                     <input type="text" id="sample4_postcode"
-                                                                        name="memberAddr" placeholder="우편번호" maxlength="6"
-                                                                        readonly>
+                                                                        name="memberAddr" placeholder="우편번호"
+                                                                        maxlength="6" readonly>
 
                                                                     <button type="button" class="post-search-btn"
                                                                         onclick="return sample4_execDaumPostcode()">검색</button>
@@ -150,13 +156,70 @@
 
                                                     </div>
 
-                                                    <div class="photo-wrap">
+                                                    <!-- <div class="photo-wrap">
                                                         <div class="photo-image-wrap addfileList"></div>
                                                         <input type="file" id="fileInput" class="align_File"
                                                             name="file">
-                                                            <input type="hidden" name="imageUrl1" id="imageURL" value="">
+                                                        <input type="hidden" name="imageUrl1" id="imageURL" value="">
+
+                                                    </div> -->
+                                                    <div>
+                                                        <div>
+                                                            <p>최종학력</p>
+                                                            <select id="mGrad" name="memberGrad">
+                                                                <option disabled selected>학력</option>
+                                                               <option value="ACHE03">고졸</option>
+                                                                <option value="ACHE04">전문대졸</option>
+                                                                <option value="ACHE05">대졸</option>
+                                                                <option value="ACHE06">대학원졸</option>
+                                                            </select>
+                                                            <div id="gradMessage"></div>
+                                                        </div>
+                                                        <div>
+                                                            <p>학교이름</p>
+                                                            <input type="text">
+                                                        </div>
+                                                        <div>
+                                                            <p>재학기간</p>
+                                                            <input id="hireDate" type="date" name="memberHire"
+                                                            placeholder=" 입사 날짜를 입력해 주세요." class="dateBtn"
+                                                            onfocus="this.showPicker()">
+                                                            <span class="space_area"> ~ </span>
+                                                            <input id="hireDate" type="date" name="memberHire"
+                                                            placeholder=" 입사 날짜를 입력해 주세요." class="dateBtn"
+                                                            onfocus="this.showPicker()">
+                                                        </div>
+
+
+                                                        <div>
+                                                            <p>경력</p>
+                                                            <select id="mGrad" name="memberGrad">
+                                                                <option disabled selected>학력</option>
+                                                               <option value="ACHE03">고졸</option>
+                                                                <option value="ACHE04">전문대졸</option>
+                                                                <option value="ACHE05">대졸</option>
+                                                                <option value="ACHE06">대학원졸</option>
+                                                            </select>
+                                                            <div id="gradMessage"></div>
+                                                        </div>
+                                                        <div>
+                                                            <p>회사명</p>
+                                                            <input type="text">
+                                                        </div>
+                                                        <div>
+                                                            <p>재직기간</p>
+                                                            <input id="hireDate" type="date" name="memberHire"
+                                                            placeholder=" 입사 날짜를 입력해 주세요." class="dateBtn"
+                                                            onfocus="this.showPicker()">
+                                                            <span class="space_area"> ~ </span>
+                                                            <input id="hireDate" type="date" name="memberHire"
+                                                            placeholder=" 입사 날짜를 입력해 주세요." class="dateBtn"
+                                                            onfocus="this.showPicker()">
+                                                        </div>
 
                                                     </div>
+
+                                                    
 
                                                     <div>
                                                         <button id="insertInfo">
@@ -183,21 +246,21 @@
 
                     </body>
 
-<c:if test="${ !empty sessionScope.message }">
-	<script>
-                                alert("${message}");
-				
-                            </script>
+                    <c:if test="${ !empty sessionScope.message }">
+                        <script>
+                            alert("${message}");
 
-	<c:remove var="message" scope="session" />
-</c:if>
+                        </script>
 
-<c:if test="${ !empty message }">
-	<script>
-                                alert("${message}");
-        					
-                            </script>
-</c:if>
+                        <c:remove var="message" scope="session" />
+                    </c:if>
+
+                    <c:if test="${ !empty message }">
+                        <script>
+                            alert("${message}");
+
+                        </script>
+                    </c:if>
                     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
                     <script src="${contextPath}/resources/js/main/signUp.js"></script>
 

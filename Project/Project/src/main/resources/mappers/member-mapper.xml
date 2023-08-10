@@ -13,10 +13,11 @@
 		<result property="memberHire" column="MEMBER_HIRE" />
 		<result property="memberSt" column="MEMBER_ST" />
 		<result property="memberLv" column="MEMBER_LV" />
-		<result property="codeDescription" column="CODE_DESCRIPTION" />
 		<result property="memberAddr" column="MEMBER_ADDR" />
 		<result property="memberImg" column="MEMBER_IMAGE" />
 		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="memberGrad" column="MEMBER_GRAD" />
+		<result property="gradName" column="GRAD_NAME" />
 	</resultMap>
 
 	<select id="selectMemberNo" resultType="_int">
@@ -32,19 +33,23 @@
 
 	<select id="getMemberList" resultMap="member_rm">
 		SELECT
-		M.MEMBER_ID,
-		M.MEMBER_NAME,
-		M.MEMBER_GENDER,
-		M.MEMBER_TEL,
-		M.MEMBER_BIRTH,
-		TO_CHAR(M.MEMBER_HIRE, 'YYYY-MM-DD') AS MEMBER_HIRE,
-		M.MEMBER_ST,
-		C.CODE_DESCRIPTION AS MEMBER_LV,
-		M.MEMBER_ADDR,
-		M.MEMBER_EMAIL
-		FROM
-		MEMBER M
-		JOIN CODE_TABLE C ON M.MEMBER_LV = C.CODE_NO
+		m.MEMBER_ID,
+		m.MEMBER_NAME,
+		m.MEMBER_BIRTH,
+		m2.CODE_NAME AS MEMBER_GENDER,
+		m3.CODE_NAME AS MEMBER_LV,
+		m.MEMBER_TEL,
+		m.MEMBER_EMAIL ,
+		m.MEMBER_ADDR,
+		m1.CODE_NAME AS MEMBER_GRAD,
+		m.MEMBER_ST,
+		TO_CHAR(m.MEMBER_HIRE, 'YYYY-MM-DD') AS MEMBER_HIRE
+		FROM MEMBER m
+		LEFT JOIN MASTER_CODETBL m1 ON m.MEMBER_GRAD = m1.CODE_ID
+		LEFT JOIN MASTER_CODETBL m2 ON m.MEMBER_GENDER = m2.CODE_ID
+		LEFT JOIN MASTER_CODETBL m3 ON m.MEMBER_LV = m3.CODE_ID
+		LEFT JOIN GRADUATE gr ON gr.MEMBER_NO = m.MEMBER_NO
+		ORDER BY gr.GRAD_NAME ASC
 	</select>
 
 	<select id="memberIdDupCheck" parameterType="string"
@@ -84,7 +89,6 @@
 		#{memberAddr},
 		#{memberImg},
 		#{memberEmail}
-
 		)
 	</insert>
 

@@ -302,7 +302,6 @@ function sample4_execDaumPostcode() {
 
 
 function signUpValidate() {
-    event.preventDefault();
     let str;
 
     console.log(
@@ -335,6 +334,7 @@ function signUpValidate() {
 
 
 fileInput.on("change", function (e) {
+
     for (var i = 0; i < e.target.files.length; i++) {
       if (!checkExtension(e.target.files[i].name, e.target.files[i].size)) {
         movie_image1.val("");

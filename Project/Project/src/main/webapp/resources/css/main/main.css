@@ -1,120 +1,146 @@
-*{
-    margin:0;
-    padding:0;
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     list-style: none;
     font-family: 'Noto Sans KR', sans-serif;
 }
 
-a{
+a {
     text-decoration: none;
-    color:white;
+    color: white;
 }
 
-
-
+#wrap {
+    width: 100%;
+    height: 100%;
+}
 
 main {
-    width:100vw;
-    height:100vh;
+    width: 1536px;
+    height: 747px;
     display: flex;
-    align-items: center;
     margin:0 auto;
-
 }
 
-.leftSide{
-    flex:1.7;
-    height:100%;
-    background-color: rgb(51,51,51);
+/* 왼쪽 aside */
+.leftSide {
+    width: 13%;
+    height: 100%;
+    background-color: rgb(51, 51, 51);
     display: flex;
     flex-direction: column;
 }
 
-.photo-area{
+.photo-area {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-bottom: 15px;
 }
 
-.photo-area > img {
-    width: 120px;
-    height:120px;
-    margin:0 auto;
+.photo-area>img {
+    width: 80%;
+    height: 150px;
+    margin: 0 auto;
     border-radius: 50%;
 }
-.photo-area> p {
-    text-align: center;
+
+.photo-area>div {
     padding-top: 15px;
-    color:white;
+}
+
+.photo-area p {
+    text-align: center;
+    color: white;
     font-weight: bold;
     font-size: 1.2rem;
 }
 
-.myPageWrap{
-    padding-top: 30px;
-    height:50%;
+/* 사진 바로밑에 리스트 */
+.myPageWrap {
+    height: 53%;
 }
 
-.myPageWrap > ul:nth-child(1){
+/* ul */
+.myPageWrap>ul:nth-child(1) {
     display: flex;
     flex-direction: column;
-    height:100%;
-    width:90%;
-    margin:0 auto;
+    height: 100%;
+    width: 90%;
+    margin: 0 auto;
 }
 
-.myPageWrap > ul:nth-child(1) > li{
-    height:20%;
+/* li */
+.myPageWrap>ul:nth-child(1)>li {
+    height: 66px;
     text-align: center;
-    line-height: 66px;
-    color:white;
+    line-height: 64px;
+    color: white;
     font-size: 1.2rem;
     cursor: pointer;
+    border-radius: 10px;
+    display: flex;
+}
 
-border-radius: 10px;
-    }
+.myPageWrap>ul:nth-child(1)>li a{
+    width: 100%;height:100%;
+}
 
+/* for Js addClass*/
+.highlighted {
+    background-color: rgb(21,21,21);
+}
 
-
+/* li:hover */
 .myPageWrap > ul:nth-child(1) > li:hover{
     background-color: rgb(21,21,21);
 }
 
+/* Left_side 최하단 search_area */
 .search-area {
     display: flex;
     border:2px solid white;
     border-radius: 10px;
-    height:90px;
+    height:100px;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 30px auto 0 auto;
+    margin: 0 auto 30px auto;
     width: 95%;
+    padding:5px;
 }
 
+.search-area p{
+    color:white;
+}
 
 .search-area > input{
-    padding-left:10px;
-    height:40%;
+    padding-left:5px;
+    height:30%;
     outline: none;
     border: none;
-    width: 60%;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    width: 90%;
+    border-radius: 5px;
 }
 
+/* saearch_btn */
 .search-area > div{
     border:none;
     outline: none;
-    height:40%;
+    width:90%;
     background-color: rgb(91,91,91);
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    line-height: 29px;
+    border-radius: 5px;
+    line-height: 27px;
     padding:0 5px;
     cursor: pointer;
+    text-align: center;
+    display: flex;
+}
 
+.search-area > div a{
+    width:100%;
+    height:100%;
 }
 
 .search-area > div:hover{
@@ -122,22 +148,15 @@ border-radius: 10px;
     color: white;
 }
 
-.search-area >p{
-    width:100%;
-    text-align: center;
-    color:white;
-}
-.highlighted {
-    background-color: rgb(21,21,21);
-}
 
-.rightDiv{
-    flex: 8.3;
-    height:100%;
+/* 오른쪽 rightDiv */
+.rightDiv {
+    width: 87%;
     display: flex;
     flex-direction: column;
 }
 
+/* 오른쪽 최상단 타이틀 랩퍼 */
 .rightDiv > div:nth-child(1){
     width:100%;
     background-color: rgb(71,71,71);
@@ -148,6 +167,7 @@ border-radius: 10px;
     align-items: center;
 }
 
+/* 오른쪽 최상단 제목 */
 .rightDiv > div:nth-child(1)>p{
     font-size: 1.2rem;
     color:white;
@@ -157,6 +177,7 @@ border-radius: 10px;
     line-height: 42px;
 }
 
+/* 나가기버튼 */
 .rightDiv > div:nth-child(1) > div{
     width:10%;
     background-color: rgb(91,91,91);
@@ -166,13 +187,22 @@ border-radius: 10px;
     text-align: center;
     line-height: 28px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;   
 }
 
+.rightDiv > div:nth-child(1) > div >a{
+    width:100%;
+}
+
+/* 버튼 하버 */
 .rightDiv > div:nth-child(1) > div:hover{
+   
     background-color: rgb(21,21,21);   
 }
 
 
+/* 컨텐츠 랩퍼 */
 .rightDiv > div:nth-child(2) {
     width:100%;
     height:93%;
@@ -185,44 +215,61 @@ border-radius: 10px;
     flex:1;
     background-color: white;
     border-radius: 10px;
-    padding:20px;
+    padding:10px;
     display: flex;
     flex-direction: column;
 }
 
+/* 컨텐츠 최상단 검색area */
 .content-wrap > div:nth-child(1){
     width:100%;
-    padding:0px 15px 15px 15px;
+    padding:0px 10px 10px 10px;
+    height:50px;
     color:black;
     border-bottom: 3px solid black;
     display: flex;
     justify-content: space-between;
 }
 
+/* 타이틀 css */
 .content-wrap > div > p{
-    font-weight: bold;    font-size: 1.5rem;
+    font-weight: bold;    font-size: 1.2rem;
+    line-height: 35px;
 }
 
-.impl-search-area{
+/* 검색 에어리어 */
+
+.impl-search-area {
+	display:flex;
+}
+
+.impl-search-area form{
     display: flex;
 }
 
-.impl-search-area > input{
+/* 검색에어리어 인풋창 */
+.impl-search-area input{
     outline: none;
     border: 1px solid black;
     border-left: none;
     padding-left: 10px;
 }
 
-.impl-search-area > a{
+/* 버튼을 대신 할 a태그 */
+.impl-search-area button{
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     background-color: rgb(91,91,91);
+    border:none;
+    outline:none;
     line-height: 30px;
     padding:0 5px;
+    color:white;
+    cursor:pointer;
 }
 
-.impl-search-area > a:hover{
+/* a:hover */
+.impl-search-area button:hover{
     background-color: rgb(21,21,21);
 }
 
@@ -231,28 +278,71 @@ border-radius: 10px;
     height:85%;
 }
 
+/* 테이블 설정 */
 .table-wrap > table{
     width:100%;
     border-collapse: collapse;
 }
 
+/* thead */
 .table-wrap > table > thead{
     height:50px;
 }
 
+/* 1 */
 .table-wrap > table > thead > tr> th:nth-child(1){
+    width:5%;
+}
+/* 2 */
+.table-wrap > table > thead > tr> th:nth-child(2){
+    width:5%;
+}
+/* 3 */
+.table-wrap > table > thead > tr> th:nth-child(3){
+    width:5%;
+}
+/* 4 */
+.table-wrap > table > thead > tr> th:nth-child(4){
     width:10%;
 }
-
-.table-wrap > table > tbody > tr {
-    height:40px;
+/* 5 */
+.table-wrap > table > thead > tr> th:nth-child(5){
+    width:10%;
+}
+/* 6 */
+.table-wrap > table > thead > tr> th:nth-child(6){
+    width:5%;
+}
+/* 7 */
+.table-wrap > table > thead > tr> th:nth-child(7){
+    width:10%;
+}
+/* 8 */
+.table-wrap > table > thead > tr> th:nth-child(8){
+    width:10%;
+}
+/* 9 */
+.table-wrap > table > thead > tr> th:nth-child(9){
+    width:27%;
+}
+/* 10 학력 */
+.table-wrap > table > thead > tr> th:nth-child(10){
+    width:5%;
 }
 
-.table-wrap > table > tbody > tr > td{
+/* 10 학력 */
+.table-wrap > table > thead > tr> th:nth-child(12){
+    width:5%;
+}
+
+
+/* tr */
+.table-wrap > table > tbody > tr {
+    height:50px;
     text-align: center;
 }
 
-
+/* color-odd */
 .row:nth-child(odd) {
     background-color: lightgray;
 }
@@ -263,4 +353,19 @@ border-radius: 10px;
 
 .row:hover{
     background-color: rgb(251,122,10);
-}
+} 
+
+/* 
+
+
+
+
+
+
+
+
+
+
+
+
+*/

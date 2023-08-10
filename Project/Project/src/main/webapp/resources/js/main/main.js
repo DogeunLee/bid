@@ -9,5 +9,8 @@ $(document).ready(function() {
             firstItem.addClass("highlighted");
         }
     );
+    
+        $('#searchInput').on('focus', function() {
+        $(this).select();
+    });
 });
-

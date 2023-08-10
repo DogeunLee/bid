@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +49,38 @@ public class MainController {
 
 		return "common/main";
 	}
-
-
+	
+	
+	 @GetMapping("//main/search")
+	 public String search( 
+			 Model model,
+			 @RequestParam(value = "cp", required = false, defaultValue="1" ) int cp,
+			 @RequestParam(value= "bcategory", required = false) String bcategory
+			 ) {
+		 return null;
+	 }
+	/*
+	
+	 * 
+	 * 
+	 * 
+	 * @RequestParam(value= "N", required = false) String n,
+	 * 
+	 * @RequestParam(value = "Y", required = false) String y,
+	 * 
+	 * @RequestParam(value = "E", required = false) String e,
+	 * 
+	 * @RequestParam(value = "memberName", required = false) String memberName,
+	 * 
+	 * @RequestParam(value = "memberGender", required = false) String memberGender,
+	 * 
+	 * @RequestParam(value = "memberLv", required = false) String memberLv,
+	 * 
+	 * @RequestParam(value = "keyword", required = false) String keyword,
+	 * 
+	 * HttpSession session, RedirectAttributes ra, HttpServletRequest req,
+	 * HttpServletResponse resp ) { return null; }
+	 */
 
 	@RequestMapping("/signUp")
 	public String signUp(
@@ -114,9 +146,9 @@ public class MainController {
 	            System.out.println("하이폰 다음의 숫자: " + numberAfterHyphen); // 출력: 하이폰 다음의 숫자: 1
 	            
 	            if ( numberAfterHyphen == '1' || numberAfterHyphen == '3') {
-	            	inputMember.setMemberGender("M");
+	            	inputMember.setMemberGender("GEN01");
 	            }else {
-	            	inputMember.setMemberGender("F");
+	            	inputMember.setMemberGender("GEN02");
 	            }
 	            
 	        } else {
@@ -135,7 +167,7 @@ public class MainController {
 
 	
 	if(result > 0) {
-		message = "회원가입 성공!";
+		message = "회원가입 성z공!";
 		path = "redirect:/signUp";
 	}else {
 		message = "회원가입 실패";

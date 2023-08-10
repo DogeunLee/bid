@@ -14,22 +14,20 @@
     <div id="wrap">
 
         <main>
+
             <aside class="leftSide">
                 <div class="photo-area">
                     <img src="../images/shin.png" alt="">
-                    <p>${userName}님 어서오세요!</p>
+                   <div> <p>${userName}님</p><p>어서오세요!</p> </div>
                 </div>
 
                 <div class="myPageWrap">
-
                     <ul>
-                        <li class="highlighted">직원 조회</li>
-                        <li>직원 등록</li>
-                        <li>프로젝트 목록</li>
-                        <li>프로젝트 등록</li>
-
+                        <li class="highlighted"><a>직원 조회</a></li>
+                        <li ><a>직원 등록</a></li>
+                        <li ><a>프로젝트 목록</a></li>
+                        <li ><a>프로젝트 등록</a></li>
                     </ul>
-
                 </div>
 
                 <div class="search-area">
@@ -40,15 +38,21 @@
                 </div>
 
             </aside>
+
             <div class="rightDiv">
 
+                <!-- Title -->
                 <div>
                     <p>Management System</p>
                     <div><a href="">나가기</a></div>
                 </div>
 
+                <!-- content -->
                 <div>
+
                     <div class="content-wrap">
+
+                        <!-- 검색 area -->
                         <div>
                             <p>직원 조회</p>
                             <div class="impl-search-area">
@@ -67,45 +71,75 @@
                         <div class="table-wrap">
                             <table>
                                 <thead>
-                                    <th>직원ID</th>
+                                    <th>ID</th>
                                     <th>이름</th>
                                     <th>성별</th>
-                                    <th>나이</th>
+                                    <th>주민번호</th>
                                     <th>입사일</th>
                                     <th>등급</th>
                                     <th>연락처</th>
+                                    <th>이메일</th>
                                     <th>주소</th>
+                                    <th>학력</th>
                                     <th>퇴사여부</th>
                                 </thead>
                                 <tbody>
-                                    <tr class="row" onclick="" >
+                                    <tr class="row" onclick="">
                                         <td>102827</td>
                                         <td>이도근</td>
                                         <td>남자</td>
-                                        <td>34</td>
+                                        <td>900116-1273711</td>
                                         <td>2023-08-04</td>
-                                        <td>1</td>
+                                        <td>신입</td>
                                         <td>010-8229-7832</td>
-                                        <td>서울 관악 신림</td>
+                                        <td>leewch90@naver.com</td>
+                                        <td>서울시 관악구 신림동 1길 20-8, 702호</td>
                                         <td>N</td>
+                                        <td>
+                                            <select name="" id="">
+                                                <option value="N">재직</option>
+                                                <option value="Y">퇴사</option>
+                                            </select>
+                                        </td>
                                     </tr>
-                             
-                              
-                                   
+
+                                    <tr class="row" onclick="">
+                                        <td>102827</td>
+                                        <td>이도근</td>
+                                        <td>남자</td>
+                                        <td>900116-1273711</td>
+                                        <td>2023-08-04</td>
+                                        <td>신입</td>
+                                        <td>010-8229-7832</td>
+                                        <td>leewch90@naver.com</td>
+                                        <td>서울시 관악구 신림동 1길 20-8, 702호</td>
+                                        <td>N</td>
+                                        <td>
+                                            <select name="" id="">
+                                                <option value="N">재직</option>
+                                                <option value="Y">퇴사</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+
+
+
                                 </tbody>
                             </table>
 
-                           
+
+
+                        </div>
 
                     </div>
-                    
+
+
+
                 </div>
 
-              
-
             </div>
-        </main>
 
+        </main>
 
     </div>
 </body>
