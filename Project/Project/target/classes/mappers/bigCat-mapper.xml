@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="bigCatMapper">
+
+	<resultMap type="bigCat" id="bigCat_rm">
+		<id property="codeNo" column="CODE_NO" />
+		<result property="codeId" column="CODE_ID" />
+	</resultMap>
+
+	<select id="getSearchBigCat" parameterType="bigCat"
+		resultMap="bigCat_rm">
+		SELECT
+		CODE_NO, CODE_ID FROM CODE_TABLE
+		WHERE CODE_NO IN (11, 20, 10)
+	</select>
+	
+
+</mapper>

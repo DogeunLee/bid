@@ -42,14 +42,20 @@
 		m.MEMBER_EMAIL ,
 		m.MEMBER_ADDR,
 		m1.CODE_NAME AS MEMBER_GRAD,
-		m.MEMBER_ST,
+		m4.CODE_NAME AS MEMBER_ST,
 		TO_CHAR(m.MEMBER_HIRE, 'YYYY-MM-DD') AS MEMBER_HIRE
 		FROM MEMBER m
-		LEFT JOIN MASTER_CODETBL m1 ON m.MEMBER_GRAD = m1.CODE_ID
-		LEFT JOIN MASTER_CODETBL m2 ON m.MEMBER_GENDER = m2.CODE_ID
-		LEFT JOIN MASTER_CODETBL m3 ON m.MEMBER_LV = m3.CODE_ID
-		LEFT JOIN GRADUATE gr ON gr.MEMBER_NO = m.MEMBER_NO
-		ORDER BY gr.GRAD_NAME ASC
+		LEFT
+		JOIN MASTER_CODETBL m1 ON m.MEMBER_GRAD = m1.CODE_ID
+		LEFT JOIN
+		MASTER_CODETBL m2 ON m.MEMBER_GENDER = m2.CODE_ID
+		LEFT JOIN
+		MASTER_CODETBL m3 ON m.MEMBER_LV = m3.CODE_ID
+		LEFT JOIN MASTER_CODETBL
+		m4 ON m.MEMBER_ST = m4.CODE_ID
+		LEFT JOIN GRADUATE gr ON gr.MEMBER_NO =
+		m.MEMBER_NO
+		ORDER BY m.MEMBER_NO ASC
 	</select>
 
 	<select id="memberIdDupCheck" parameterType="string"
@@ -91,6 +97,52 @@
 		#{memberEmail}
 		)
 	</insert>
+
+	<select id="searchFormMemberList" resultMap="member_rm">
+		SELECT
+		m.MEMBER_ID,
+		m.MEMBER_NAME,
+		m.MEMBER_BIRTH,
+		m2.CODE_NAME AS
+		MEMBER_GENDER,
+		m3.CODE_NAME AS MEMBER_LV,
+		m.MEMBER_TEL,
+		m.MEMBER_EMAIL,
+		m.MEMBER_ADDR,
+		m1.CODE_NAME AS MEMBER_GRAD,
+		m4.CODE_NAME AS MEMBER_ST,
+		TO_CHAR(m.MEMBER_HIRE, 'YYYY-MM-DD') AS MEMBER_HIRE
+		FROM MEMBER m
+		LEFT
+		JOIN MASTER_CODETBL m1 ON m.MEMBER_GRAD = m1.CODE_ID
+		LEFT JOIN
+		MASTER_CODETBL m2 ON m.MEMBER_GENDER = m2.CODE_ID
+		LEFT JOIN
+		MASTER_CODETBL m3 ON m.MEMBER_LV = m3.CODE_ID
+		LEFT JOIN MASTER_CODETBL
+		m4 ON m.MEMBER_ST = m4.CODE_ID
+		LEFT JOIN GRADUATE gr ON gr.MEMBER_NO =
+		m.MEMBER_NO
+		<where>
+			<if test="memberName == null or memberName.trim() == ''">
+				<choose>
+					<when test="codeNo == 10">
+						m.MEMBER_ST = #{codeId}
+					</when>
+					<when test="codeNo == 11">
+						m.MEMBER_GENDER = #{codeId}
+					</when>
+					<when test="codeNo == 20">
+						m.MEMBER_LV = #{codeId}
+					</when>
+				</choose>
+			</if>
+			<if test="memberName != null and memberName.trim() != ''">
+				m.MEMBER_NAME = #{memberName}
+			</if>
+		</where>
+		ORDER BY m.MEMBER_NO ASC
+	</select>
 
 
 </mapper>

@@ -247,6 +247,10 @@ main {
     display: flex;
 }
 
+#subCategory{
+    width:161px;
+}
+
 /* 검색에어리어 인풋창 */
 .impl-search-area input{
     outline: none;

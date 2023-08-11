@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="detailCatMapper">
+
+	<resultMap type="detailCat" id="detailCat_rm">
+		<id property="codeNo" column="CODE_NO" />
+		<result property="codeId" column="CODE_ID" />
+		<result property="codeName" column="CODE_NAME" />
+	</resultMap>
+	
+	<select id="getSubCategories" parameterType="detailCat"
+		resultMap="detailCat_rm">
+	SELECT CODE_NO, CODE_ID, CODE_NAME FROM MASTER_CODETBL
+	WHERE CODE_NO = #{codeNo}
+	</select>
+
+</mapper>

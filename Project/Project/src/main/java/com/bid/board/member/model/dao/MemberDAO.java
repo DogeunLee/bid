@@ -62,8 +62,18 @@ public class MemberDAO {
 	public int signUp(Member inputMember) {
 		return sqlSession.insert("memberMapper.signUp",inputMember);
 	}
-	
-	
+
+
+	public List<Member> searchMemberList(int codeNo, String codeId, String memberName) {
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("codeNo", codeNo);
+		params.put("codeId", codeId);
+		params.put("memberName", memberName);
+		return sqlSession.selectList("memberMapper.searchFormMemberList",params);
+
+	}
+
 	
 
 

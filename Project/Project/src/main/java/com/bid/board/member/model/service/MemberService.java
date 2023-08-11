@@ -19,5 +19,7 @@ public interface MemberService {
 	int emailDupCheck(String memberEmail);
 
 	int signUp(Member inputMember);
+
+	Map<String, Object> searchResultBack(int codeNo, String codeId, String memberName);
 	
 }

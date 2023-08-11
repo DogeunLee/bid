@@ -81,6 +81,17 @@ public class MemberImple implements MemberService{
 	public int signUp(Member inputMember) {
 		return dao.signUp(inputMember);
 	}
+
+	@Override
+	public Map<String, Object> searchResultBack(int codeNo, String codeId, String memberName) {
+		List<Member> searchMemberList = dao.searchMemberList(codeNo, codeId, memberName);
+
+		Map<String, Object> searchResultBack = new HashMap<String, Object>();
+		searchResultBack.put("searchMemberList", searchMemberList);
+
+		
+		return searchResultBack;
+	}
 	
 	
 

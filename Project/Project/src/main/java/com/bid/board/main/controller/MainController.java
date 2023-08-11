@@ -3,6 +3,7 @@ package com.bid.board.main.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +25,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bid.board.category.model.service.BigCategoryService;
+import com.bid.board.category.model.vo.DetailCategory;
 import com.bid.board.common.Util;
 import com.bid.board.member.model.service.MemberService;
 import com.bid.board.member.model.vo.Member;
@@ -33,54 +38,91 @@ public class MainController {
 
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private BigCategoryService services;
 
 	@RequestMapping("/main")
 	public String main(
 			Model model,
+			@RequestParam(value = "bcategory", required = false) String bcategory,
 			@RequestParam(value = "cp", required = false, defaultValue="1" ) int cp   
 			) {
-
+		
 		Map<String, Object> getMemberList = null;
-
 		getMemberList = service.getMemberList(cp);
+		
 
+		Map<String, Object> bigCategoryList = null;
+		bigCategoryList = services.searchBigCat();
+		
+		
 		model.addAttribute("getMemberList", getMemberList);
+		model.addAttribute("bigCategoryList", bigCategoryList);
 
-
+		
 		return "common/main";
 	}
 	
 	
-	 @GetMapping("//main/search")
-	 public String search( 
-			 Model model,
-			 @RequestParam(value = "cp", required = false, defaultValue="1" ) int cp,
-			 @RequestParam(value= "bcategory", required = false) String bcategory
-			 ) {
-		 return null;
-	 }
-	/*
+	@GetMapping("/searchMembers")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> searchResultBack(
+			Model model,
+			@RequestParam(value = "bcategory", required = false) String bcategory,
+			@RequestParam(value = "subCategory", required = false) String codeId,	 
+			@RequestParam(value = "memberName", required = false) String memberName,
+			@RequestParam(value = "cp", required = false, defaultValue="1" ) int cp 
+			){
+		
+		Map<String, Object> bigCategoryList = null;
+		bigCategoryList = services.searchBigCat();
+		
+		int codeNo = 0;
 	
-	 * 
-	 * 
-	 * 
-	 * @RequestParam(value= "N", required = false) String n,
-	 * 
-	 * @RequestParam(value = "Y", required = false) String y,
-	 * 
-	 * @RequestParam(value = "E", required = false) String e,
-	 * 
-	 * @RequestParam(value = "memberName", required = false) String memberName,
-	 * 
-	 * @RequestParam(value = "memberGender", required = false) String memberGender,
-	 * 
-	 * @RequestParam(value = "memberLv", required = false) String memberLv,
-	 * 
-	 * @RequestParam(value = "keyword", required = false) String keyword,
-	 * 
-	 * HttpSession session, RedirectAttributes ra, HttpServletRequest req,
-	 * HttpServletResponse resp ) { return null; }
-	 */
+		if (bcategory.equals("전체")) {
+			bcategory = null;
+		} else if (bcategory != null) {
+			 codeNo = Integer.parseInt(bcategory);
+		}
+		
+		
+		
+		System.out.println("codeNo은 ===========? "+codeNo);
+		System.out.println("codeID은 ===========? "+codeId);
+		System.out.println("memberName은 ===========? "+memberName);
+
+		Map<String, Object> searchResultBack = null;
+		searchResultBack = service.searchResultBack(codeNo, codeId, memberName);
+		System.out.println(searchResultBack);
+		
+		model.addAttribute("bigCategoryList", bigCategoryList);
+		model.addAttribute("searchResultBack",searchResultBack);
+		 return new ResponseEntity<>(searchResultBack, HttpStatus.OK);
+	}
+	
+	@RequestMapping("/getSubCategories")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> getSubCategories(
+			Model model,
+			@RequestParam("codeNo") int codeNo) {
+		
+		System.out.println(codeNo);
+		
+			Map<String, Object> subCategory = null;
+			subCategory = 	services.getSubCategories(codeNo);		
+			
+			model.addAttribute("subCategory", subCategory);
+			
+			System.out.println(subCategory);
+			
+	    return new ResponseEntity<>(subCategory, HttpStatus.OK);
+	}
+	
+	
+	
+
+	
 
 	@RequestMapping("/signUp")
 	public String signUp(

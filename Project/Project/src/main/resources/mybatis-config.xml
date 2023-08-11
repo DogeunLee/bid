@@ -6,15 +6,19 @@
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 
-
 	<typeAliases>
 		<typeAlias type="com.bid.board.member.model.vo.Member"
 			alias="member" />
+		<typeAlias type="com.bid.board.category.model.vo.BigCategory"
+			alias="bigCat"/>
+			<typeAlias type="com.bid.board.category.model.vo.DetailCategory"
+			alias="detailCat"/>
 	</typeAliases>
-
 
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml" />
+		<mapper resource="/mappers/bigCat-mapper.xml" />
+		<mapper resource="/mappers/detailCat-mapper.xml" />
 	</mappers>
 
 </configuration>
