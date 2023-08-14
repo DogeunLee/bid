@@ -16,11 +16,40 @@ a {
     height: 100%;
 }
 
-main {
-    width: 1536px;
-    height: 747px;
+
+
+.rightDiv > div:nth-child(2) {
+    width:100%;
+    height:93%;
+    background-color: rgb(71,71,71);
+    padding:5px;
     display: flex;
-    margin:0 auto;
+}
+
+.content-wrap{
+    flex:1;
+    background-color: white;
+    border-radius: 10px;
+    padding:10px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 컨텐츠 최상단 검색area */
+.content-wrap > form > div:nth-child(1){
+    width:100%;
+    padding:0px 10px 10px 10px;
+    height:50px;
+    color:black;
+    border-bottom: 3px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 타이틀 css */
+.content-wrap > form > div:nth-child(1) > p{
+    font-weight: bold;    font-size: 1.2rem;
+    line-height: 35px;
 }
 
 /* 왼쪽 aside */
@@ -124,7 +153,6 @@ main {
     border-radius: 5px;
 }
 
-/* saearch_btn */
 .search-area > div{
     border:none;
     outline: none;
@@ -149,67 +177,6 @@ main {
 }
 
 
-/* 오른쪽 rightDiv */
-.rightDiv {
-    width: 87%;
-    display: flex;
-    flex-direction: column;
-}
-
-/* 오른쪽 최상단 타이틀 랩퍼 */
-.rightDiv > div:nth-child(1){
-    width:100%;
-    background-color: rgb(71,71,71);
-    height:7%;
-    padding:5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* 오른쪽 최상단 제목 */
-.rightDiv > div:nth-child(1)>p{
-    font-size: 1.2rem;
-    color:white;
-    font-weight: bold;
-    width:20%;
-    padding: 10px;
-    line-height: 42px;
-}
-
-/* 나가기버튼 */
-.rightDiv > div:nth-child(1) > div{
-    width:10%;
-    background-color: rgb(91,91,91);
-    border-radius: 10px;
-    color:white;
-    font-weight: bold;
-    text-align: center;
-    line-height: 28px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;   
-}
-
-.rightDiv > div:nth-child(1) > div >a{
-    width:100%;
-}
-
-/* 버튼 하버 */
-.rightDiv > div:nth-child(1) > div:hover{
-   
-    background-color: rgb(21,21,21);   
-}
-
-
-/* 컨텐츠 랩퍼 */
-.rightDiv > div:nth-child(2) {
-    width:100%;
-    height:93%;
-    background-color: rgb(71,71,71);
-    padding:5px;
-    display: flex;
-}
 
 .content-wrap{
     flex:1;
@@ -224,7 +191,7 @@ main {
 .content-wrap > div:nth-child(1){
     width:100%;
     padding:0px 10px 10px 10px;
-    height:50px;
+    height:48px;
     color:black;
     border-bottom: 3px solid black;
     display: flex;
@@ -323,11 +290,11 @@ main {
 }
 /* 8 */
 .table-wrap > table > thead > tr> th:nth-child(8){
-    width:10%;
+    width:15%;
 }
 /* 9 */
 .table-wrap > table > thead > tr> th:nth-child(9){
-    width:27%;
+    width:22%;
 }
 /* 10 학력 */
 .table-wrap > table > thead > tr> th:nth-child(10){

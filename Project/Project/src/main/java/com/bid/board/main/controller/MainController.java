@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,6 +61,7 @@ public class MainController {
 		model.addAttribute("getMemberList", getMemberList);
 		model.addAttribute("bigCategoryList", bigCategoryList);
 
+		System.out.println(getMemberList);
 		
 		return "common/main";
 	}
@@ -69,7 +71,7 @@ public class MainController {
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> searchResultBack(
 			Model model,
-			@RequestParam(value = "bcategory", required = false) String bcategory,
+			@RequestParam(value = "bcategory", required = false) int bcategory,
 			@RequestParam(value = "subCategory", required = false) String codeId,	 
 			@RequestParam(value = "memberName", required = false) String memberName,
 			@RequestParam(value = "cp", required = false, defaultValue="1" ) int cp 
@@ -78,19 +80,10 @@ public class MainController {
 		Map<String, Object> bigCategoryList = null;
 		bigCategoryList = services.searchBigCat();
 		
-		int codeNo = 0;
+		int codeNo = bcategory;
 	
-		if (bcategory.equals("전체")) {
-			bcategory = null;
-		} else if (bcategory != null) {
-			 codeNo = Integer.parseInt(bcategory);
-		}
-		
-		
-		
-		System.out.println("codeNo은 ===========? "+codeNo);
-		System.out.println("codeID은 ===========? "+codeId);
-		System.out.println("memberName은 ===========? "+memberName);
+		System.out.println(codeId);
+		System.out.println(memberName);
 
 		Map<String, Object> searchResultBack = null;
 		searchResultBack = service.searchResultBack(codeNo, codeId, memberName);
@@ -107,8 +100,7 @@ public class MainController {
 			Model model,
 			@RequestParam("codeNo") int codeNo) {
 		
-		System.out.println(codeNo);
-		
+	
 			Map<String, Object> subCategory = null;
 			subCategory = 	services.getSubCategories(codeNo);		
 			
@@ -221,6 +213,18 @@ public class MainController {
 		return path;
 	}
 	
+	@GetMapping("/myPage/memberDetail/{memberNo}")
+	public String memberDetail(
+			@PathVariable("memberNo") int memberNo
+			) {
+		
+		System.out.println("패스밸류는/////////////////////////////////////////////////////"+memberNo);
+		
+		return  "myPage/memberDetail";
+		
+	}
+	
+	
 	
 	// 파일업로드 ******
 	@PostMapping("/uploadImage")
@@ -250,6 +254,8 @@ public class MainController {
 		String a = jsonObject.toString();
 		return a;
 	}
+	
+	
 
 	
 }

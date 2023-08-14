@@ -33,6 +33,7 @@
 
 	<select id="getMemberList" resultMap="member_rm">
 		SELECT
+		m.MEMBER_NO,
 		m.MEMBER_ID,
 		m.MEMBER_NAME,
 		m.MEMBER_BIRTH,
@@ -100,6 +101,7 @@
 
 	<select id="searchFormMemberList" resultMap="member_rm">
 		SELECT
+		m.MEMBER_NO,
 		m.MEMBER_ID,
 		m.MEMBER_NAME,
 		m.MEMBER_BIRTH,
@@ -135,12 +137,12 @@
 					<when test="codeNo == 20">
 						m.MEMBER_LV = #{codeId}
 					</when>
-				</choose>
+				</choose>	
 			</if>
 			<if test="memberName != null and memberName.trim() != ''">
-				m.MEMBER_NAME = #{memberName}
+				(UPPER(m.MEMBER_NAME) LIKE '%' || UPPER(#{memberName}) || '%')
 			</if>
-		</where>
+		</where>	
 		ORDER BY m.MEMBER_NO ASC
 	</select>
 

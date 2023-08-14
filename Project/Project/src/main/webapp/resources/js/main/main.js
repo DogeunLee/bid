@@ -5,64 +5,55 @@ $(document).ready(function() {
     $(".myPageWrap > ul > li").hover(
         function() {
             firstItem.removeClass("highlighted");
-        }, function() {
+        },
+        function() {
             firstItem.addClass("highlighted");
         }
     );
-    
-        $('#searchInput').on('focus', function() {
+
+    $('#searchInput').on('focus', function() {
         $(this).select();
     });
 
+    $("#bigCategory").change(function() {
+        var selectedValue = $(this).val();
 
-});
+        if (selectedValue === "9999" || selectedValue === "7942") {
+            $("#memberName").show();
+        } else {
+            $("#memberName").hide();
+        }
 
-$(document).ready(function() {
-$("#bigCategory").change(function() {
-    var selectedValue = $(this).val();
+        if (selectedValue !== "7942") {
+            // sub-category logic
+            $("#subCategory").remove();
 
-    if (selectedValue === "memberName") {
-        $("#nameInput").show();
-    } else {
-        $("#nameInput").hide();
-    }
-});
-});
+            $.ajax({
+                url: "getSubCategories",
+                type: "GET",
+                data: { codeNo: selectedValue },
+                success: function(response) {
+                    var subCategories = response.subCategories;
+                    if (subCategories && subCategories.length > 0) {
+                        var subCategorySelect = $("<select></select>").attr("id", "subCategory").attr("name", "subCategory");
+                
+                        $.each(subCategories, function(index, item) {
+                            subCategorySelect.append($("<option></option>").attr("value", item.codeId).text(item.codeName));
+                        });
 
- $(document).ready(function() {
-     $("#bigCategory").change(function() {
-        var selectedCodeNo = $(this).val();
-
-        $("#subCategory").remove();
-
-        $.ajax({
-            url: "getSubCategories",
-            type: "GET",
-            data: { codeNo: selectedCodeNo },
-            success: function(response) {
-                var subCategories = response.subCategories;
-                if (subCategories && subCategories.length > 0) {
-                    var subCategorySelect = $("<select></select>").attr("id", "subCategory").attr("name", "subCategory");
-            
-                    $.each(subCategories, function(index, item) {
-                        subCategorySelect.append($("<option></option>").attr("value", item.codeId).text(item.codeName));
-                    });
-            
-                    $("#bigCategory").after(subCategorySelect);
+                        $("#bigCategory").after(subCategorySelect);
+                  
+                    }
+                },
+                error: function(error) {
+                    console.error("Error fetching sub-categories:", error);
                 }
-            },
-            error: function(error) {
-                console.error("Error fetching sub-categories:", error);
-            }
-        });
-     });
- });
+            });
+        }
+    });
 
-
-
- $(document).ready(function() {
     $('.searchBtn').click(function(e) {
-        e.preventDefault(); // 폼 제출을 방지
+        e.preventDefault();
 
         $.ajax({
             type: 'GET',
@@ -70,7 +61,7 @@ $("#bigCategory").change(function() {
             data: {
                 bcategory: $('#bigCategory').val(),
                 subCategory: $('#subCategory').val(),
-                memberName: $('#nameInput').val()
+                memberName: $('#memberName').val()
             },
             success: function(data) {
                 console.log(data);
@@ -81,29 +72,35 @@ $("#bigCategory").change(function() {
             }
         });
     });
-});
 
-function updateTable(data) {
-    console.log(data.searchMemberList);  // 배열의 내용 확인
-
-    var tbody = $('.table-wrap tbody');
-    tbody.empty();
-
-    // searchMemberList를 직접 접근
-    data.searchMemberList.forEach(function(member) {
-        var row = '<tr class="row">' +
-                  '<td>' + member.memberId + '</td>' +
-                  '<td>' + member.memberName + '</td>' +
-                  '<td>' + member.memberGender + '</td>' +
-                  '<td>' + member.memberBirth + '</td>' +
-                  '<td>' + member.memberHire + '</td>' +
-                  '<td>' + member.memberLv + '</td>' +
-                  '<td>' + member.memberTel + '</td>' +
-                  '<td>' + member.memberEmail + '</td>' +
-                  '<td>' + member.memberAddr + '</td>' +
-                  '<td>' + member.memberGrad + '</td>' +
-                  '<td>' + member.memberSt + '</td>' +
-                  '</tr>';
-        tbody.append(row);
+    $(document).on('click', '.row', function(e) {
+        var url = $(this).data("url"); 
+        window.location.href = url; 
     });
-}
+
+    function updateTable(data) {
+        console.log(data.searchMemberList);
+
+        var tbody = $('.table-wrap tbody');
+        tbody.empty();
+
+        data.searchMemberList.forEach(function(member) {
+            var contextPath = "${contextPath}";
+
+            var row = '<tr class="row" data-url="/board/myPage/memberDetail/' + member.memberNo + '">' +
+            '<td>' + member.memberId + '</td>' +
+            '<td>' + member.memberName + '</td>' +
+            '<td>' + member.memberGender + '</td>' +
+            '<td>' + member.memberBirth + '</td>' +
+            '<td>' + member.memberHire + '</td>' +
+            '<td>' + member.memberLv + '</td>' +
+            '<td>' + member.memberTel + '</td>' +
+            '<td>' + member.memberEmail + '</td>' +
+            '<td>' + member.memberAddr + '</td>' +
+            '<td>' + member.memberGrad + '</td>' +
+            '<td>' + member.memberSt + '</td>' +
+            '</tr>';
+            tbody.append(row);
+        });
+    }
+});

@@ -1,0 +1,260 @@
+
+form {
+	display: flex;
+	height:100%;
+	flex-direction: column;
+} 
+
+
+/* 컨텐츠 랩퍼 */
+.rightDiv > div:nth-child(2) {
+    width:100%;
+    height:93%;
+    background-color: rgb(71,71,71);
+    padding:5px;
+    display: flex;
+}
+
+.content-wrap{
+    flex:1;
+    background-color: white;
+    border-radius: 10px;
+    padding:10px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 컨텐츠 최상단 검색area */
+.content-wrap > form > div:nth-child(1){
+    width:100%;
+    padding:0px 10px 10px 10px;
+    height:50px !important;
+    color:black;
+    border-bottom: 3px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 타이틀 css */
+.content-wrap > form > div:nth-child(1) > p{
+    font-weight: bold;    font-size: 1.2rem;
+    line-height: 35px;
+}
+
+.btnWrap{
+	display: flex;
+	width:20%;
+	justify-content: space-around;
+}
+
+
+.btnWrap button {
+border:none;
+outline: none;
+width: 45%;
+border-radius: 5px;
+background-color: rgb(91,91,91);
+cursor: pointer;
+display: flex;
+}
+
+.btnWrap button a {
+	width:100%;
+	height:100%;
+	line-height: 35px;
+	font-size: 1rem;
+}
+
+.btnWrap button:hover{
+	background-color: rgb(21,21,21);
+}
+
+
+.member-deatil-wrap{
+	width:100%;
+	height:100%;
+	border-radius: 10px;
+	margin-top:10px;
+	background-color: #474747;
+	display: flex;
+	justify-content:  space-around;
+	padding:10px 0;
+}
+
+.emailBtn{
+	margin-left:5px;
+}
+
+
+.member-deatil-wrap > div:nth-child(1){
+	width:30%;
+	height:100%;
+	background-color: white;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	padding:10px;
+}
+
+.member-deatil-wrap > div:nth-child(2){
+	width:68%;
+	height:100%;
+	background-color: white;
+}
+
+.md-left-side > div:nth-child(1){
+	height:7%;
+	display: flex;
+	justify-content: center;
+}
+
+.md-left-side > div:nth-child(1) > p{
+	font-size: 1.2rem;
+	font-weight: bold;
+	line-height: 52px;
+}
+
+.md-left-side > div:nth-child(2){
+	height:95%;
+	display: flex;
+	flex-direction: column;
+}
+
+
+
+.default-infoWrap > div{
+	display: flex;
+	margin-top:10px;
+}
+
+.default-infoWrap div P {
+	width:20%;
+	padding-left:10px;
+	font-weight: bold;
+}
+
+.default-infoWrap div input{
+	width:40%
+}
+
+
+.image_wrap{
+	width:100%;
+	height:20% !important;
+	display: flex;
+	background-color: rgb(91,91,91);
+	border-radius: 10px;
+}
+
+.image_wrap > div:nth-child(1){
+	width:40%;
+	height:100%;
+	display: flex;
+	justify-content: center;
+}
+
+.image_wrap > div:nth-child(1) img{
+	width:138px;
+	height:138px;
+	border-radius: 50%;
+	background-color: white;
+}
+
+.image_wrap > div:nth-child(2){
+	width:50%;
+	height:100%;
+	display: flex;
+	flex-direction: column;
+	margin-left:10px;
+}
+
+.image_wrap > div:nth-child(2) div{
+	display: flex;
+	height:50%;
+	font-size: 1.5rem;
+	color:white;
+}
+
+.memberNo{
+	font-size: 1rem;
+	line-height:120px;
+}
+
+.infosWrap{
+	display: flex;
+	flex-direction: column;
+	border-radius: 10px;
+	border:2px solid black;
+	height:85%;
+	padding:10px;
+	justify-content: center;
+}
+
+.infosWrap > div{
+	margin-bottom: 10px;
+	display: flex;
+	height:40px;
+	line-height: 38px;
+}
+
+
+.infosWrap span{
+	width:300px;
+}
+
+.infosWrap > div:nth-child(1){
+	display: flex;
+
+}
+
+.infosWrap > div:nth-child(1) span{
+	margin-right:5px;
+}
+
+.infosWrap > div:nth-child(2){
+	height:120px;
+	display: flex;
+}
+
+.infosWrap > div:nth-child(2) input{
+	width:300px;
+	height:40px;
+	padding-left: 10px;
+}
+
+.infosWrap > div button{
+	width:50px;
+	height:40px;
+	border:none;
+	outline: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.memLv{
+	width:300px;
+	padding-left: 10px;
+}
+
+.dateBtn{
+	width:300px !important;
+}
+
+.passwordInput{
+	height:85px !important;
+}
+.passwordInput > div{
+	display: flex;
+	flex-direction: column;
+}
+.passwordInput div> input{
+	width:300px;
+	height:40px;
+	margin-bottom: 2.5px;
+	padding-left:10px;
+}
+
+.passwordInput button{
+	margin-left:5px;
+	margin-top:42px;
+}
