@@ -112,6 +112,8 @@ public class MemberImple implements MemberService{
 
 	@Override
 	public Map<String, Object> getMemberInfo(int memberNo) {
+		
+		
 		List<Member> getMemberInfoList = dao.getMemberInfo(memberNo);
 		
 		Map<String, Object> getMemberInfo = new HashMap<String, Object>();
