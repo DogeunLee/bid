@@ -74,6 +74,38 @@ public class MemberDAO {
 
 	}
 
+
+
+
+
+	public List<Member> searchSelectList(int codeNo, String codeId, String memberName, String startDate, String endDate,
+			String memberSt, String memberGender, String memberLv) {
+		Map<String, Object> params = new HashMap<>();
+		
+		
+		System.out.println(memberSt + "================================");
+		System.out.println(memberGender + "================================");
+		System.out.println(memberLv + "================================");
+		System.out.println(memberName);
+		
+		
+		params.put("codeNo", codeNo);
+		params.put("codeId", codeId);
+		params.put("memberName", memberName);
+		params.put("startDate", startDate);
+		params.put("endDate", endDate);
+		params.put("memberSt", memberSt);
+		params.put("memberGender", memberGender);
+		params.put("memberLv", memberLv);
+		return sqlSession.selectList("memberMapper.searchSelectList",params);
+	}
+
+
+	public List<Member> getMemberInfo(int memberNo) {
+		
+		return sqlSession.selectOne("memberMapper.getMemberInfo", memberNo);
+	}
+
 	
 
 

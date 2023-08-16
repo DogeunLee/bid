@@ -74,19 +74,26 @@ public class MainController {
 			@RequestParam(value = "bcategory", required = false) int bcategory,
 			@RequestParam(value = "subCategory", required = false) String codeId,	 
 			@RequestParam(value = "memberName", required = false) String memberName,
+			@RequestParam(value = "startDate", required = false) String startDate,
+			@RequestParam(value = "endDate", required = false) String endDate,
+			@RequestParam(value = "searchValue1", required = false) String memberSt,
+			@RequestParam(value = "searchValue2", required = false) String memberGender,
+			@RequestParam(value = "searchValue3", required = false) String memberLv,
+			@RequestParam(value = "all", required = false) String all,
 			@RequestParam(value = "cp", required = false, defaultValue="1" ) int cp 
 			){
 		
 		Map<String, Object> bigCategoryList = null;
 		bigCategoryList = services.searchBigCat();
 		
-		int codeNo = bcategory;
+		Integer codeNo = bcategory;
+		
 	
-		System.out.println(codeId);
-		System.out.println(memberName);
+		
+
 
 		Map<String, Object> searchResultBack = null;
-		searchResultBack = service.searchResultBack(codeNo, codeId, memberName);
+		searchResultBack = service.searchResultBack(codeNo, codeId, memberName,startDate,endDate,memberSt,memberGender,memberLv);
 		System.out.println(searchResultBack);
 		
 		model.addAttribute("bigCategoryList", bigCategoryList);
@@ -111,9 +118,22 @@ public class MainController {
 	    return new ResponseEntity<>(subCategory, HttpStatus.OK);
 	}
 	
+	@RequestMapping("/getSubOptions")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> selectSearchCategory(
+			Model model,
+			@RequestParam("codeNo") int codeNo) {
+		
 	
-	
-
+			Map<String, Object> subCategory = null;
+			subCategory = 	services.getSubCategories(codeNo);		
+			
+			model.addAttribute("subCategory", subCategory);
+			
+			System.out.println(subCategory);
+			
+	    return new ResponseEntity<>(subCategory, HttpStatus.OK);
+	}
 	
 
 	@RequestMapping("/signUp")
@@ -215,14 +235,22 @@ public class MainController {
 	
 	@GetMapping("/myPage/memberDetail/{memberNo}")
 	public String memberDetail(
-			@PathVariable("memberNo") int memberNo
+			@PathVariable("memberNo") int memberNo,
+			Model model
 			) {
 		
-		System.out.println("패스밸류는/////////////////////////////////////////////////////"+memberNo);
+		Map<String, Object> getMemberInfo = null;
+		getMemberInfo = service.getMemberInfo(memberNo);
+		
+		model.addAttribute("getMemberInfo", getMemberInfo);
+		
+		System.out.println(getMemberInfo);
 		
 		return  "myPage/memberDetail";
 		
 	}
+	
+	
 	
 	
 	

@@ -48,7 +48,7 @@ public class MemberImple implements MemberService{
 
 	@Override
 	public Map<String, Object> getMemberList(int cp) {
-		
+
 		int memberListCount = dao.getMmberListCount();
 
 		MemberPageNation pagination = new MemberPageNation(cp, memberListCount);
@@ -57,9 +57,9 @@ public class MemberImple implements MemberService{
 		Map<String, Object> getMemberList = new HashMap<String, Object>();
 		getMemberList.put("pagination", pagination);
 		getMemberList.put("memberList", memberList);
-		
+
 		return getMemberList;
-			
+
 	}
 
 	@Override
@@ -83,17 +83,44 @@ public class MemberImple implements MemberService{
 	}
 
 	@Override
-	public Map<String, Object> searchResultBack(int codeNo, String codeId, String memberName) {
-		List<Member> searchMemberList = dao.searchMemberList(codeNo, codeId, memberName);
+	public Map<String, Object> searchResultBack(int codeNo, String codeId, String memberName, String startDate,
+			String endDate, String memberSt, String memberGender, String memberLv) {
+		List<Member> searchMemberList = null;
+
+		if ("all".equals(memberGender)) {
+			memberGender = null;
+		}
+		if ("all".equals(memberLv)) {
+			memberLv = null;
+		}
+		if ("all".equals(memberSt)) {
+			memberSt = null;
+		}
+
+		if (codeNo == 7942) {
+
+			searchMemberList = dao.searchSelectList(codeNo, codeId, memberName, startDate, endDate, memberSt, memberGender, memberLv);
+		} else {
+			searchMemberList = dao.searchMemberList(codeNo, codeId, memberName);
+		}
 
 		Map<String, Object> searchResultBack = new HashMap<String, Object>();
 		searchResultBack.put("searchMemberList", searchMemberList);
 
-		
 		return searchResultBack;
 	}
-	
-	
+
+	@Override
+	public Map<String, Object> getMemberInfo(int memberNo) {
+		List<Member> getMemberInfoList = dao.getMemberInfo(memberNo);
+		
+		Map<String, Object> getMemberInfo = new HashMap<String, Object>();
+		getMemberInfo.put("getMemberInfo", getMemberInfoList);
+		
+		return getMemberInfo;
+	}
+
+
 
 
 }

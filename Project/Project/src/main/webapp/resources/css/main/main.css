@@ -326,6 +326,37 @@ a {
     background-color: rgb(251,122,10);
 } 
 
+.ssearch-content {
+    width:82px;
+}
+
+
+.waterbooom{
+    padding:0 10px;
+    line-height: 33px;
+}
+
+#endDate{
+    border-left:1px solid black;
+}
+
+#bigCategory{
+    margin-right:5px;
+}
+
+#memberName{
+    border-left:1px solid black;
+    margin-left:5px;
+}
+
+#startDate{
+    border-left:1px solid black;
+}
+
+#endDate{
+    margin-right:5px;
+}
+
 /* 
 
 

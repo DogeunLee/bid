@@ -37,7 +37,8 @@
 		m.MEMBER_ID,
 		m.MEMBER_NAME,
 		m.MEMBER_BIRTH,
-		m2.CODE_NAME AS MEMBER_GENDER,
+		m2.CODE_NAME AS
+		MEMBER_GENDER,
 		m3.CODE_NAME AS MEMBER_LV,
 		m.MEMBER_TEL,
 		m.MEMBER_EMAIL ,
@@ -112,12 +113,15 @@
 		m.MEMBER_EMAIL,
 		m.MEMBER_ADDR,
 		m1.CODE_NAME AS MEMBER_GRAD,
-		m4.CODE_NAME AS MEMBER_ST,
+		m4.CODE_NAME
+		AS MEMBER_ST,
 		TO_CHAR(m.MEMBER_HIRE, 'YYYY-MM-DD') AS MEMBER_HIRE
-		FROM MEMBER m
+		FROM
+		MEMBER m
 		LEFT
 		JOIN MASTER_CODETBL m1 ON m.MEMBER_GRAD = m1.CODE_ID
-		LEFT JOIN
+		LEFT
+		JOIN
 		MASTER_CODETBL m2 ON m.MEMBER_GENDER = m2.CODE_ID
 		LEFT JOIN
 		MASTER_CODETBL m3 ON m.MEMBER_LV = m3.CODE_ID
@@ -128,23 +132,106 @@
 		<where>
 			<if test="memberName == null or memberName.trim() == ''">
 				<choose>
+					<when test="codeNo == 1">
+					</when>
 					<when test="codeNo == 10">
-						m.MEMBER_ST = #{codeId}
+						m.MEMBER_ST = #{codeId} ORDER BY m.MEMBER_NO ASC
 					</when>
 					<when test="codeNo == 11">
-						m.MEMBER_GENDER = #{codeId}
+						m.MEMBER_GENDER = #{codeId} ORDER BY m.MEMBER_NO
+						ASC
 					</when>
 					<when test="codeNo == 20">
-						m.MEMBER_LV = #{codeId}
+						m.MEMBER_LV = #{codeId} ORDER BY m.MEMBER_NO ASC
 					</when>
-				</choose>	
+				</choose>
 			</if>
 			<if test="memberName != null and memberName.trim() != ''">
-				(UPPER(m.MEMBER_NAME) LIKE '%' || UPPER(#{memberName}) || '%')
+				(UPPER(m.MEMBER_NAME) LIKE '%' || UPPER(#{memberName}) ||
+				'%') ORDER BY m.MEMBER_NO ASC
 			</if>
-		</where>	
+		</where>
+	</select>
+
+	<select id="searchSelectList" resultMap="member_rm">
+		SELECT
+		m.MEMBER_NO,
+		m.MEMBER_ID,
+		m.MEMBER_NAME,
+		m.MEMBER_BIRTH,
+		m2.CODE_NAME AS MEMBER_GENDER,
+		m3.CODE_NAME AS MEMBER_LV,
+		m.MEMBER_TEL,
+		m.MEMBER_EMAIL,
+		m.MEMBER_ADDR,
+		m1.CODE_NAME AS MEMBER_GRAD,
+		m4.CODE_NAME
+		AS MEMBER_ST,
+		TO_CHAR(m.MEMBER_HIRE, 'YYYY-MM-DD') AS MEMBER_HIRE
+		FROM
+		MEMBER m
+		LEFT JOIN MASTER_CODETBL m1 ON m.MEMBER_GRAD = m1.CODE_ID
+		LEFT
+		JOIN MASTER_CODETBL m2 ON m.MEMBER_GENDER = m2.CODE_ID
+		LEFT JOIN
+		MASTER_CODETBL m3 ON m.MEMBER_LV = m3.CODE_ID
+		LEFT JOIN MASTER_CODETBL
+		m4 ON m.MEMBER_ST = m4.CODE_ID
+		LEFT JOIN GRADUATE gr ON gr.MEMBER_NO =
+		m.MEMBER_NO
+		WHERE 1=1
+		<if test="memberSt != null and memberSt.trim() != ''">
+			AND m.MEMBER_ST = #{memberSt}
+		</if>
+		<if test="memberGender != null and memberGender.trim() != ''">
+			AND m.MEMBER_GENDER = #{memberGender}
+		</if>
+		<if test="memberLv != null and memberLv.trim() != ''">
+			AND m.MEMBER_LV = #{memberLv}
+		</if>
+		<if test="memberName != null and memberName.trim() != ''">
+			AND (UPPER(m.MEMBER_NAME) LIKE '%' || UPPER(#{memberName}) || '%')
+		</if>
+		<if test="startDate != null and startDate.trim() != ''">
+			AND m.MEMBER_HIRE <![CDATA[ >= ]]>
+			TO_DATE(#{startDate}, 'YYYY-MM-DD')
+		</if>
+		<if test="endDate != null and endDate.trim() != ''">
+			AND m.MEMBER_HIRE <![CDATA[ <= ]]>
+			TO_DATE(#{endDate}, 'YYYY-MM-DD')
+		</if>
 		ORDER BY m.MEMBER_NO ASC
 	</select>
+
+	<select id="getMemberInfo" resultMap="member_rm">
+	SELECT
+		m.MEMBER_NO,
+		m.MEMBER_ID,
+		m.MEMBER_NAME,
+		m.MEMBER_BIRTH,
+		m2.CODE_NAME AS MEMBER_GENDER,
+		m3.CODE_NAME AS MEMBER_LV,
+		m.MEMBER_TEL,
+		m.MEMBER_EMAIL,
+		m.MEMBER_ADDR,
+		m1.CODE_NAME AS MEMBER_GRAD,
+		m4.CODE_NAME
+		AS MEMBER_ST,
+		TO_CHAR(m.MEMBER_HIRE, 'YYYY-MM-DD') AS MEMBER_HIRE
+		FROM
+		MEMBER m
+		LEFT JOIN MASTER_CODETBL m1 ON m.MEMBER_GRAD = m1.CODE_ID
+		LEFT
+		JOIN MASTER_CODETBL m2 ON m.MEMBER_GENDER = m2.CODE_ID
+		LEFT JOIN
+		MASTER_CODETBL m3 ON m.MEMBER_LV = m3.CODE_ID
+		LEFT JOIN MASTER_CODETBL
+		m4 ON m.MEMBER_ST = m4.CODE_ID
+		LEFT JOIN GRADUATE gr ON gr.MEMBER_NO =
+		m.MEMBER_NO
+		WHERE m.MEMBER_NO = #{memberNo}
+	</select>
+	
 
 
 </mapper>
