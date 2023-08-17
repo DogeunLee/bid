@@ -89,8 +89,6 @@ public class MainController {
 		Integer codeNo = bcategory;
 		
 	
-		
-
 
 		Map<String, Object> searchResultBack = null;
 		searchResultBack = service.searchResultBack(codeNo, codeId, memberName,startDate,endDate,memberSt,memberGender,memberLv);
@@ -176,6 +174,7 @@ public class MainController {
 		return result;
 	}
 	
+	
 	@PostMapping("/signUp")
 	public String signUp(Member inputMember
 						,String[] memberAddr,
@@ -233,18 +232,59 @@ public class MainController {
 		return path;
 	}
 	
-	@GetMapping("/myPage/memberDetail/{memberNo}")
+
+	
+	//데이터파싱 주민번호
+	public static String getFormattedBirthFromSSN(String ssn) {
+	    String year = ssn.substring(0, 2);
+	    String month = ssn.substring(2, 4);
+	    String day = ssn.substring(4, 6);
+
+	    char identifier = ssn.charAt(7);
+	    if (identifier == '1' || identifier == '2') {
+	        year = "19" + year;
+	    } else if (identifier == '3' || identifier == '4') {
+	        year = "20" + year;
+	    }
+	    
+	    return year +"-"+ month+"-"+ day;
+	}
+	
+	public static String hideSSNBack(String ssn) {
+	    if(ssn == null || ssn.length() != 14) {
+	        return ssn; 
+	    }
+	    return ssn.substring(0, 8) + "*******";
+	}
+	
+	@RequestMapping("/myPage/memberDetail/{memberNo}")
 	public String memberDetail(
 			@PathVariable("memberNo") int memberNo,
 			Model model
 			) {
 		
-		Map<String, Object> getMemberInfo = null;
-		getMemberInfo = service.getMemberInfo(memberNo);
-		
-		model.addAttribute("getMemberInfo", getMemberInfo);
-		
-		System.out.println(getMemberInfo);
+
+	    Member member = service.getMemberInfo(memberNo);
+	    
+	    String hiddenSSN = hideSSNBack(member.getMemberBirth());
+	    String formattedBirth = getFormattedBirthFromSSN(member.getMemberBirth());
+	    
+	    System.out.println(member.getMemberBirth());
+	    
+	    System.out.println(formattedBirth);
+
+	    List<DetailCategory> lvOptions = services.getSubCategorie(20);
+	    List<DetailCategory> gradOptions = services.getSubCategorie(50);
+	    List<DetailCategory> genderOptions = services.getSubCategorie(11);
+
+	    model.addAttribute("lvOptions", lvOptions);
+	    model.addAttribute("gradOptions", gradOptions);
+	    model.addAttribute("genderOptions", genderOptions);
+	    model.addAttribute("hiddenSSN", hiddenSSN); 
+
+	    model.addAttribute("formattedBirth", formattedBirth); 
+	    model.addAttribute("memberInfo", member);
+	    
 		
 		return  "myPage/memberDetail";
 		

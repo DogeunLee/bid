@@ -23,6 +23,6 @@ public interface MemberService {
 	Map<String, Object> searchResultBack(int codeNo, String codeId, String memberName, String startDate, String endDate,
 			String memberSt, String memberGender, String memberLv);
 
-	Map<String, Object> getMemberInfo(int memberNo);
+	Member getMemberInfo(int memberNo);
 	
 }

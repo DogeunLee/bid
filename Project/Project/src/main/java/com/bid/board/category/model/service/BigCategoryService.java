@@ -12,4 +12,6 @@ public interface BigCategoryService {
 
 	Map<String, Object> getSubCategories(int codeNo);
 
+	List<DetailCategory> getSubCategorie(int i);
+
 }

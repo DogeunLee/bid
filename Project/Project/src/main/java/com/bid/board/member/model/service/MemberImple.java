@@ -111,15 +111,13 @@ public class MemberImple implements MemberService{
 	}
 
 	@Override
-	public Map<String, Object> getMemberInfo(int memberNo) {
+	public Member getMemberInfo(int memberNo) {
 		
 		
-		List<Member> getMemberInfoList = dao.getMemberInfo(memberNo);
+		Member getMemberInfoList = dao.getMemberInfo(memberNo);
 		
-		Map<String, Object> getMemberInfo = new HashMap<String, Object>();
-		getMemberInfo.put("getMemberInfo", getMemberInfoList);
-		
-		return getMemberInfo;
+	
+		return getMemberInfoList;
 	}
 
 

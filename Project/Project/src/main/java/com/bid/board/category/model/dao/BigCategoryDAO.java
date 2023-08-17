@@ -25,7 +25,10 @@ public class BigCategoryDAO {
 	
 	public List<DetailCategory> getSubCategories(int codeNo) {
 		return sqlSession.selectList("detailCatMapper.getSubCategories", codeNo);
+	}
 
+	public List<DetailCategory> getSubCategorie(int i) {
+		return sqlSession.selectList("detailCatMapper.getSubCategories", i);
 	}
 	
 }	

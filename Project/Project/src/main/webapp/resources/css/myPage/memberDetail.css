@@ -88,7 +88,6 @@ display: flex;
 
 .member-deatil-wrap > div:nth-child(1){
 	width:30%;
-	height:100%;
 	background-color: white;
 	border-radius: 10px;
 	display: flex;
@@ -102,29 +101,46 @@ display: flex;
 	background-color: white;
 }
 
-.md-left-side > div:nth-child(1){
-	height:7%;
-	display: flex;
-	justify-content: center;
-}
-
 .md-left-side > div:nth-child(1) > p{
 	font-size: 1.2rem;
 	font-weight: bold;
 	line-height: 52px;
 }
 
-.md-left-side > div:nth-child(2){
-	height:95%;
+.changeWrap div{
 	display: flex;
-	flex-direction: column;
+}
+
+.changeWrap a{
+	color:black;
+	flex:1 1 0;
+	text-align: center;
+	line-height: 34px;
+}
+
+.changeWrap{
+	margin-top:10px;
+	display: flex;
+	height:40px;
+}
+
+.changeWrap div{
+	flex: 1 1 0;
+}
+
+.changeWrap div:nth-child(1){
+	border:2px solid rgb(21,21,21);
+	border-top-left-radius: 10px;
+}
+
+.changeWrap div:nth-child(2){
+	border-bottom:2px solid rgb(21,21,21);
 }
 
 
 
 .default-infoWrap > div{
 	display: flex;
-	margin-top:10px;
 }
 
 .default-infoWrap div P {
@@ -140,7 +156,7 @@ display: flex;
 
 .image_wrap{
 	width:100%;
-	height:20% !important;
+	height:138px;
 	display: flex;
 	background-color: rgb(91,91,91);
 	border-radius: 10px;
@@ -183,10 +199,12 @@ display: flex;
 .infosWrap{
 	display: flex;
 	flex-direction: column;
-	border-radius: 10px;
-	border:2px solid black;
-	height:85%;
-	padding:10px;
+	border-left:2px solid black;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-right:2px solid black;
+	border-bottom:2px solid black;
+	padding:20px 10px 10px 10px;
 	justify-content: center;
 }
 
@@ -202,6 +220,12 @@ display: flex;
 	width:300px;
 }
 
+.genderBtn, .lvBtn, .gradBtn, .hireBtn{
+	margin-left: 5px;
+}
+
+
+
 .infosWrap > div:nth-child(1){
 	display: flex;
 
@@ -212,7 +236,7 @@ display: flex;
 }
 
 .infosWrap > div:nth-child(2){
-	height:120px;
+	height:140px;
 	display: flex;
 }
 
@@ -231,7 +255,7 @@ display: flex;
 	cursor: pointer;
 }
 
-.memLv{
+.memLv, .memberGrad, .memberGender{
 	width:300px;
 	padding-left: 10px;
 }
@@ -240,9 +264,6 @@ display: flex;
 	width:300px !important;
 }
 
-.passwordInput{
-	height:85px !important;
-}
 .passwordInput > div{
 	display: flex;
 	flex-direction: column;
@@ -250,11 +271,62 @@ display: flex;
 .passwordInput div> input{
 	width:300px;
 	height:40px;
-	margin-bottom: 2.5px;
 	padding-left:10px;
+}
+
+.passwordInput div> input:nth-child(1){
+	margin-bottom: 10px;
 }
 
 .passwordInput button{
 	margin-left:5px;
 	margin-top:42px;
+}
+
+.post-detail input:nth-child(1){
+	margin-bottom: 10px;
+}
+
+.post-detail input:nth-child(2){
+	margin-bottom: 5px;
+}
+
+#hireDate{
+    box-sizing: border-box;
+    padding-left:10px;
+}
+
+#memberBirth{
+	box-sizing: border-box;
+    padding-left:10px;
+}
+
+.telInput, .emailInput{
+	width:300px !important;
+	padding-left:10px;
+}
+
+.telBtn{
+	margin-left: 5px;
+}
+
+.juminDate{
+	width:300px !important;
+	padding-left: 10px;
+}
+
+.juminBtn{
+	margin-left:5px;
+}
+
+#emailMessage, #telMessage{
+	margin-left:10px;
+}
+
+.error{
+    color:red;
+}
+
+.confirm{
+    color:green;
 }

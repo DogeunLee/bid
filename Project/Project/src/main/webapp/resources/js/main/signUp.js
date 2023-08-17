@@ -240,49 +240,49 @@ $(document).ready(function() {
         });
     });
 
-    const memberEmail = $("#memberEmail");
-    const emailMessage = $("#emailMessage");
-    
-    memberEmail.on("input", function () {
-        // 입력이 되지 않은 경우
-        if (memberEmail.val().length == 0) {
-            emailMessage.text("메일을 받을 수 있는 이메일을 입력해주세요.");
-            emailMessage.removeClass("confirm error");
-            checkObj.memberEmail = false;
-            return;
-        }
-    
-        const regExp = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+){1,3}$/;
-    
-        if (regExp.test(memberEmail.val())) { 
-            $.ajax({
-                url: "emailDupCheck",
-                data: { "memberEmail": memberEmail.val() },
-                type: "GET",
-                success: function (result) {
-                    if (result == 1) { //중복 o
-                        emailMessage.text("이미 사용 중인 이메일 입니다.");
-                        emailMessage.addClass("error");
-                        emailMessage.removeClass("confirm");
-                        checkObj.memberEmail = false;
-                    } else { //중복 x
-                        emailMessage.text("사용 가능한 이메일입니다.");
-                        emailMessage.addClass("confirm");
-                        emailMessage.removeClass("error");
-                        checkObj.memberEmail = true;
+        const memberEmail = $("#memberEmail");
+        const emailMessage = $("#emailMessage");
+        
+        memberEmail.on("input", function () {
+            // 입력이 되지 않은 경우
+            if (memberEmail.val().length == 0) {
+                emailMessage.text("메일을 받을 수 있는 이메일을 입력해주세요.");
+                emailMessage.removeClass("confirm error");
+                checkObj.memberEmail = false;
+                return;
+            }
+        
+            const regExp = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+){1,3}$/;
+        
+            if (regExp.test(memberEmail.val())) { 
+                $.ajax({
+                    url: "emailDupCheck",
+                    data: { "memberEmail": memberEmail.val() },
+                    type: "GET",
+                    success: function (result) {
+                        if (result == 1) { //중복 o
+                            emailMessage.text("이미 사용 중인 이메일 입니다.");
+                            emailMessage.addClass("error");
+                            emailMessage.removeClass("confirm");
+                            checkObj.memberEmail = false;
+                        } else { //중복 x
+                            emailMessage.text("사용 가능한 이메일입니다.");
+                            emailMessage.addClass("confirm");
+                            emailMessage.removeClass("error");
+                            checkObj.memberEmail = true;
+                        }
+                    },
+                    error: function () {
+                        // console.log("에러 발생");
                     }
-                },
-                error: function () {
-                    // console.log("에러 발생");
-                }
-            });
-        } else {
-            emailMessage.text("이메일 형식이 유효하지 않습니다.");
-            emailMessage.addClass("error");
-            emailMessage.removeClass("confirm");
-            checkObj.memberEmail = false;
-        }
-    });
+                });
+            } else {
+                emailMessage.text("이메일 형식이 유효하지 않습니다.");
+                emailMessage.addClass("error");
+                emailMessage.removeClass("confirm");
+                checkObj.memberEmail = false;
+            }
+        });
 
 
 // 도로명주소 API    

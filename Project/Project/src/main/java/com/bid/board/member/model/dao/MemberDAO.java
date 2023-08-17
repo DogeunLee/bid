@@ -101,9 +101,9 @@ public class MemberDAO {
 	}
 
 
-	public List<Member> getMemberInfo(int memberNo) {
+	public Member getMemberInfo(int memberNo) {
 		
-		return sqlSession.selectList("memberMapper.getMemberInfo", memberNo);
+		return sqlSession.selectOne("memberMapper.getMemberInfo", memberNo);
 	}
 
 	

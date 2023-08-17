@@ -57,6 +57,12 @@ public class BigCategoryServiceImple implements BigCategoryService {
 		return getSubCategories;
 	}
 
+	@Override
+	public List<DetailCategory> getSubCategorie(int i) {
+		
+		return dao.getSubCategorie(i);
+	}
+
 
 
 }

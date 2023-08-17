@@ -71,7 +71,8 @@
 		resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
 		WHERE MEMBER_TEL = #{memberTel}
-		AND MEMBER_ST = 'N'
+		AND (MEMBER_ST = 'STAT01' OR MEMBER_ST = 'STAT02' OR MEMBER_ST =
+		'STAT04')
 	</select>
 
 	<select id="emailDupCheck" parameterType="string"
@@ -79,7 +80,9 @@
 		SELECT COUNT(*) FROM MEMBER
 		WHERE MEMBER_EMAIL =
 		#{memberEmail}
-		AND MEMBER_ST = 'N'
+		AND (MEMBER_ST = 'STAT01' OR MEMBER_ST = 'STAT02' OR
+		MEMBER_ST =
+		'STAT04')
 	</select>
 
 	<insert id="signUp" parameterType="member">
@@ -190,7 +193,8 @@
 			AND m.MEMBER_LV = #{memberLv}
 		</if>
 		<if test="memberName != null and memberName.trim() != ''">
-			AND (UPPER(m.MEMBER_NAME) LIKE '%' || UPPER(#{memberName}) || '%')
+			AND (UPPER(m.MEMBER_NAME) LIKE '%' || UPPER(#{memberName})
+			|| '%')
 		</if>
 		<if test="startDate != null and startDate.trim() != ''">
 			AND m.MEMBER_HIRE <![CDATA[ >= ]]>
@@ -204,12 +208,13 @@
 	</select>
 
 	<select id="getMemberInfo" resultMap="member_rm">
-	SELECT
+		SELECT
 		m.MEMBER_NO,
 		m.MEMBER_ID,
 		m.MEMBER_NAME,
 		m.MEMBER_BIRTH,
-		m2.CODE_NAME AS MEMBER_GENDER,
+		m2.CODE_NAME AS
+		MEMBER_GENDER,
 		m3.CODE_NAME AS MEMBER_LV,
 		m.MEMBER_TEL,
 		m.MEMBER_EMAIL,
@@ -220,9 +225,11 @@
 		TO_CHAR(m.MEMBER_HIRE, 'YYYY-MM-DD') AS MEMBER_HIRE
 		FROM
 		MEMBER m
-		LEFT JOIN MASTER_CODETBL m1 ON m.MEMBER_GRAD = m1.CODE_ID
 		LEFT
-		JOIN MASTER_CODETBL m2 ON m.MEMBER_GENDER = m2.CODE_ID
+		JOIN MASTER_CODETBL m1 ON m.MEMBER_GRAD = m1.CODE_ID
+		LEFT
+		JOIN
+		MASTER_CODETBL m2 ON m.MEMBER_GENDER = m2.CODE_ID
 		LEFT JOIN
 		MASTER_CODETBL m3 ON m.MEMBER_LV = m3.CODE_ID
 		LEFT JOIN MASTER_CODETBL
@@ -231,7 +238,7 @@
 		m.MEMBER_NO
 		WHERE m.MEMBER_NO = #{memberNo}
 	</select>
-	
+
 
 
 </mapper>
