@@ -49,18 +49,27 @@ public class MemberImple implements MemberService{
 	@Override
 	public Map<String, Object> getMemberList(int cp) {
 
-		int memberListCount = dao.getMmberListCount();
+	    int memberListCount = dao.getMmberListCount();
 
-		MemberPageNation pagination = new MemberPageNation(cp, memberListCount);
+	    MemberPageNation pagination = new MemberPageNation(cp, memberListCount);
 
-		List<Member> memberList = dao.getMemberList(pagination);
-		Map<String, Object> getMemberList = new HashMap<String, Object>();
-		getMemberList.put("pagination", pagination);
-		getMemberList.put("memberList", memberList);
+	    List<Member> memberList = dao.getMemberList(pagination);
+	    
+	    for (Member member : memberList) {
+	        String memberAddr = member.getMemberAddr(); 
+	        if (memberAddr != null) {
+	            memberAddr = memberAddr.replace(",,", " ");
+	            member.setMemberAddr(memberAddr);
+	        }
+	    }
 
-		return getMemberList;
+	    Map<String, Object> getMemberList = new HashMap<String, Object>();
+	    getMemberList.put("pagination", pagination);
+	    getMemberList.put("memberList", memberList);
 
+	    return getMemberList;
 	}
+
 
 	@Override
 	public int memberIdDupCheck(String memberId) {
@@ -103,6 +112,14 @@ public class MemberImple implements MemberService{
 		} else {
 			searchMemberList = dao.searchMemberList(codeNo, codeId, memberName);
 		}
+		
+		for (Member member : searchMemberList) {
+	        String memberAddr = member.getMemberAddr(); 
+	        if (memberAddr != null) {
+	            memberAddr = memberAddr.replace(",,", " ");
+	            member.setMemberAddr(memberAddr);
+	        }
+	    }
 
 		Map<String, Object> searchResultBack = new HashMap<String, Object>();
 		searchResultBack.put("searchMemberList", searchMemberList);
@@ -118,6 +135,15 @@ public class MemberImple implements MemberService{
 		
 	
 		return getMemberInfoList;
+	}
+
+	@Override
+	public int updateInfos(Member inputMember) {
+		
+		int updateInfos = dao.updateInfos(inputMember);
+
+		
+		return updateInfos;
 	}
 
 

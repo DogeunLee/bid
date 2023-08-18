@@ -106,6 +106,11 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.getMemberInfo", memberNo);
 	}
 
+
+	public int updateInfos(Member inputMember) {
+		return sqlSession.update("memberMapper.updateInfos", inputMember);
+	}
+
 	
 
 

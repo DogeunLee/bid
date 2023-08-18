@@ -117,18 +117,16 @@ display: flex;
 	line-height: 34px;
 }
 
-.changeWrap > div:nth-child(1) > a{
+.changeWrap > div:nth-child(2) > a{
 	color:rgb(251,251,251);
-	font-weight: bold;
-
+    font-weight: bold;
 	background-color: rgb(91,91,91);
-	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 }
 
-.changeWrap > div:nth-child(2) > a{
+.changeWrap > div:nth-child(1) > a{
 	color:black;
-	font-weight: bold;
-
+    font-weight: bold;
 }
 
 .changeWrap{
@@ -141,17 +139,16 @@ display: flex;
 	flex: 1 1 0;
 }
 
-.changeWrap div:nth-child(1){
+.changeWrap div:nth-child(2){
 	border:2px solid rgb(91,91,91);
-	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
 }
 
-.changeWrap div:nth-child(2){
+.changeWrap div:nth-child(1){
 	border-top:2px solid transparent;
-	border-right:2px solid transparent;
+	border-left:2px solid transparent;
 	border-bottom:2px solid rgb(21,21,21);
 }
-
 
 
 .default-infoWrap > div{
@@ -316,7 +313,7 @@ display: flex;
     padding-left:10px;
 }
 
-.telInput, .emailInput{
+.telInput, .memberEmail{
 	width:300px !important;
 	padding-left:10px;
 }
@@ -329,6 +326,7 @@ display: flex;
 	width:300px !important;
 	padding-left: 10px;
 }
+
 
 .juminBtn{
 	margin-left:5px;
@@ -351,16 +349,49 @@ display: flex;
 /* 비밀번호 변경 랩퍼입니다 ~!!!!! */
 
 .pwInputWrap{
-	border-bottom: 2px solid rgb(21,21,21);
-	border-left: 2px solid rgb(21,21,21);
-	border-right: 2px solid rgb(21,21,21);
+
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
 	height:582px;
+    border-bottom: 2px solid rgb(21,21,21);
+	border-left: 2px solid rgb(21,21,21);
+	border-right: 2px solid rgb(21,21,21);
+    display: flex;
+    flex-direction: column;
 }
 
 .pwFormWrap{
+    width:100%;
 	margin:2px;
 	padding:20px 10px 10px 10px;
 	height:550px;
+    
+}
+
+.pwFormWrap h2 {
+    text-align: center;
+	padding:20px;
+}
+
+.pw-input-triple{
+    padding-top:20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pw-input-triple div{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.pw-input-triple div span{
+    width:127px;
+    line-height: 38px;
+}
+
+.pw-input-triple div input{
+    width: 300px;
+
+    height:40px;
 }

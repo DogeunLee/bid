@@ -24,5 +24,7 @@ public interface MemberService {
 			String memberSt, String memberGender, String memberLv);
 
 	Member getMemberInfo(int memberNo);
+
+	int updateInfos(Member inputMember);
 	
 }

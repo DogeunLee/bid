@@ -64,7 +64,8 @@
 		resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
 		WHERE MEMBER_ID = #{memberId}
-		AND MEMBER_ST = 'N'
+		AND (MEMBER_ST = 'STAT01' OR MEMBER_ST = 'STAT02' OR MEMBER_ST =
+		'STAT04')
 	</select>
 
 	<select id="telDupCheck" parameterType="string"
@@ -238,6 +239,36 @@
 		m.MEMBER_NO
 		WHERE m.MEMBER_NO = #{memberNo}
 	</select>
+
+	<select id="updateInfos">
+
+		UPDATE MEMBER SET
+		MEMBER_NO = #{memberNo}
+		<if test="memberGender != null and memberGender.trim() != ''">
+			,MEMBER_GENDER = #{memberGender}
+		</if>
+		<if test="memberTel != null and memberTel.trim() != ''">
+			,MEMBER_TEL = #{memberTel}
+		</if>
+		<if test="memberEmail != null and memberEmail.trim() != ''">
+			,MEMBER_EMAIL = #{memberEmail}
+		</if>
+		<if test="memberHire != null and memberHire.trim() != ''">
+			,MEMBER_HIRE = #{memberHire}
+		</if>
+		<if test="memberAddr != null and memberAddr.trim() != ''">
+			,MEMBER_ADDR = #{memberAddr}
+		</if>
+		<if test="memberLv != null and memberLv.trim() != ''">
+			,MEMBER_LV = #{memberLv}
+		</if>
+		<if test="memberGrad != null and memberGrad.trim() != ''">
+			,MEMBER_GRAD = #{memberGrad}
+		</if>
+		WHERE MEMBER_NO = #{memberNo}
+
+	</select>
+
 
 
 
