@@ -358,6 +358,7 @@ display: flex;
 	border-right: 2px solid rgb(21,21,21);
     display: flex;
     flex-direction: column;
+	color:#333;
 }
 
 .pwFormWrap{
@@ -368,9 +369,10 @@ display: flex;
     
 }
 
-.pwFormWrap h2 {
+.pwFormWrap h3 {
     text-align: center;
 	padding:20px;
+	font-size: 21px;
 }
 
 .pw-input-triple{
@@ -383,15 +385,26 @@ display: flex;
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
+	flex-wrap: wrap;
 }
 
 .pw-input-triple div span{
-    width:127px;
+    width:30%;
     line-height: 38px;
 }
 
 .pw-input-triple div input{
-    width: 300px;
-
+    width: 70%;
+	padding-left:10px;
     height:40px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	outline: none;
+}
+
+.pw-input-triple div p{
+	width:100%;
+	padding-left: 134px;
+	font-weight: 100;
+	height:20px;
 }

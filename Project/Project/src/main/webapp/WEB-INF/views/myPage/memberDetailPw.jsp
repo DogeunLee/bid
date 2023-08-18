@@ -82,16 +82,22 @@
 
 
 																<div class="pwFormWrap">
-																	<h2>비밀번호 변경</h2>
+																	<h3>비밀번호 변경</h3>
 																	<div class="pw-input-triple">
 																		<div class="currentPwArea">
-																			<span>현재비밀번호</span><input type="password">
+																			<span>현재비밀번호</span><input type="password"
+																				placeholder="비밀번호를 입력해주세요">
+																			<p id="currentPwMessage"> </p>
 																		</div>
 																		<div class="newPwArea">
-																			<span>새로운비밀번호</span><input type="password">
+																			<span>새로운비밀번호</span><input type="password"
+																				placeholder="새로운 비밀번호 입력">
+																			<p id="newPwMessage"> </p>
 																		</div>
 																		<div class="newPwAreaCheck">
-																			<span>새비밀번호 확인</span><input type="password">
+																			<span>새비밀번호 확인</span><input type="password"
+																				placeholder="새로운 비밀번호 확인">
+																			<p id="newPwCheckMessage"> </p>
 																		</div>
 																	</div>
 																</div>
@@ -115,8 +121,6 @@
 
 							</div>
 
-
-
 						</main>
 
 
@@ -139,6 +143,6 @@
 						</script>
 					</c:if>
 					<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-					<script src="${contextPath}/resources/js/myPage/memberDetail.js"></script>
+					<script src="${contextPath}/resources/js/myPage/memberDetailPw.js"></script>
 
 					</html>
