@@ -1,7 +1,8 @@
 const checkObj = {
-    "memberEmail": false,
-    "memberTel": false
+    "memberEmail": { value: false, changed: false },
+    "memberTel": { value: false, changed: false }
 };
+
 
 $(document).ready(function() {
 
@@ -27,29 +28,108 @@ $(document).ready(function() {
             $(this).val(value.replace(/\D/g, '')); // 숫자가 아닌 문자들을 모두 제거
         }
     });
+        
+    $('.telInput').keydown(function(e) {
+        if (e.which === 13 || e.which === 9) {
+            console.log("==============================================")
+            checkValue(this);
+        }
+    });
+
+    $("#memberTel").on("input", function() {
+        var $telMessage = $("#telMessage");
+
+        if (this.value.length == 0) {
+            $telMessage.removeClass("confirm error");
+            checkObj.memberTel = false;
+            $telMessage.addClass("confirm");
+            $telMessage.removeClass("error");
+        
+            console.log(checkObj.memberTel);
+            return;
+        }
+
+        var regExp = /^0(1[01679]|2|[3-6][1-5]|70)\d{3,4}\d{4}$/;
+
+        if (checkValue(this)) {
+            $telMessage.text("기존");
+            checkObj.memberTel = true;
+        
+            console.log(checkObj.memberTel);
+            return;
+        }
+
+        checkObj.memberTel.changed = true; 
+
+
+        if (regExp.test(this.value)) {
+            $.ajax({
+                url: "telDupCheck",
+                data: { "memberTel": this.value },
+                type: "GET",
+                success: function(result) {
+                    if (result == 1) {
+                        $telMessage.text("중복");
+                        $telMessage.removeClass("confirm").addClass("error");
+                        checkObj.memberTel = false;
+                        console.log(checkObj.memberTel);
+                    } else {
+                        $telMessage.text("가능");
+                        $telMessage.removeClass("error").addClass("confirm");
+                        checkObj.memberTel = true;
+                        console.log(checkObj.memberTel);
+                    }
+                },
+                error: function() {
+                }
+            });
+        } else {
+            $telMessage.text("불가");
+            $telMessage.removeClass("confirm").addClass("error");
+            checkObj.memberTel = false;
+            console.log(checkObj.memberTel);
+        }
+    });
 
     $('.emailInput').dblclick(function(){
-        $('.emailInput').removeAttr('readonly').focus().select();
+        $('.memberEmail').removeAttr('readonly').focus().select();
     }); 
 
-    const memberEmail = $(".emailInput"); 
-    const emailMessage = $("#emailMessage");
+    $('.emailInput').keydown(function(e) {
+        if (e.which === 13 || e.which === 9) {
+            console.log("==============================================")
+            checkValue(this);
+        }
+    });
+
     
-    memberEmail.on("input", function () {
-        // 입력이 되지 않은 경우
-        if (memberEmail.val().length == 0) {
+    $('#memberEmail').on("input", function () {
+        const emailMessage = $("#emailMessage");
+
+        if (this.value.length == 0) {
             emailMessage.text("불가");
             emailMessage.removeClass("confirm error");
             checkObj.memberEmail = false;
             return;
         }
-    
+
         const regExp = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+){1,3}$/;
+
+        if (checkValue(this)) {
+            emailMessage.text("기존");
+            emailMessage.addClass("confirm");
+            emailMessage.removeClass("error");
+            checkObj.memberEmail = true;
+            console.log(checkObj.memberEmail);
+            return;
+        }
+
+        checkObj.memberEmail.changed = true; 
     
-        if (regExp.test(memberEmail.val())) { 
+        if (regExp.test(this.value)) { 
             $.ajax({
                 url: "emailDupCheck",
-                data: { "memberEmail": memberEmail.val() },
+                data: { "memberEmail": this.value },
                 type: "GET",
                 success: function (result) {
                     if (result == 1) { //중복 o
@@ -76,57 +156,33 @@ $(document).ready(function() {
         }
     });
 
-        $('#hireDate').dblclick(function() {
-            $(this).removeAttr('readonly').focus();
-        });
  
 
     $(document).on("keypress", "form", function(event) { 
         return event.keyCode != 13;
     });
 
-
-    $("#memberTel").on("input", function() {
-        
-        var $telMessage = $("#telMessage");
-
-        if (this.value.length == 0) {
-            $telMessage.text("전화번호를 입력해주세요.(- 제외)");
-            $telMessage.removeClass("confirm error");
-            return;
-        }
-
-        var regExp = /^0(1[01679]|2|[3-6][1-5]|70)\d{3,4}\d{4}$/;
-
-        if (regExp.test(this.value)) {
-            $.ajax({
-                url: "telDupCheck",
-                data: { "memberTel": this.value },
-                type: "GET",
-                success: function(result) {
-                    if (result == 1) {
-                        $telMessage.text("중복");
-                        $telMessage.removeClass("confirm").addClass("error");
-                    } else {
-                        $telMessage.text("가능");
-                        $telMessage.removeClass("error").addClass("confirm");
-                    }
-                },
-                error: function() {
-                }
-            });
-        } else {
-            $telMessage.text("불가");
-            $telMessage.removeClass("confirm").addClass("error");
-        }
+    $('#hireDate').dblclick(function() {
+        $(this).removeAttr('readonly').focus();
     });
 
+    $('#hireDate').on('change', function() {
+        const selectedDate = new Date($(this).val());
+        const today = new Date();
 
+        // 시간, 분, 초를 무시하기 위해 날짜만 비교
+        selectedDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+
+        if (selectedDate > today) {
+            alert("오늘날짜보다 빠릅니다");
+            $(this).val(''); // value를 초기화
+        }
+    });
     
 
+    // dom끝
 });
-
-
 
 
 
@@ -144,3 +200,60 @@ function sample4_execDaumPostcode() {
 }
 
 
+function checkValue(inputElement) {
+    const originalValue = $(inputElement).data('original');
+
+    if ($(inputElement).val() === originalValue) {
+        alert('새로 입력한 값이 기존 값과 동일합니다.');
+        $(inputElement).val(originalValue); 
+        return true;  
+    }
+    return false;
+}
+
+
+function sendMemberData(e) {
+    const memberTel = $('#memberTel').val();
+    const memberAddr = [
+        $('#sample4_postcode').val(),
+        $('#sample4_roadAddress').val(),
+        $('#sample4_detailAddress').val()
+    ];
+    const memberEmail = $('#memberEmail').val();
+    const memberGender = $('.memberGender option:selected').val();
+    const memberLv = $('.memLv option:selected').val();
+    const memberGrad = $('.memberGrad option:selected').val();
+    const memberHire = $('#hireDate').val();
+    const memberBirth = $('#memberBirth').val();
+
+    const data = {
+        memberTel: memberTel,
+        memberAddr: memberAddr,
+        memberEmail: memberEmail,
+        memberGender: memberGender,
+        memberLv: memberLv,
+        memberGrad: memberGrad,
+        memberHire: memberHire,
+        memberBirth: memberBirth
+    };
+
+    console.log(data);
+    console.log("checkObj의 상태는 아래와 같습니다:", checkObj.memberEmail, checkObj.memberTel);
+
+    for (let key in checkObj) {
+        if (!checkObj[key]) {
+            let str = ""; 
+            switch (key) {
+                case "memberEmail": str = "이메일이"; break;
+                case "memberTel": str = "전화번호가"; break;
+            }
+            str += " 유효하지 않습니다.";
+
+            alert(str);
+            document.getElementById(key).focus();
+            return false; // 유효성 검사에 실패하면 false를 반환하여 폼 전송을 중지
+        }
+    }
+
+    return true;
+}

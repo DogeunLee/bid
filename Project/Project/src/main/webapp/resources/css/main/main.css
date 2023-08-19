@@ -313,6 +313,13 @@ a {
     text-align: center;
 }
 
+.row td {
+    max-width: 360px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* color-odd */
 .row:nth-child(odd) {
     background-color: lightgray;

@@ -37,12 +37,11 @@
 
 								<div>
 									<div class="content-wrap">
-										<form action="">
-
+										<form action="updateInfos/${memberNo}" method="post" onsubmit="return sendMemberData()">
 											<div>
 												<p>직원 세부정보</p>
 												<div class="btnWrap">
-													<button type="button" class="saveBtn">저장</button>
+													<button class="saveBtn">저장</button>
 													<button type="button">삭제</button>
 												</div>
 											</div>
@@ -57,28 +56,29 @@
 																alt="">
 														</div>
 														<div>
-															<div><span
-																	class="memberNo">${memberInfo.memberId}</span>
+															<div><span class="memberNo">${memberInfo.memberId}</span>
 															</div>
 															<div><span>${memberInfo.memberName}</span></div>
 														</div>
 													</div>
 
 													<div class="changeWrap">
-														<div><a href="">기본정보</a></div>
-														<div><a href="">비밀번호</a></div>
+														<div><a href="${contextPath}/myPage/memberDetail/${memberNo}">기본정보</a></div>
+														<div><a href="${contextPath}/myPage/memberDetailPw/${memberNo}">비밀번호</a></div>
 													</div>
-													
+
 
 													<div class="default-infoWrap">
-														
+
 
 														<div class="infosWrap">
 															<div>
 																<p>전화번호</p><input class="telInput" id="memberTel"
-																	value="${memberInfo.memberTel}" readonly><div id="telMessage">
+																	data-original="${memberInfo.memberTel}" name="memberTel"
+																	value="${memberInfo.memberTel}" readonly type="text">
+																<div id="telMessage">
 
-																	</div>
+																</div>
 															</div>
 
 															<c:set var="addr"
@@ -111,14 +111,14 @@
 
 															<div>
 																<p>이메일</p>
-																<input class="emailInput"
-																	value="${memberInfo.memberEmail}" readonly>
-																	<div id="emailMessage"></div>
+																<input class="memberEmail emailInput" id="memberEmail" data-original="${memberInfo.memberEmail}" name="memberEmail"
+																	value="${memberInfo.memberEmail}" type="text" readonly>
+																<div id="emailMessage"></div>
 															</div>
 
 															<div>
 																<p>성별</p>
-																<select class="memberGender">
+																<select class="memberGender" name="memberGender">
 																	<option selected disabled>
 																		${memberInfo.memberGender}&nbsp;&nbsp;</option>
 
@@ -133,7 +133,7 @@
 
 															<div>
 																<p>레벨</p>
-																<select class="memLv">
+																<select class="memLv" name="memberLv">
 																	<option selected disabled>
 																		${memberInfo.memberLv}&nbsp;&nbsp;</option>
 
@@ -148,7 +148,7 @@
 
 															<div>
 																<p>학력</p>
-																<select class="memberGrad">
+																<select class="memberGrad" name="memberGrad">
 																	<option selected disabled>
 																		${memberInfo.memberGrad}&nbsp;&nbsp;</option>
 
@@ -170,22 +170,20 @@
 																	value="${memberInfo.memberHire}" readonly>
 
 															</div>
-															
+
 															<div>
 																<p>주민등록</p>
 
-																<input class="juminDate"
-																	value="${hiddenSSN}" readonly>
+																<input class="juminDate" name="memberBirth" value="${hiddenSSN}" type="text" readonly>
 															</div>
-															
+
 															<div>
 																<p>생년월일</p>
 
-																<input  type="date" name="memberBirth"
-																	 class="dateBtn" id="memberBirth"
-																	onfocus="this.showPicker()"
+																<input type="date" class="dateBtn"
+																	id="memberBirth" onfocus="this.showPicker()"
 																	value="${formattedBirth}" readonly>
-																
+
 
 															</div>
 

@@ -58,6 +58,8 @@ public class MainController {
 		bigCategoryList = services.searchBigCat();
 		
 		
+		
+		
 		model.addAttribute("getMemberList", getMemberList);
 		model.addAttribute("bigCategoryList", bigCategoryList);
 
@@ -262,7 +264,6 @@ public class MainController {
 			@PathVariable("memberNo") int memberNo,
 			Model model
 			) {
-		
 
 	    Member member = service.getMemberInfo(memberNo);
 	    
@@ -295,7 +296,7 @@ public class MainController {
 	
 	
 	// 파일업로드 ******
-	@PostMapping("/uploadImage")
+	@PostMapping("/uploadImage/{memberNo}")
 	@ResponseBody
 	public String uploadImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
 		JsonObject jsonObject = new JsonObject();
