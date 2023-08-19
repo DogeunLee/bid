@@ -7,11 +7,13 @@
 		<result property="codeId" column="CODE_ID" />
 		<result property="codeName" column="CODE_NAME" />
 	</resultMap>
-	
+
 	<select id="getSubCategories" parameterType="detailCat"
 		resultMap="detailCat_rm">
-	SELECT CODE_NO, CODE_ID, CODE_NAME FROM MASTER_CODETBL
-	WHERE CODE_NO = #{codeNo}
+		SELECT CODE_NO, CODE_ID, CODE_NAME
+		FROM MASTER_CODETBL
+		WHERE CODE_NO = #{codeNo}
+		ORDER BY CODE_NO ASC, CODE_ID ASC
 	</select>
 
 </mapper>

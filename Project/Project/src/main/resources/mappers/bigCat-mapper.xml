@@ -11,7 +11,9 @@
 		resultMap="bigCat_rm">
 		SELECT
 		CODE_NO, CODE_ID FROM CODE_TABLE
-		WHERE CODE_NO IN (11, 20, 10)
+		WHERE CODE_NO IN (10, 11, 20)
+		ORDER BY CODE_NO ASC
+		
 	</select>
 	
 
