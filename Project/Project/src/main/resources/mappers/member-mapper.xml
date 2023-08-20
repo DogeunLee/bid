@@ -240,7 +240,7 @@
 		WHERE m.MEMBER_NO = #{memberNo}
 	</select>
 
-	<select id="updateInfos">
+	<update id="updateInfos">
 
 		UPDATE MEMBER SET
 		MEMBER_NO = #{memberNo}
@@ -267,7 +267,23 @@
 		</if>
 		WHERE MEMBER_NO = #{memberNo}
 
+	</update>
+	
+	<select id="checkCurrentPassword" resultType="int">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE MEMBER_NO = #{memberNo}
+		AND MEMBER_PW = #{memberPw}
+		AND
+		(MEMBER_ST = 'STAT01' OR MEMBER_ST = 'STAT02' OR MEMBER_ST =
+		'STAT04')
 	</select>
+	
+	<update id="updateChangePw">
+		UPDATE MEMBER SET
+		MEMBER_PW = #{memberPw}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
 
 
 

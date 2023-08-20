@@ -146,6 +146,22 @@ public class MemberImple implements MemberService{
 		return updateInfos;
 	}
 
+	@Override
+	public int changePw(int memberNo, String currentPassword, String newPassword) {
+		
+		int current = dao.currentPassword(memberNo, currentPassword);
+		
+		int changePw = 0;
+		
+		if ( current == 0) {
+			changePw = 0;
+		} else {
+			changePw =	dao.changePw(memberNo, newPassword);
+		}
+		
+		return changePw;
+	}
+
 
 
 

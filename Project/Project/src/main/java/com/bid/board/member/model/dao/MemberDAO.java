@@ -14,7 +14,7 @@ import com.bid.board.member.model.vo.Member;
 
 @Repository
 public class MemberDAO {
-	
+
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
@@ -27,7 +27,7 @@ public class MemberDAO {
 	public Member login(Member inputMember) {
 		return sqlSession.selectOne("memberMapper.login", inputMember);
 	}
-	
+
 
 	public int getMmberListCount() {
 		return sqlSession.selectOne("memberMapper.selectMemberNo");
@@ -35,11 +35,11 @@ public class MemberDAO {
 
 
 	public List<Member> getMemberList(MemberPageNation pagenation) {
-		
+
 		int offset = (pagenation.getCurrentPage() - 1) * pagenation.getLimit();
-		
+
 		RowBounds rowBounds = new RowBounds(offset, pagenation.getLimit());
-		
+
 		return sqlSession.selectList("memberMapper.getMemberList",rowBounds);
 	}
 
@@ -65,7 +65,7 @@ public class MemberDAO {
 
 
 	public List<Member> searchMemberList(int codeNo, String codeId, String memberName) {
-		
+
 		Map<String, Object> params = new HashMap<>();
 		params.put("codeNo", codeNo);
 		params.put("codeId", codeId);
@@ -81,14 +81,14 @@ public class MemberDAO {
 	public List<Member> searchSelectList(int codeNo, String codeId, String memberName, String startDate, String endDate,
 			String memberSt, String memberGender, String memberLv) {
 		Map<String, Object> params = new HashMap<>();
-		
-		
+
+
 		System.out.println(memberSt + "================================");
 		System.out.println(memberGender + "================================");
 		System.out.println(memberLv + "================================");
 		System.out.println(memberName);
-		
-		
+
+
 		params.put("codeNo", codeNo);
 		params.put("codeId", codeId);
 		params.put("memberName", memberName);
@@ -102,7 +102,7 @@ public class MemberDAO {
 
 
 	public Member getMemberInfo(int memberNo) {
-		
+
 		return sqlSession.selectOne("memberMapper.getMemberInfo", memberNo);
 	}
 
@@ -111,7 +111,29 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.updateInfos", inputMember);
 	}
 
-	
+
+	public int currentPassword(int memberNo, String currentPassword) {
+
+		Map<String, Object> params = new HashMap<>();
+
+		params.put("memberNo", memberNo);
+		params.put("memberPw", currentPassword);
+
+		return sqlSession.selectOne("memberMapper.checkCurrentPassword",params);
+	}
+
+
+	public int changePw(int memberNo, String newPassword) {
+
+		Map<String, Object> params = new HashMap<>();
+
+		params.put("memberNo", memberNo);
+		params.put("memberPw", newPassword);
+
+		return sqlSession.update("memberMapper.updateChangePw",params);
+	}
+
+
 
 
 

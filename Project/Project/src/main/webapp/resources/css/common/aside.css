@@ -17,8 +17,8 @@ a {
 }
 
 main {
-    width: 1920px;
-    height: 963px;
+    width: 1920;
+    height: 955px;
     display: flex;
     margin:0 auto;
 }

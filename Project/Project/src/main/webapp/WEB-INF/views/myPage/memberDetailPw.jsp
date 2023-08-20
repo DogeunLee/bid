@@ -36,7 +36,7 @@
 
 								<div>
 									<div class="content-wrap">
-										<form action="updateInfos/${memberNo}" method="post"
+										<form action="updateInfosPw/${memberNo}" method="post"
 											onsubmit="return sendMemberData()">
 											<div>
 												<p>직원 세부정보</p>
@@ -78,31 +78,35 @@
 													<div class="default-infoWrap">
 
 														<div class="pwInputWrap">
-															<form action="">
-
+															<form action="updateInfosPw/${memberNo}" method="post"
+																onsubmit="return checkPwValidation()">
 
 																<div class="pwFormWrap">
 																	<h3>비밀번호 변경</h3>
 																	<div class="pw-input-triple">
 																		<div class="currentPwArea">
 																			<span>현재비밀번호</span><input type="password"
-																				placeholder="비밀번호를 입력해주세요">
+																				placeholder="비밀번호를 입력해주세요"
+																				name="memberPw">
 																			<p id="currentPwMessage"> </p>
 																		</div>
 																		<div class="newPwArea">
 																			<span>새로운비밀번호</span><input type="password"
-																				placeholder="새로운 비밀번호 입력">
+																				placeholder="새로운 비밀번호 입력"
+																				class="newPasswordIp"
+																				name="newMemberPw">
 																			<p id="newPwMessage"> </p>
 																		</div>
 																		<div class="newPwAreaCheck">
 																			<span>새비밀번호 확인</span><input type="password"
-																				placeholder="새로운 비밀번호 확인">
+																				placeholder="새로운 비밀번호 확인"
+																				class="newPasswordIpCheck">
 																			<p id="newPwCheckMessage"> </p>
 																		</div>
 																	</div>
 																</div>
 
-															</form>
+
 														</div>
 
 													</div>

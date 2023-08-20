@@ -26,5 +26,7 @@ public interface MemberService {
 	Member getMemberInfo(int memberNo);
 
 	int updateInfos(Member inputMember);
+
+	int changePw(int memberNo, String currentPassword, String newPassword);
 	
 }

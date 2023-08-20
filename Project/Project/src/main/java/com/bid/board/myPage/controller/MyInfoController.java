@@ -63,9 +63,6 @@ public class MyInfoController {
 		return result;
 	}
 	
-	
-	
-	
 
 	@PostMapping("/memberDetail/updateInfos/{memberNo}")
 	public String updateInfos(
@@ -105,7 +102,34 @@ public class MyInfoController {
 		return path;
 	} 
 	
-
+	@PostMapping("/memberDetailPw/updateInfosPw/{memberNo}")
+	public String updateInfosPw(
+			 @PathVariable("memberNo") int memberNo, // URL 경로의 {memberNo} 값을 가져오기 위해 사용
+		        @RequestParam("memberPw") String currentPassword, // 현재 비밀번호
+		        @RequestParam("newMemberPw") String newPassword, // 새로운 비밀번호
+		        RedirectAttributes ra
+			) {
+		
+		System.out.println(memberNo + "현재 멤버는?");
+		
+		System.out.println(currentPassword+ "현재 멤버는?");
+		System.out.println(newPassword+ "현재 멤버는?");
+		
+		int result = service.changePw(memberNo, currentPassword, newPassword);
+		String message = null;
+		String path = null;
+		
+		if(result == 0) {
+			message = "비밀번호 변경에 실패하였습니다.";
+			path = "redirect:/myPage/memberDetailPw/"+memberNo;
+		} else {
+			message = "비밀번호 변경 성공";
+			path = "redirect:/myPage/memberDetailPw/"+memberNo;
+		}
+		ra.addFlashAttribute("message",message);
+		
+		return path;
+	}
 
 	
 }
