@@ -67,11 +67,11 @@ $(document).ready(function () {
                  type: "GET",
                  success: function (result) {
                      if (result == 1) { // If email is already in use
-                        memberMessage.text("이미 사용 중인 사번 입니다.");
+                        memberMessage.text("이미 사용 중인 사번 ");
                         memberMessage.addClass("error").removeClass("confirm");
                         checkObj.memberId = false;
                      } else {
-                        memberMessage.text("사용 가능한 사번입니다.");
+                        memberMessage.text("사용가능한 사번입니다.");
                         memberMessage.addClass("confirm").removeClass("error");
                         checkObj.memberId = true;
                         console.log(checkObj.memberId);
@@ -82,7 +82,7 @@ $(document).ready(function () {
                  }
             });
          } else {
-            memberMessage.text("아이디 형식이 유효하지 않습니다.");
+            memberMessage.text("유효하지않은 사번형식.");
             memberMessage.addClass("error").removeClass("confirm");
             checkObj.memberId = false;
 
@@ -232,7 +232,7 @@ $(document).ready(function() {
                     }
                 });
             } else {
-                $telMessage.text("연락처 형식이 올바르지 않습니다.");
+                $telMessage.text("올바르지않은 연락처형식");
                 $telMessage.removeClass("confirm").addClass("error");
                 checkObj.memberTel = false;
                 console.log(checkObj.memberTel);

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     var firstItem = $(".myPageWrap > ul > li:nth-child(1)");
     firstItem.addClass("highlighted");
 

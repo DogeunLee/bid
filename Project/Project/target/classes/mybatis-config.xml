@@ -13,6 +13,10 @@
 			alias="bigCat"/>
 			<typeAlias type="com.bid.board.category.model.vo.DetailCategory"
 			alias="detailCat"/>
+			<typeAlias type="com.bid.board.member.model.vo.Graduate"
+			alias="graduate"/>
+			<typeAlias type="com.bid.board.member.model.vo.Exp"
+			alias="exp"/>
 	</typeAliases>
 
 	<mappers>

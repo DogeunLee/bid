@@ -12,7 +12,8 @@
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>signUp</title>
 
-                        <link rel="stylesheet" href="${contextPath}/resources/css/main/signUp.css">
+                        <link rel="stylesheet" href="${contextPath}/resources/css/signUp/signUp.css">
+                        <link rel="stylesheet" href="${contextPath}/resources/css/common/aside.css">
                         <script src="https://code.jquery.com/jquery-3.6.0.min.js"
                             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
                             crossorigin="anonymous"></script>
@@ -238,6 +239,6 @@
                         </script>
                     </c:if>
                     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-                    <script src="${contextPath}/resources/js/main/signUp.js"></script>
+                    <script src="${contextPath}/resources/js/signUp/signUp.js"></script>
 
                     </html>

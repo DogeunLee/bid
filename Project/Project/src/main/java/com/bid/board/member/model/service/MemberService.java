@@ -2,6 +2,8 @@ package com.bid.board.member.model.service;
 
 import java.util.Map;
 
+import com.bid.board.member.model.vo.Exp;
+import com.bid.board.member.model.vo.Graduate;
 import com.bid.board.member.model.vo.Member;
 
 public interface MemberService {
@@ -18,7 +20,7 @@ public interface MemberService {
 
 	int emailDupCheck(String memberEmail);
 
-	int signUp(Member inputMember);
+	int signUp(Member inputMember, Graduate graduate, Exp exp);
 
 	Map<String, Object> searchResultBack(int codeNo, String codeId, String memberName, String startDate, String endDate,
 			String memberSt, String memberGender, String memberLv);

@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 public class MemberPageNation {
 
 	    private int currentPage;
-	    private int mtmCount;     
+	    private int memberListCount;     
 	    private int limit = 12;    
-	    private int pageSize = 12;  
+	    private int pageSize = 10;  
 	    private int maxPage;       
 	    private int startPage;     
 	    private int endPage;      
@@ -20,9 +20,9 @@ public class MemberPageNation {
 	    private int nextPage;      
 		
 
-	    public MemberPageNation(int currentPage, int mtmCount) {
+	    public MemberPageNation(int currentPage, int memberListCount) {
 	        this.currentPage = currentPage;
-	        this.mtmCount = mtmCount;
+	        this.memberListCount = memberListCount;
 	        calculatePagination();
 	    }
 
@@ -31,8 +31,8 @@ public class MemberPageNation {
 	        calculatePagination();
 	    }
 
-	    public void setListCount(int listCount) {
-	        this.mtmCount = listCount;
+	    public void setListCount(int memberListCount) {
+	        this.memberListCount = memberListCount;
 	        calculatePagination();
 	    }
 
@@ -48,7 +48,7 @@ public class MemberPageNation {
 
 	    private void calculatePagination() {
 	   	
-	        maxPage = (int) Math.ceil((double) mtmCount / limit);
+	        maxPage = (int) Math.ceil((double) memberListCount / limit);
 	        startPage = (currentPage - 1) / pageSize * pageSize + 1;
 	        endPage = startPage + pageSize - 1;
 	        

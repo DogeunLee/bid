@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.bid.board.main.model.MemberPageNation;
 import com.bid.board.member.model.dao.MemberDAO;
+import com.bid.board.member.model.vo.Exp;
+import com.bid.board.member.model.vo.Graduate;
 import com.bid.board.member.model.vo.Member;
 
 @Service
@@ -49,11 +51,13 @@ public class MemberImple implements MemberService{
 	@Override
 	public Map<String, Object> getMemberList(int cp) {
 
-	    int memberListCount = dao.getMmberListCount();
+	    int memberListCount = dao.getMemberListCount();
 
 	    MemberPageNation pagination = new MemberPageNation(cp, memberListCount);
 
 	    List<Member> memberList = dao.getMemberList(pagination);
+	    
+	    System.out.println(pagination);
 	    
 	    for (Member member : memberList) {
 	        String memberAddr = member.getMemberAddr(); 
@@ -87,8 +91,18 @@ public class MemberImple implements MemberService{
 	}
 
 	@Override
-	public int signUp(Member inputMember) {
-		return dao.signUp(inputMember);
+	public int signUp(Member inputMember, Graduate graduate, Exp exp) {
+		dao.signUp(inputMember);
+		
+		int memberNo = dao.getNewMemberNo();
+		
+		graduate.setMemberNo(memberNo);
+		exp.setMemberNo(memberNo);
+		
+		int result = dao.setGarduateInfo(graduate);
+		int result2 = dao.getExpInfo(exp);
+		
+		return result;
 	}
 
 	@Override

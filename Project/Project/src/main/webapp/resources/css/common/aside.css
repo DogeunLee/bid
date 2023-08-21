@@ -18,14 +18,14 @@ a {
 
 main {
     width: 1920;
-    height: 955px;
+    height: 963px;
     display: flex;
     margin:0 auto;
 }
 
 /* 왼쪽 aside */
 .leftSide {
-    width: 13%;
+    width: 249px;
     height: 100%;
     background-color: rgb(51, 51, 51);
     display: flex;

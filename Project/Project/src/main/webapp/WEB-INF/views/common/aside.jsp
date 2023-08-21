@@ -25,17 +25,10 @@
 
                         </div>
 
-                        <div class="search-area">
-                           <p>경력검색</p>
-                           <input type="text">
-                           <div>
-                              <a href="">Search</a>
-                           </div>
-                        </div>
+                     
 
                      </aside>
                      
 
-               <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
              

@@ -154,7 +154,7 @@
 
 																	<!-- 학력 옵션 렌더링 -->
 																	<c:forEach var="category" items="${gradOptions}">
-																		<option class="hideOnbush3"
+																		<option
 																			value="${category.codeId}">
 																			${category.codeName}</option>
 																	</c:forEach>

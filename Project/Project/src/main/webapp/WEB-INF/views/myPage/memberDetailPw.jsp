@@ -37,7 +37,7 @@
 								<div>
 									<div class="content-wrap">
 										<form action="updateInfosPw/${memberNo}" method="post"
-											onsubmit="return sendMemberData()">
+																onsubmit="return checkPwValidation()">
 											<div>
 												<p>직원 세부정보</p>
 												<div class="btnWrap">
@@ -66,10 +66,12 @@
 													</div>
 
 													<div class="changeWrap">
-														<div><a
+														<div>
+															<a
 																href="${contextPath}/myPage/memberDetail/${memberNo}">기본정보</a>
 														</div>
-														<div><a
+														<div>
+															<a
 																href="${contextPath}/myPage/memberDetailPw/${memberNo}">비밀번호</a>
 														</div>
 													</div>
@@ -78,8 +80,7 @@
 													<div class="default-infoWrap">
 
 														<div class="pwInputWrap">
-															<form action="updateInfosPw/${memberNo}" method="post"
-																onsubmit="return checkPwValidation()">
+														
 
 																<div class="pwFormWrap">
 																	<h3>비밀번호 변경</h3>
@@ -88,25 +89,23 @@
 																			<span>현재비밀번호</span><input type="password"
 																				placeholder="비밀번호를 입력해주세요"
 																				name="memberPw">
-																			<p id="currentPwMessage"> </p>
+																			<p id="currentPwMessage"></p>
 																		</div>
 																		<div class="newPwArea">
 																			<span>새로운비밀번호</span><input type="password"
 																				placeholder="새로운 비밀번호 입력"
 																				class="newPasswordIp"
 																				name="newMemberPw">
-																			<p id="newPwMessage"> </p>
+																			<p id="newPwMessage"></p>
 																		</div>
 																		<div class="newPwAreaCheck">
 																			<span>새비밀번호 확인</span><input type="password"
 																				placeholder="새로운 비밀번호 확인"
 																				class="newPasswordIpCheck">
-																			<p id="newPwCheckMessage"> </p>
+																			<p id="newPwCheckMessage"></p>
 																		</div>
 																	</div>
 																</div>
-
-
 														</div>
 
 													</div>

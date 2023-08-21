@@ -20,6 +20,26 @@
 		<result property="gradName" column="GRAD_NAME" />
 	</resultMap>
 
+	<resultMap type="graduate" id="graduate_rm">
+		<id property="gradNo" column="GRAD_NO" />
+		<result property="codeNo" column="CODE_NO" />
+		<result property="memberGrad" column="MEMBER_GRAD" />
+		<result property="memberNo" column="MEBMER_NO" />
+		<result property="gradName" column="GRAD_NAME" />
+		<result property="gradValue" column="GRAD_VALUE" />
+		<result property="gradHsDate" column="GRAD_HSDATE" />
+		<result property="gradHeDate" column="GRAD_HEDATE" />
+	</resultMap>
+
+	<resultMap type="exp" id="exp_rm">
+		<id property="expNo" column="EXP_NO" />
+		<result property="memberNo" column="MEBMER_NO" />
+		<result property="expName" column="EXP_NAME" />
+		<result property="expDept" column="EXP_DEPT" />
+		<result property="expSDate" column="EXP_SDATE" />
+		<result property="expEDate" column="EXP_EDATE" />
+	</resultMap>
+
 	<select id="selectMemberNo" resultType="_int">
 		SELECT COUNT(*) FROM
 		MEMBER
@@ -99,10 +119,41 @@
 		DEFAULT,
 		#{memberLv},
 		#{memberAddr},
-		#{memberImg},
-		#{memberEmail}
+		DEFAULT,
+		#{memberEmail},
+		#{memberGrad}
 		)
 	</insert>
+
+	<select id="selectNewMemberNo" resultType="_int">
+		SELECT MAX(MEMBER_NO) FROM MEMBER
+	</select>
+
+
+	<insert id="setGarduateInfo" parameterType="graduate">
+		INSERT INTO GRADUATE VALUES(
+		GRADUATE_SEQ.NEXTVAL,
+		50,
+		#{memberNo},
+		#{gradName},
+		#{gradValue},
+		#{gradHsDate},
+		#{gradHeDate},
+		#{memberGrad}
+		)
+	</insert>
+	
+		<insert id="getExpInfo" parameterType="exp">
+		INSERT INTO EXP VALUES(
+		EXP_SEQ.NEXTVAL,
+		#{memberNo},
+		#{expName},
+		#{expDept},
+		#{expSDate},
+		#{expEDate}
+		)
+	</insert>
+
 
 	<select id="searchFormMemberList" resultMap="member_rm">
 		SELECT
@@ -268,22 +319,24 @@
 		WHERE MEMBER_NO = #{memberNo}
 
 	</update>
-	
+
 	<select id="checkCurrentPassword" resultType="int">
-		SELECT COUNT(*) FROM MEMBER
+		SELECT COUNT(*)
+		FROM MEMBER
 		WHERE MEMBER_NO = #{memberNo}
 		AND MEMBER_PW = #{memberPw}
 		AND
 		(MEMBER_ST = 'STAT01' OR MEMBER_ST = 'STAT02' OR MEMBER_ST =
 		'STAT04')
 	</select>
-	
+
 	<update id="updateChangePw">
 		UPDATE MEMBER SET
 		MEMBER_PW = #{memberPw}
-		WHERE MEMBER_NO = #{memberNo}
+		WHERE
+		MEMBER_NO = #{memberNo}
 	</update>
-	
+
 
 
 

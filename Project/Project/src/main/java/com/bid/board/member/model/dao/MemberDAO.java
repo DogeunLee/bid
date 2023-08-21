@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.bid.board.main.model.MemberPageNation;
+import com.bid.board.member.model.vo.Exp;
+import com.bid.board.member.model.vo.Graduate;
 import com.bid.board.member.model.vo.Member;
 
 @Repository
@@ -29,7 +31,7 @@ public class MemberDAO {
 	}
 
 
-	public int getMmberListCount() {
+	public int getMemberListCount() {
 		return sqlSession.selectOne("memberMapper.selectMemberNo");
 	}
 
@@ -40,7 +42,7 @@ public class MemberDAO {
 
 		RowBounds rowBounds = new RowBounds(offset, pagenation.getLimit());
 
-		return sqlSession.selectList("memberMapper.getMemberList",rowBounds);
+		return sqlSession.selectList("memberMapper.getMemberList",null,rowBounds);
 	}
 
 
@@ -132,6 +134,24 @@ public class MemberDAO {
 
 		return sqlSession.update("memberMapper.updateChangePw",params);
 	}
+	
+	public int getNewMemberNo() {
+		return sqlSession.selectOne("memberMapper.selectNewMemberNo");
+	}
+
+
+	public int setGarduateInfo(Graduate graduate) {
+
+		return sqlSession.update("memberMapper.setGarduateInfo",graduate);
+	}
+
+
+	public int getExpInfo(Exp exp) {
+		return sqlSession.update("memberMapper.getExpInfo",exp);
+	}
+
+
+	
 
 
 

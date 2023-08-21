@@ -30,6 +30,8 @@ import com.bid.board.category.model.service.BigCategoryService;
 import com.bid.board.category.model.vo.DetailCategory;
 import com.bid.board.common.Util;
 import com.bid.board.member.model.service.MemberService;
+import com.bid.board.member.model.vo.Exp;
+import com.bid.board.member.model.vo.Graduate;
 import com.bid.board.member.model.vo.Member;
 import com.google.gson.JsonObject;
 
@@ -57,12 +59,10 @@ public class MainController {
 		Map<String, Object> bigCategoryList = null;
 		bigCategoryList = services.searchBigCat();
 		
-		
-		
-		
 		model.addAttribute("getMemberList", getMemberList);
 		model.addAttribute("bigCategoryList", bigCategoryList);
 
+		
 		System.out.println(getMemberList);
 		
 		return "common/main";
@@ -140,8 +140,12 @@ public class MainController {
 	public String signUp(
 			Model model
 			) {
+		 List<DetailCategory> lvOptions = services.getSubCategorie(20);
+		    List<DetailCategory> gradOptions = services.getSubCategorie(50);
 
-		return "common/signUp";
+		    model.addAttribute("lvOptions", lvOptions);
+		    model.addAttribute("gradOptions", gradOptions);
+		return "signUp/signUp";
 	}
 
 	@ResponseBody
@@ -179,8 +183,10 @@ public class MainController {
 	
 	@PostMapping("/signUp")
 	public String signUp(Member inputMember
-						,String[] memberAddr,
-						@RequestParam(value = "imageUrl1", required = false) String imageUrl
+						,Graduate graduate
+						,Exp exp
+						,Model model
+						,String[] memberAddr
 						,RedirectAttributes ra	) {
 		
 		inputMember.setMemberAddr( String.join(",,", memberAddr ));
@@ -189,8 +195,6 @@ public class MainController {
 			
 			inputMember.setMemberAddr(null);
 		}
-
-		inputMember.setMemberImg(imageUrl);
 	
 		String memberGender = inputMember.getMemberBirth();
 		
@@ -215,14 +219,14 @@ public class MainController {
 	
 		System.out.println(inputMember);
 		
-		int result = service.signUp(inputMember);
+		int result = service.signUp(inputMember, graduate, exp);
 
 			String message =null;
 	String path =null;
 
 	
 	if(result > 0) {
-		message = "회원가입 성z공!";
+		message = "회원가입 성공!";
 		path = "redirect:/signUp";
 	}else {
 		message = "회원가입 실패";
