@@ -1,5 +1,14 @@
 $(document).ready(function() {
+    initializeFirstItemHighlight();
+    initializeSearchInputFocus();
+    initializeBigCategoryChange();
+    initializeSearchButton();
+    initializeRowClick();
+    initializeSsearchContentClick();
+    initializeHireDateChange();
+});
 
+function initializeFirstItemHighlight() {
     var firstItem = $(".myPageWrap > ul > li:nth-child(1)");
     firstItem.addClass("highlighted");
 
@@ -11,11 +20,15 @@ $(document).ready(function() {
             firstItem.addClass("highlighted");
         }
     );
+}
 
+function initializeSearchInputFocus() {
     $('#searchInput').on('focus', function() {
         $(this).select();
     });
+}
 
+function initializeBigCategoryChange() {
     $("#bigCategory").change(function() {
         var selectedValue = $(this).val();
 
@@ -73,7 +86,9 @@ $(document).ready(function() {
             }
        
     });
+}
 
+function initializeSearchButton() {
     $('.searchBtn').click(function(e) {
         e.preventDefault();
     
@@ -87,13 +102,12 @@ $(document).ready(function() {
     
         $('.ssearch-content').each(function(index) {
             if ($(this).val()) {
-                // index 값을 기반으로 "searchValue1", "searchValue2" 등의 키를 생성합니다.
                 var key = 'searchValue' + (index + 1);
                 data[key] = $(this).val();
             }
         });
     
-        console.log(data); // 로그에 선택된 값을 출력합니다.
+        console.log(data);
     
         $.ajax({
             type: 'GET',
@@ -102,86 +116,27 @@ $(document).ready(function() {
             success: function(data) {
                 console.log(data);
                 updateTable(data);
+                updatePagination(data.pagination);
             },
             error: function(error) {
                 console.error('Error fetching data', error);
             }
         });
     });
-    
-    
+}
 
+function initializeRowClick() {
     $(document).on('click', '.row', function(e) {
-        var url = $(this).data("url"); 
-        window.location.href = url; 
+        var url = $(this).data("url");
+        window.location.href = url;
     });
+}
 
-    function updateTable(data) {
-        console.log(data.searchMemberList);
-
-        var tbody = $('.table-wrap tbody');
-        tbody.empty();
-
-        data.searchMemberList.forEach(function(member) {
-            var contextPath = "${contextPath}";
-
-            var row = '<tr class="row" data-url="/board/myPage/memberDetail/' + member.memberNo + '">' +
-            '<td>' + member.memberId + '</td>' +
-            '<td>' + member.memberName + '</td>' +
-            '<td>' + member.memberGender + '</td>' +
-            '<td>' + member.memberBirth + '</td>' +
-            '<td>' + member.memberHire + '</td>' +
-            '<td>' + member.memberLv + '</td>' +
-            '<td>' + member.memberTel + '</td>' +
-            '<td>' + member.memberEmail + '</td>' +
-            '<td>' + member.memberAddr + '</td>' +
-            '<td>' + member.memberGrad + '</td>' +
-            '<td>' + member.memberSt + '</td>' +
-            '</tr>';
-            tbody.append(row);
-        });
-    }
-});
-
-$(document).ready(function() {
+function initializeSsearchContentClick() {
     $(".ssearch-content").on('click', fetchOptions);
+}
 
-    function fetchOptions(e) {
-        var selectedValue = $(this).data("codeno");
-        
-        console.log("==================== ajax Test");
-        console.log(selectedValue);
-
-        $.ajax({
-            url: "getSubOptions",
-            type: "GET",
-            data: { codeNo: selectedValue },
-            success: function(response) {
-                var subOptions = response.subCategories;
-                var selectBox = $(e.currentTarget);
-                if (subOptions && subOptions.length > 0) {
-                    // 기존 옵션을 삭제합니다.
-                    // selectBox.find("option:not(:first)").remove();
-                    
-                    // 새로운 하위 옵션들을 추가합니다.
-                    
-                    $.each(subOptions, function(index, item) {
-                        selectBox.append($("<option></option>").attr("value", item.codeId).text(item.codeName));
-                    });
-                }
-                // AJAX 호출 후 새로운 option 요소들이 추가되었으므로, 클릭 이벤트를 비활성화합니다.
-                selectBox.off('click', fetchOptions);
-            },
-            error: function(error) {
-                console.error("Error fetching sub-options:", error);
-            }
-        });
-    }
-});
-
-$(document).ready(function() {
-
-    // 날짜가 변경될 때마다 유효성 검사
+function initializeHireDateChange() {
     $('.hireDate').on('change', function() {
         let startDate = new Date($('#startDate').val());
         let endDate = new Date($('#endDate').val());
@@ -216,20 +171,129 @@ $(document).ready(function() {
             return;
         }
     });
-});
-
-
-
-function resetSelects() {
-    $('select').prop('selectedIndex', 0);  // reset all select elements to their first option
-    // any other reset logic you might want
 }
 
-window.onbeforeunload = function() {
-    resetSelects();
-};
+function updateTable(data) {
+    var tbody = $('.table-wrap tbody');
+    tbody.empty();
 
-window.addEventListener('popstate', function(event) {
-    resetSelects();
-});
+    data.searchMemberList.forEach(function(member) {
+        var contextPath = "${contextPath}";
+        var row = '<tr class="row" data-url="/board/myPage/memberDetail/' + member.memberNo + '">' +
+        '<td>' + member.memberId + '</td>' +
+        '<td>' + member.memberName + '</td>' +
+        '<td>' + member.memberGender + '</td>' +
+        '<td>' + member.memberBirth + '</td>' +
+        '<td>' + member.memberHire + '</td>' +
+        '<td>' + member.memberLv + '</td>' +
+        '<td>' + member.memberTel + '</td>' +
+        '<td>' + member.memberEmail + '</td>' +
+        '<td>' + member.memberAddr + '</td>' +
+        '<td>' + member.memberGrad + '</td>' +
+        '<td>' + member.memberSt + '</td>' +
+        '</tr>';
+        tbody.append(row);
+        const tableCells = document.querySelectorAll("td"); 
 
+        tableCells.forEach(cell => {
+            if (cell.textContent.trim() === "undefined") {
+                cell.textContent = "";
+            }
+        });
+    });
+}
+
+function updatePagination(pagination) {
+    var pageNationDiv = $('.page_Nation');
+    pageNationDiv.empty();
+
+    var url = "?cp=";
+    var content = '';
+
+    // Create anchors with data-page attribute to store the page number
+    content += '<div><a href="#" data-page="1">&lt;&lt;</a></div>';
+    content += '<div><a href="#" data-page="' + pagination.prevPage + '">&lt;</a></div>';
+
+    for (var i = pagination.startPage; i <= pagination.endPage; i++) {
+        if (i === pagination.currentPage) {
+            content += '<div><a class="selected_Cp" data-page="' + i + '">' + i + '</a></div>';
+        } else {
+            content += '<div><a href="#" data-page="' + i + '">' + i + '</a></div>';
+        }
+    }
+
+    content += '<div><a href="#" data-page="' + pagination.nextPage + '">&gt;</a></div>';
+    content += '<div><a href="#" data-page="' + pagination.maxPage + '">&gt;&gt;</a></div>';
+
+    pageNationDiv.append(content);
+
+    // Attach click event to anchor tags
+    pageNationDiv.find('a').on('click', function(e) {
+        e.preventDefault();
+        var page = $(this).data('page'); // Get the page number
+        fetchDataForPage(page);
+    });
+}
+
+function fetchOptions(e) {
+    var selectedValue = $(this).data("codeno");
+        
+    console.log("==================== ajax Test");
+    console.log(selectedValue);
+
+    $.ajax({
+        url: "getSubOptions",
+        type: "GET",
+        data: { codeNo: selectedValue },
+        success: function(response) {
+            var subOptions = response.subCategories;
+            var selectBox = $(e.currentTarget);
+            if (subOptions && subOptions.length > 0) {
+                // 기존 옵션을 삭제합니다.
+                // selectBox.find("option:not(:first)").remove();
+                
+                // 새로운 하위 옵션들을 추가합니다.
+                
+                $.each(subOptions, function(index, item) {
+                    selectBox.append($("<option></option>").attr("value", item.codeId).text(item.codeName));
+                });
+            }
+            // AJAX 호출 후 새로운 option 요소들이 추가되었으므로, 클릭 이벤트를 비활성화합니다.
+            selectBox.off('click', fetchOptions);
+        },
+        error: function(error) {
+            console.error("Error fetching sub-options:", error);
+        }
+    });
+}
+
+function fetchDataForPage(page) {
+    var data = {
+        bcategory: $('#bigCategory').val(),
+        subCategory: $('#subCategory').val(),
+        startDate: $('#startDate').val(),
+        endDate: $('#endDate').val(),
+        memberName: $('#memberName').val(),
+        cp: page // Include the current page in the request
+    };
+
+    $('.ssearch-content').each(function(index) {
+        if ($(this).val()) {
+            var key = 'searchValue' + (index + 1);
+            data[key] = $(this).val();
+        }
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: 'searchMembers',
+        data: data,
+        success: function(data) {
+            updateTable(data);
+            updatePagination(data.pagination);
+        },
+        error: function(error) {
+            console.error('Error fetching data', error);
+        }
+    });
+}

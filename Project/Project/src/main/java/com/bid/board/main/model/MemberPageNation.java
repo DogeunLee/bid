@@ -11,7 +11,7 @@ public class MemberPageNation {
 
 	    private int currentPage;
 	    private int memberListCount;     
-	    private int limit = 12;    
+	    private int limit = 10;    
 	    private int pageSize = 10;  
 	    private int maxPage;       
 	    private int startPage;     

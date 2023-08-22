@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bid.board.main.model.MemberPageNation;
 import com.bid.board.member.model.dao.MemberDAO;
+import com.bid.board.member.model.vo.Certi;
 import com.bid.board.member.model.vo.Exp;
 import com.bid.board.member.model.vo.Graduate;
 import com.bid.board.member.model.vo.Member;
@@ -91,25 +92,30 @@ public class MemberImple implements MemberService{
 	}
 
 	@Override
-	public int signUp(Member inputMember, Graduate graduate, Exp exp) {
+	public int signUp(Member inputMember, Graduate graduate, Exp exp, Certi certi) {
 		dao.signUp(inputMember);
 		
 		int memberNo = dao.getNewMemberNo();
 		
 		graduate.setMemberNo(memberNo);
 		exp.setMemberNo(memberNo);
+		certi.setMemberNo(memberNo);
 		
 		int result = dao.setGarduateInfo(graduate);
 		int result2 = dao.getExpInfo(exp);
+		int result3 = dao.setCertiInfo(certi);
 		
 		return result;
 	}
 
 	@Override
 	public Map<String, Object> searchResultBack(int codeNo, String codeId, String memberName, String startDate,
-			String endDate, String memberSt, String memberGender, String memberLv) {
+			String endDate, String memberSt, String memberGender, String memberLv, int cp) {
+		
 		List<Member> searchMemberList = null;
-
+		int searchMemberLists = 0;
+		MemberPageNation pagination = null;
+		
 		if ("all".equals(memberGender)) {
 			memberGender = null;
 		}
@@ -121,10 +127,13 @@ public class MemberImple implements MemberService{
 		}
 
 		if (codeNo == 7942) {
-
-			searchMemberList = dao.searchSelectList(codeNo, codeId, memberName, startDate, endDate, memberSt, memberGender, memberLv);
+			searchMemberLists  = dao.countSearchMemberList(codeNo, codeId, memberName, startDate, endDate, memberSt, memberGender, memberLv);
+			pagination= new MemberPageNation(cp, searchMemberLists);
+			searchMemberList = dao.searchSelectList(codeNo, codeId, memberName, startDate, endDate, memberSt, memberGender, memberLv, pagination);
 		} else {
-			searchMemberList = dao.searchMemberList(codeNo, codeId, memberName);
+			searchMemberLists  = dao.countSearchMemberList(codeNo, codeId, memberName);
+			pagination = new MemberPageNation(cp, searchMemberLists);
+			searchMemberList = dao.searchMemberList(codeNo, codeId, memberName, pagination);
 		}
 		
 		for (Member member : searchMemberList) {
@@ -135,10 +144,10 @@ public class MemberImple implements MemberService{
 	        }
 	    }
 
-		Map<String, Object> searchResultBack = new HashMap<String, Object>();
-		searchResultBack.put("searchMemberList", searchMemberList);
-
-		return searchResultBack;
+		Map<String, Object> getMemberList = new HashMap<String, Object>();
+		getMemberList.put("searchMemberList", searchMemberList);
+		getMemberList.put("pagination", pagination);
+		return getMemberList;
 	}
 
 	@Override

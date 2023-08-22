@@ -23,10 +23,10 @@ import com.bid.board.member.model.vo.Member;
 @RequestMapping("/myPage")
 @SessionAttributes({"loginMember"})
 public class MyInfoController {
+	
 	@Autowired
 	private MemberService service;
-	
-	
+		
 	@RequestMapping("/memberDetailPw/{memberNo}")
 	public String memberDetailPw(
 			@PathVariable("memberNo") int memberNo,
@@ -63,7 +63,6 @@ public class MyInfoController {
 		return result;
 	}
 	
-
 	@PostMapping("/memberDetail/updateInfos/{memberNo}")
 	public String updateInfos(
 			Member inputMember
@@ -130,6 +129,5 @@ public class MyInfoController {
 		
 		return path;
 	}
-
 	
 }

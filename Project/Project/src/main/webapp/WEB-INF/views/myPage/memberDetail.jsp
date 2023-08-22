@@ -194,9 +194,29 @@
 
 												</div>
 
-												<div class="md-right-side">
-													<div>
-														<p>추가정보</p>
+												<div>
+													<div class="md-right-side">
+														<div>
+															<div class="image_wrap">
+																<p>세부사항</p>
+															</div>
+															<div class="addtitle">추가정보</div>
+															<div class="addInfoWrap">
+																<div><p>최종학교</p><div><input type="text" value="123학교"></div></div>
+																<div><p>학과</p><div><input type="text" value="문과"></div></div>
+																<div><p>재학</p><div><input type="text"><span>~</span><input type="text"></div></div>
+																<div><p>경력</p><div><input type="text" value="회사"></div></div>
+																<div><p>부서명</p><div><input type="text" value="부서"></div></div>
+																<div><p>재직기간</p><div><input type="text"><span>~</span><input type="text"></div></div>
+																<div><p>자격증</p><div><input type="text"></div></div>
+																<div><p>취득일</p><div><input type="text"></div></div>
+																<div><p>자격증</p><div><input type="text"></div></div>
+																<div><p>취득일</p><div><input type="text"></div></div>
+																<div><p>프로젝트진행여부</p><div><input type="text" value="몰라"></div></div>
+														
+															</div>
+														</div>
+														<div></div>
 													</div>
 												</div>
 											</div>

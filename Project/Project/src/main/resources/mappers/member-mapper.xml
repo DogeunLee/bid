@@ -22,7 +22,6 @@
 
 	<resultMap type="graduate" id="graduate_rm">
 		<id property="gradNo" column="GRAD_NO" />
-		<result property="codeNo" column="CODE_NO" />
 		<result property="memberGrad" column="MEMBER_GRAD" />
 		<result property="memberNo" column="MEBMER_NO" />
 		<result property="gradName" column="GRAD_NAME" />
@@ -33,16 +32,76 @@
 
 	<resultMap type="exp" id="exp_rm">
 		<id property="expNo" column="EXP_NO" />
-		<result property="memberNo" column="MEBMER_NO" />
+		<result property="memberNo" column="MEMBMER_NO" />
 		<result property="expName" column="EXP_NAME" />
 		<result property="expDept" column="EXP_DEPT" />
 		<result property="expSDate" column="EXP_SDATE" />
 		<result property="expEDate" column="EXP_EDATE" />
 	</resultMap>
 
+	<resultMap type="certi" id="certi_rm">
+		<id property="certiNo" column="CERTI_NO" />
+		<result property="memberNo" column="MEBMER_NO" />
+		<result property="certiName" column="CERTI_NAME" />
+		<result property="certiDate" column="CERTI_DATE" />
+	</resultMap>
+
 	<select id="selectMemberNo" resultType="_int">
 		SELECT COUNT(*) FROM
 		MEMBER
+	</select>
+	
+	<select id="countSearchMemberList1" resultType="_int">
+		SELECT COUNT(*) FROM
+		MEMBER
+		WHERE 1=1
+		<if test="memberSt != null and memberSt.trim() != ''">
+			AND MEMBER_ST = #{memberSt}
+		</if>
+		<if test="memberGender != null and memberGender.trim() != ''">
+			AND MEMBER_GENDER = #{memberGender}
+		</if>
+		<if test="memberLv != null and memberLv.trim() != ''">
+			AND MEMBER_LV = #{memberLv}
+		</if>
+		<if test="memberName != null and memberName.trim() != ''">
+			AND (UPPER(MEMBER_NAME) LIKE '%' || UPPER(#{memberName})
+			|| '%')
+		</if>
+		<if test="startDate != null and startDate.trim() != ''">
+			AND MEMBER_HIRE <![CDATA[ >= ]]>
+			TO_DATE(#{startDate}, 'YYYY-MM-DD')
+		</if>
+		<if test="endDate != null and endDate.trim() != ''">
+			AND MEMBER_HIRE <![CDATA[ <= ]]>
+			TO_DATE(#{endDate}, 'YYYY-MM-DD')
+		</if>
+	</select>
+	
+	<select id="countSearchMemberList2" resultType="_int">
+		SELECT COUNT(*) FROM
+		MEMBER
+		<where>
+			<if test="memberName == null or memberName.trim() == ''">
+				<choose>
+					<when test="codeNo == 1">
+					</when>
+					<when test="codeNo == 10">
+						MEMBER_ST = #{codeId} 
+					</when>
+					<when test="codeNo == 11">
+						MEMBER_GENDER = #{codeId} 
+					</when>
+					<when test="codeNo == 20">
+						MEMBER_LV = #{codeId} 
+					</when>
+				</choose>
+			</if>
+			<if test="memberName != null and memberName.trim() != ''">
+				(UPPER(MEMBER_NAME) LIKE '%' || UPPER(#{memberName}) ||
+				'%')
+			</if>
+		</where>
 	</select>
 
 	<select id="login" parameterType="member" resultMap="member_rm">
@@ -126,12 +185,14 @@
 	</insert>
 
 	<select id="selectNewMemberNo" resultType="_int">
-		SELECT MAX(MEMBER_NO) FROM MEMBER
+		SELECT MAX(MEMBER_NO)
+		FROM MEMBER
 	</select>
 
 
 	<insert id="setGarduateInfo" parameterType="graduate">
 		INSERT INTO GRADUATE
+<<<<<<< HEAD
 		(
 		GRAD_NO,
 		CODE_NO,
@@ -143,8 +204,10 @@
 		MEMBER_GRAD
 		)
 		 VALUES(
+=======
+		VALUES(
+>>>>>>> 876713be643fabc993f1e4dddadd3b7d98aaa004
 		GRADUATE_SEQ.NEXTVAL,
-		50,
 		#{memberNo},
 		#{gradName},
 		#{gradValue},
@@ -153,6 +216,7 @@
 		#{memberGrad}
 		)
 	</insert>
+<<<<<<< HEAD
 	
 		<insert id="getExpInfo" parameterType="exp">
 		INSERT INTO EXP
@@ -165,12 +229,33 @@
 		EXP_EDATE
 		)
 		 VALUES(
+=======
+
+	<insert id="getExpInfo" parameterType="exp">
+		INSERT INTO EXP VALUES(
+>>>>>>> 876713be643fabc993f1e4dddadd3b7d98aaa004
 		EXP_SEQ.NEXTVAL,
 		#{memberNo},
 		#{expName},
 		#{expDept},
 		#{expSDate},
 		#{expEDate}
+		)
+	</insert>
+
+	<insert id="setCertiInfo" parameterType="certi">
+		INSERT INTO CERTI
+		(
+		CERTI_NO,
+		MEMBER_NO,
+		CERTI_NAME,
+		CERTI_DATE
+		)
+		 VALUES(
+		CERTI_SEQ.NEXTVAL,
+		#{memberNo},
+		#{certiName},
+		#{certiDate}
 		)
 	</insert>
 
@@ -280,35 +365,38 @@
 	</select>
 
 	<select id="getMemberInfo" resultMap="member_rm">
-		SELECT
+		 SELECT
 		m.MEMBER_NO,
 		m.MEMBER_ID,
 		m.MEMBER_NAME,
 		m.MEMBER_BIRTH,
-		m2.CODE_NAME AS
-		MEMBER_GENDER,
+		m2.CODE_NAME AS MEMBER_GENDER,
 		m3.CODE_NAME AS MEMBER_LV,
 		m.MEMBER_TEL,
 		m.MEMBER_EMAIL,
 		m.MEMBER_ADDR,
 		m1.CODE_NAME AS MEMBER_GRAD,
-		m4.CODE_NAME
-		AS MEMBER_ST,
-		TO_CHAR(m.MEMBER_HIRE, 'YYYY-MM-DD') AS MEMBER_HIRE
-		FROM
-		MEMBER m
-		LEFT
-		JOIN MASTER_CODETBL m1 ON m.MEMBER_GRAD = m1.CODE_ID
-		LEFT
-		JOIN
-		MASTER_CODETBL m2 ON m.MEMBER_GENDER = m2.CODE_ID
-		LEFT JOIN
-		MASTER_CODETBL m3 ON m.MEMBER_LV = m3.CODE_ID
-		LEFT JOIN MASTER_CODETBL
-		m4 ON m.MEMBER_ST = m4.CODE_ID
-		LEFT JOIN GRADUATE gr ON gr.MEMBER_NO =
-		m.MEMBER_NO
-		WHERE m.MEMBER_NO = #{memberNo}
+		m4.CODE_NAME AS MEMBER_ST,
+		TO_CHAR(m.MEMBER_HIRE, 'YYYY-MM-DD') AS MEMBER_HIRE,
+		c.CERTI_NAME,
+		TO_CHAR(c.CERTI_DATE, 'YYYY-MM-DD') AS CERTI_DATE,
+		gr.GRAD_NAME,
+		gr.GRAD_VALUE,
+		gr.GRAD_HSDATE,
+		gr.GRAD_HEDATE,
+		e.EXP_NAME,
+		e.EXP_DEPT,
+		e.EXP_SDATE,
+		e.EXP_EDATE
+	FROM MEMBER m
+	LEFT JOIN MASTER_CODETBL m1 ON m.MEMBER_GRAD = m1.CODE_ID
+	LEFT JOIN MASTER_CODETBL m2 ON m.MEMBER_GENDER = m2.CODE_ID
+	LEFT JOIN MASTER_CODETBL m3 ON m.MEMBER_LV = m3.CODE_ID
+	LEFT JOIN MASTER_CODETBL m4 ON m.MEMBER_ST = m4.CODE_ID
+	LEFT JOIN CERTI c ON m.MEMBER_NO = c.MEMBER_NO
+	LEFT JOIN GRADUATE gr ON m.MEMBER_NO = gr.MEMBER_NO
+	LEFT JOIN EXP e ON m.MEMBER_NO = e.MEMBER_NO
+	WHERE m.MEMBER_NO = #{memberNo}
 	</select>
 
 	<update id="updateInfos">
