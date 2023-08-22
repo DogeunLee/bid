@@ -1,364 +1,418 @@
-
 form {
 	display: flex;
-	height:100%;
+	height: 100%;
 	flex-direction: column;
-} 
+}
 
 
 /* 컨텐츠 랩퍼 */
-.rightDiv > div:nth-child(2) {
-    width:100%;
-    height:93%;
-    background-color: rgb(71,71,71);
-    padding:5px;
-    display: flex;
+.rightDiv>div:nth-child(2) {
+	width: 100%;
+	height: 93%;
+	background-color: rgb(71, 71, 71);
+	padding: 5px;
+	display: flex;
 }
 
-.content-wrap{
-    flex:1;
-    background-color: white;
+.content-wrap {
+	flex: 1;
+	background-color: white;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
-    padding:10px;
-    display: flex;
-    flex-direction: column;
+	padding: 15px;
+	display: flex;
+	flex-direction: column;
 }
 
 /* 컨텐츠 최상단 검색area */
-.content-wrap > form > div:nth-child(1){
-    width:100%;
-    padding:0px 10px 10px 10px;
-    height:50px !important;
-    color:black;
-    border-bottom: 3px solid black;
-    display: flex;
-    justify-content: space-between;
+.content-wrap>form>div:nth-child(1) {
+	width: 100%;
+	padding: 0px 10px 10px 10px;
+	height: 66px;
+	color: black;
+	border-bottom: 3px solid black;
+	display: flex;
+	justify-content: space-between;
 }
 
 /* 타이틀 css */
-.content-wrap > form > div:nth-child(1) > p{
-    font-weight: bold;    font-size: 1.2rem;
-    line-height: 35px;
+.content-wrap>form>div:nth-child(1)>p {
+	font-weight: bold;
+	font-size: 1.2rem;
+	line-height: 51px;
 }
 
-.btnWrap{
+.btnWrap {
 	display: flex;
-	width:20%;
+	width: 20%;
 	justify-content: space-around;
 }
 
 
 .btnWrap button {
-border:none;
-outline: none;
-width: 45%;
-border-radius: 5px;
-background-color: rgb(91,91,91);
-cursor: pointer;
-display: flex;
+	border: none;
+	outline: none;
+	width: 45%;
+	border-radius: 5px;
+	background-color: rgb(91, 91, 91);
+	cursor: pointer;
+	display: flex;
 }
 
 .btnWrap button a {
-	width:100%;
-	height:100%;
+	width: 100%;
+	height: 100%;
 	line-height: 35px;
 	font-size: 1rem;
 }
 
-.btnWrap button:hover{
-	background-color: rgb(21,21,21);
+.btnWrap button:hover {
+	background-color: rgb(21, 21, 21);
 }
 
 
-.member-deatil-wrap{
-	width:100%;
-	height:100%;
+.member-deatil-wrap {
+	width: 100%;
+	height: 91%;
 	border-radius: 10px;
-	margin-top:10px;
+	margin-top: 10px;
 	background-color: #474747;
 	display: flex;
-	justify-content:  space-around;
-	padding:10px 0;
+	justify-content: space-around;
+	padding: 10px 0;
 }
 
-.emailBtn{
-	margin-left:5px;
+.emailBtn {
+	margin-left: 5px;
 }
 
 
-.member-deatil-wrap > div:nth-child(1){
-	width:30%;
+.member-deatil-wrap>div:nth-child(1) {
+	width: 506px;
 	background-color: white;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
-	padding:10px;
+	padding: 10px;
+	margin-left: 37px;
 }
 
-.member-deatil-wrap > div:nth-child(2){
-	width:68%;
-	height:100%;
-	background-color: white;
+.member-deatil-wrap>div:nth-child(2) {
+	width: 65%;
+	height: 100%;
+	background-color: rgb(71, 71, 71);
+	display: flex;
 }
 
-.md-left-side > div:nth-child(1) > p{
+.md-left-side>div:nth-child(1)>p {
 	font-size: 1.2rem;
 	font-weight: bold;
 	line-height: 52px;
 }
 
-.changeWrap div{
+.changeWrap div {
 	display: flex;
 }
 
-.changeWrap a{
-	flex:1 1 0;
+.changeWrap a {
+	flex: 1 1 0;
 	text-align: center;
 	line-height: 34px;
 }
 
-.changeWrap > div:nth-child(1) > a{
-	color:rgb(251,251,251);
-    font-weight: bold;
-	background-color: rgb(91,91,91);
+.changeWrap>div:nth-child(1)>a {
+	color: rgb(251, 251, 251);
+	font-weight: bold;
+	background-color: rgb(91, 91, 91);
 	border-top-left-radius: 5px;
 }
 
-.changeWrap > div:nth-child(2) > a{
-	color:black;
-    font-weight: bold;
+.changeWrap>div:nth-child(2)>a {
+	color: black;
+	font-weight: bold;
 }
 
-.changeWrap{
-	margin-top:10px;
+.changeWrap {
+	margin-top: 10px;
 	display: flex;
-	height:45px;
+	height: 45px;
 }
 
-.changeWrap div{
+.changeWrap div {
 	flex: 1 1 0;
 }
 
-.changeWrap div:nth-child(1){
-	border:2px solid rgb(91,91,91);
+.changeWrap div:nth-child(1) {
+	border: 2px solid rgb(91, 91, 91);
 	border-top-left-radius: 10px;
 }
 
-.changeWrap div:nth-child(2){
-	border-top:2px solid transparent;
-	border-left:2px solid transparent;
-	border-bottom:2px solid rgb(21,21,21);
+.changeWrap div:nth-child(2) {
+	border-top: 2px solid transparent;
+	border-left: 2px solid transparent;
+	border-bottom: 2px solid rgb(21, 21, 21);
 }
 
 
-.default-infoWrap > div{
+.default-infoWrap>div {
 	display: flex;
 }
 
 .default-infoWrap div P {
-	width:20%;
-	padding-left:10px;
+	width: 20%;
+	padding-left: 10px;
 	font-weight: bold;
 }
 
-.default-infoWrap div input{
-	width:40%
+.default-infoWrap div input {
+	width: 40%
 }
 
 
-.image_wrap{
-	width:100%;
-	height:131px;
+.image_wrap {
+	width: 100%;
+	height: 108px;
 	display: flex;
-	background-color: rgb(91,91,91);
+	background-color: rgb(91, 91, 91);
 	border-radius: 10px;
 }
 
-.image_wrap > div:nth-child(1){
-	width:40%;
-	height:100%;
+.image_wrap>div:nth-child(1) {
+	width: 40%;
+	height: 100%;
 	display: flex;
 	justify-content: center;
 }
 
-.image_wrap > div:nth-child(1) img{
-	width:138px;
-	height:138px;
+.image_wrap>div:nth-child(1) img {
+	width: 108px;
+	height: 108px;
 	border-radius: 50%;
 	background-color: white;
 }
 
-.image_wrap > div:nth-child(2){
-	width:50%;
-	height:100%;
+.image_wrap>div:nth-child(2) {
+	width: 50%;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
-	margin-left:10px;
+	margin-left: 10px;
 }
 
-.image_wrap > div:nth-child(2) div{
+.image_wrap>div:nth-child(2) div {
 	display: flex;
-	height:50%;
+	height: 50%;
 	font-size: 1.5rem;
-	color:white;
+	color: white;
 }
 
-.memberNo{
+.memberNo {
 	font-size: 1rem;
-	line-height:120px;
+	line-height: 90px;
 }
 
-.infosWrap{
+.infosWrap {
 	display: flex;
 	flex-direction: column;
-	border-left:2px solid black;
+	border-left: 2px solid black;
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
-	border-right:2px solid black;
-	border-bottom:2px solid black;
-	padding:20px 10px 10px 10px;
+	border-right: 2px solid black;
+	border-bottom: 2px solid black;
+	padding: 20px 10px 10px 10px;
 	justify-content: center;
 }
 
-.infosWrap > div{
+.infosWrap>div {
 	margin-bottom: 10px;
 	display: flex;
-	height:40px;
+	height: 40px;
 	line-height: 38px;
 }
 
 
-.infosWrap span{
-	width:300px;
+.infosWrap span {
+	width: 300px;
 }
 
-.genderBtn, .lvBtn, .gradBtn, .hireBtn{
+.genderBtn,
+.lvBtn,
+.gradBtn,
+.hireBtn {
 	margin-left: 5px;
 }
 
 
 
-.infosWrap > div:nth-child(1){
+.infosWrap>div:nth-child(1) {
 	display: flex;
 
 }
 
-.infosWrap > div:nth-child(1) span{
-	margin-right:5px;
+.infosWrap>div:nth-child(1) span {
+	margin-right: 5px;
 }
 
-.infosWrap > div:nth-child(2){
-	height:140px;
+.infosWrap>div:nth-child(2) {
+	height: 140px;
 	display: flex;
 }
 
-.infosWrap > div:nth-child(2) input{
-	width:300px;
-	height:40px;
+.infosWrap>div:nth-child(2) input {
+	width: 300px;
+	height: 40px;
 	padding-left: 10px;
 }
 
-.infosWrap > div button{
-	width:50px;
-	height:40px;
-	border:none;
+.infosWrap>div button {
+	width: 50px;
+	height: 40px;
+	border: none;
 	outline: none;
 	border-radius: 5px;
 	cursor: pointer;
 }
 
-.memLv, .memberGrad, .memberGender{
-	width:300px;
+.memLv,
+.memberGrad,
+.memberGender {
+	width: 300px;
 	padding-left: 10px;
 }
 
-.dateBtn{
-	width:300px !important;
+.dateBtn {
+	width: 300px !important;
 }
 
-.passwordInput > div{
+.passwordInput>div {
 	display: flex;
 	flex-direction: column;
 }
-.passwordInput div> input{
-	width:300px;
-	height:40px;
-	padding-left:10px;
+
+.passwordInput div>input {
+	width: 300px;
+	height: 40px;
+	padding-left: 10px;
 }
 
-.passwordInput div> input:nth-child(1){
+.passwordInput div>input:nth-child(1) {
 	margin-bottom: 10px;
 }
 
-.passwordInput button{
-	margin-left:5px;
-	margin-top:42px;
+.passwordInput button {
+	margin-left: 5px;
+	margin-top: 42px;
 }
 
-.post-detail input:nth-child(1){
+.post-detail input:nth-child(1) {
 	margin-bottom: 10px;
 }
 
-.post-detail input:nth-child(2){
+.post-detail input:nth-child(2) {
 	margin-bottom: 5px;
 }
 
-#hireDate{
-    box-sizing: border-box;
-    padding-left:10px;
-}
-
-#memberBirth{
+#hireDate {
 	box-sizing: border-box;
-    padding-left:10px;
+	padding-left: 10px;
 }
 
-.telInput, .memberEmail{
-	width:300px !important;
-	padding-left:10px;
+#memberBirth {
+	box-sizing: border-box;
+	padding-left: 10px;
 }
 
-.telBtn{
+.telInput,
+.memberEmail {
+	width: 300px !important;
+	padding-left: 10px;
+}
+
+.telBtn {
 	margin-left: 5px;
 }
 
-.juminDate{
-	width:300px !important;
+.juminDate {
+	width: 300px !important;
 	padding-left: 10px;
 }
 
 
-.juminBtn{
-	margin-left:5px;
+.juminBtn {
+	margin-left: 5px;
 }
 
-#emailMessage, #telMessage{
-	margin-left:10px;
+#emailMessage,
+#telMessage {
+	margin-left: 10px;
 }
 
-.error{
-    color:red;
+.error {
+	color: red;
 }
 
-.confirm{
-    color:green;
+.confirm {
+	color: green;
 }
 
 
 /* 비밀번호 변경 랩퍼입니다 ~!!!!! */
 
-.pwInputWrap{
-	border-bottom: 2px solid rgb(21,21,21);
-	border-left: 2px solid rgb(21,21,21);
-	border-right: 2px solid rgb(21,21,21);
+.pwInputWrap {
+	border-bottom: 2px solid rgb(21, 21, 21);
+	border-left: 2px solid rgb(21, 21, 21);
+	border-right: 2px solid rgb(21, 21, 21);
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
-	height:582px;
+	height: 582px;
 }
 
-.pwFormWrap{
-	margin:2px;
+.pwFormWrap {
+	margin: 2px;
+	padding: 20px 10px 10px 10px;
+	height: 550px;
+}
+
+
+/*  오른쪽 디비젼 */
+
+.md-right-side {
+	display: flex;
+	flex: 1 1 0;
+}
+
+.md-right-side>div {
+	width: 506px;
+	background-color: white;
+	border-radius: 10px;
+	padding: 10px;
+
+}
+
+.md-right-side>div:nth-child(2) {
+
+	margin-left: 15px;
+}
+
+.image_wrap p {
+	font-size: 24px;
+	line-height: 106px;
+	color: white;
+	margin: 0 auto;
+}
+
+.addtitle {
+	margin-top: 10px;
+	height: 38.56px;
+	line-height: 32px;
+	font-weight: bold;
+	padding-left: 10px;
+}
+
+.addInfoWrap {
+	width: 100%;
+	height: 582px;
+	border: 2px solid #222;
+	border-radius: 10px;
 	padding:20px 10px 10px 10px;
-	height:550px;
 }

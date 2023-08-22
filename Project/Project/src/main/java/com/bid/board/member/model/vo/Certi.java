@@ -7,13 +7,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Graduate {
+public class Certi {
 	
-	private String memberGrad;
+	private String certiNo;
 	private int memberNo;
-	private String gradName;
-	private String gradValue;
-	private String gradHsDate;
-	private String gradHeDate;
+	private String certiName;
+	private String certiDate;
 	
 }
+
+
+

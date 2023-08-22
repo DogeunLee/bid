@@ -78,7 +78,7 @@
 
                                                                 <div>
                                                                     <p>주민번호</p>
-                                                                    <input type="text" name="memberBirth"
+                                                                    <input type="text" name="memberBirth" placeholder="' - '를 포함해서 입력해주세요"
                                                                         maxlength="14">
                                                                 </div>
 
@@ -92,7 +92,7 @@
 
                                                                 <div>
                                                                     <p>이메일</p>
-                                                                    <input type="text" id="memberEmail"
+                                                                    <input type="text" id="memberEmail" placeholder="input your Email include ' @ '"
                                                                         name="memberEmail">
                                                                     <div id="emailMessage"></div>
 
@@ -166,12 +166,12 @@
 
                                                                 <div>
                                                                     <p>학교이름</p>
-                                                                    <input type="text" name="gradName">
+                                                                    <input type="text" name="gradName" placeholder="input member's School">
                                                                 </div>
 
                                                                 <div>
                                                                     <p>학과이름</p>
-                                                                    <input type="text" name="gradValue">
+                                                                    <input type="text" name="gradValue" placeholder="학과이름 입력">
                                                                 </div>
 
                                                                 <div>
@@ -185,16 +185,13 @@
                                                                         onfocus="this.showPicker()">
                                                                 </div>
 
-                                                           
-
-
                                                                 <div>
                                                                     <p>경력 회사명</p>
-                                                                    <input type="text" name="expName">
+                                                                    <input type="text" name="expName" placeholder="경력회사이름 입력">
                                                                 </div>
                                                                 <div>
                                                                     <p>부서명</p>
-                                                                    <input type="text" name="expDept">
+                                                                    <input type="text" name="expDept" placeholder="부서이름 입력">
                                                                 </div>
                                                                 <div>
                                                                     <p>근무기간</p>
@@ -206,41 +203,25 @@
                                                                         placeholder=" 입사 날짜를 입력해 주세요." class="dateBtn"
                                                                         onfocus="this.showPicker()">
                                                                 </div>
-                                                                <div class="mLevelWrap">
-                                                                    <p>자격증</p>
-                                                                    <select id="mGrad">
-                                                                        <option disabled selected>학력</option>
-                                                                        <option value="ACHE03">고졸</option>
-                                                                        <option value="ACHE04">전문대졸</option>
-                                                                        <option value="ACHE05">대졸</option>
-                                                                        <option value="ACHE06">대학원졸</option>
-                                                                    </select>
-                                                                    <div id="gradMessage"></div>
+                                                                <div>
+                                                                    <p>자격증1</p>
+                                                                   <input type="text" name="certiName" placeholder="자격증 입력">
                                                                 </div>
                                                                 <div>
                                                                     <p>취득일자</p>
-                                                                    <input id="hireDate" type="date"
+                                                                    <input  type="date" name="certiDate"
                                                                         placeholder=" 입사 날짜를 입력해 주세요." class="dateBtn"
                                                                         onfocus="this.showPicker()">
-
                                                                 </div>
-                                                                <div class="mLevelWrap">
+                                                                <div>
                                                                     <p>자격증2</p>
-                                                                    <select id="mGrad">
-                                                                        <option disabled selected>학력</option>
-                                                                        <option value="ACHE03">고졸</option>
-                                                                        <option value="ACHE04">전문대졸</option>
-                                                                        <option value="ACHE05">대졸</option>
-                                                                        <option value="ACHE06">대학원졸</option>
-                                                                    </select>
-                                                                    <div id="gradMessage"></div>
+                                                                   <input type="text" name="certiName" placeholder="자격증 입력">
                                                                 </div>
                                                                 <div>
                                                                     <p>취득일자</p>
-                                                                    <input id="hireDate" type="date"
+                                                                    <input  type="date" name="certiDate"
                                                                         placeholder=" 입사 날짜를 입력해 주세요." class="dateBtn"
                                                                         onfocus="this.showPicker()">
-
                                                                 </div>
                                                             </div>
                                                         </div>

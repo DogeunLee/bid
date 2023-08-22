@@ -17,6 +17,8 @@
 			alias="graduate"/>
 			<typeAlias type="com.bid.board.member.model.vo.Exp"
 			alias="exp"/>
+			<typeAlias type="com.bid.board.member.model.vo.Certi"
+			alias="certi"/>
 	</typeAliases>
 
 	<mappers>
