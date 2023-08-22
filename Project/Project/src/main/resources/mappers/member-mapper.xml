@@ -131,7 +131,18 @@
 
 
 	<insert id="setGarduateInfo" parameterType="graduate">
-		INSERT INTO GRADUATE VALUES(
+		INSERT INTO GRADUATE
+		(
+		GRAD_NO,
+		CODE_NO,
+		MEMBER_NO,
+		GRAD_NAME,
+		GRAD_VALUE,
+		GRAD_HSDATE,
+		GRAD_HEDATE,
+		MEMBER_GRAD
+		)
+		 VALUES(
 		GRADUATE_SEQ.NEXTVAL,
 		50,
 		#{memberNo},
@@ -144,7 +155,16 @@
 	</insert>
 	
 		<insert id="getExpInfo" parameterType="exp">
-		INSERT INTO EXP VALUES(
+		INSERT INTO EXP
+		(
+		EXP_NO,
+		MEMBER_NO,
+		EXP_NAME,
+		EXP_DEPT,
+		EXP_SDATE,
+		EXP_EDATE
+		)
+		 VALUES(
 		EXP_SEQ.NEXTVAL,
 		#{memberNo},
 		#{expName},
