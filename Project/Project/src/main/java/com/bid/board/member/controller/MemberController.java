@@ -99,6 +99,8 @@ public class MemberController {
 	@RequestMapping("/myPage/memberDetail/{memberNo}")
 	public String memberDetail(
 			@PathVariable("memberNo") int memberNo,
+			
+			Certi certi,
 			Model model
 			) {
 
@@ -114,16 +116,23 @@ public class MemberController {
 	    List<DetailCategory> lvOptions = services.getSubCategorie(20);
 	    List<DetailCategory> gradOptions = services.getSubCategorie(50);
 	    List<DetailCategory> genderOptions = services.getSubCategorie(11);
+	    List<DetailCategory> statusOptions = services.getSubCategorie(10);
+	    List<Certi> certis = service.selectCerti(memberNo);
 
 	    model.addAttribute("lvOptions", lvOptions);
 	    model.addAttribute("gradOptions", gradOptions);
+	   
+	    model.addAttribute("statusOptions", statusOptions);
 	    model.addAttribute("genderOptions", genderOptions);
 	    model.addAttribute("hiddenSSN", hiddenSSN); 
-
 	    model.addAttribute("formattedBirth", formattedBirth); 
 	    model.addAttribute("memberInfo", member);
+	    model.addAttribute("certi", certis);
 	    
-		
+	    System.out.println(member);
+		System.out.println(certis);
+	    
+	    
 		return  "myPage/memberDetail";
 		
 	}
@@ -132,7 +141,7 @@ public class MemberController {
 	public String signUp(Member inputMember
 			,Graduate graduate
 			,Exp exp
-			,Certi certi
+			,Certi certiTemplate
 			,Model model
 			,String[] memberAddr
 			,RedirectAttributes ra	) {
@@ -161,39 +170,34 @@ public class MemberController {
 		} else {
 			System.out.println("하이폰 뒤에 숫자가 없습니다.");
 		}
-
-
-	    String[] certiNames = certi.getCertiName().split(",");
-	    String[] certiDates = certi.getCertiDate().split(",");
-
+		
+	    int memberNo = service.signUp(inputMember, graduate, exp);
+	    if (memberNo <= 0) {
+	        ra.addFlashAttribute("message", "회원가입 실패");
+	        return "redirect:/signUp";
+	    }
+	    
+	    String[] certiNames = certiTemplate.getCertiName().split(",");
+	    String[] certiDates = certiTemplate.getCertiDate().split(",");
 	    boolean allSuccess = true;
+
+	    
 	    for (int i = 0; i < certiNames.length; i++) {
+	        Certi certi = new Certi();
+	        certi.setMemberNo(memberNo); // 생성된 memberNo 설정
 	        certi.setCertiName(certiNames[i].trim());
 	        certi.setCertiDate(certiDates[i].trim());
-
-	        int result = service.signUp(inputMember, graduate, exp, certi);
-	        if(result <= 0) {
+	        int result = service.addCerti(certi);
+	        if (result <= 0) {
 	            allSuccess = false;
 	            break;
 	        }
 	    }
 
+	    String message = allSuccess ? "회원가입 성공!" : "회원가입 실패";
+	    ra.addFlashAttribute("message", message);
+	    return "redirect:/signUp";
 
-		String message =null;
-		String path =null;
-
-
-		if(allSuccess) {
-			message = "회원가입 성공!";
-			path = "redirect:/signUp";
-		}else {
-			message = "회원가입 실패";
-			path = "redirect:/signUp";
-
-		}
-
-		ra.addFlashAttribute("message", message);
-		return path;
 	}
 	
 	@PostMapping("/uploadImage/{memberNo}")

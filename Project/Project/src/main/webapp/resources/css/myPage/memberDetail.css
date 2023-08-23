@@ -78,30 +78,39 @@ form {
 	margin-top: 10px;
 	background-color: #474747;
 	display: flex;
-	justify-content: space-around;
 	padding: 10px 0;
+	justify-content: space-evenly;
 }
 
 .emailBtn {
 	margin-left: 5px;
 }
 
-
 .member-deatil-wrap>div:nth-child(1) {
-	width: 506px;
+	width:32%;
 	background-color: white;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
 	padding: 10px;
-	margin-left: 37px;
 }
 
 .member-deatil-wrap>div:nth-child(2) {
-	width: 65%;
-	height: 100%;
-	background-color: rgb(71, 71, 71);
+	width:32%;
+	background-color: white;
+	border-radius: 10px;
 	display: flex;
+	flex-direction: column;
+	padding: 10px;
+}
+
+.member-deatil-wrap>div:nth-child(3) {
+	width:32%;
+	background-color: white;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
 }
 
 .md-left-side>div:nth-child(1)>p {
@@ -376,23 +385,6 @@ form {
 
 /*  오른쪽 디비젼 */
 
-.md-right-side {
-	display: flex;
-	flex: 1 1 0;
-}
-
-.md-right-side>div {
-	width: 506px;
-	background-color: white;
-	border-radius: 10px;
-	padding: 10px;
-
-}
-
-.md-right-side>div:nth-child(2) {
-
-	margin-left: 15px;
-}
 
 .image_wrap p {
 	font-size: 24px;
@@ -415,4 +407,31 @@ form {
 	border: 2px solid #222;
 	border-radius: 10px;
 	padding:20px 10px 10px 10px;
+}
+
+.addInfoWrap > div{
+	display: flex;
+	margin-bottom: 10px;
+	height:40px;
+}
+
+.addInfoWrap > div > p{
+	width: 20%;
+	font-weight: bold;
+	padding-left: 10px;
+	line-height: 38px;
+}
+
+.addInfoWrap > div input{
+	width:300px;
+	height:40px;
+	padding-left: 10px;
+}
+
+.dateArea input{
+	width:134px !important;
+}
+
+.dateSep{
+	padding:0 10px;
 }

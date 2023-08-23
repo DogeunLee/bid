@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Certi {
 	
-	private String certiNo;
+	private int certiNo;
 	private int memberNo;
 	private String certiName;
 	private String certiDate;

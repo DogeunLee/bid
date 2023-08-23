@@ -23,5 +23,8 @@ public class Member {
 	private String memberEmail;
 	private String memberImg;
 	private String memberGrad;
-	private String gradName;
+	
+	private Graduate graduate;
+	private Exp exp;
+	private Certi certi;
 }

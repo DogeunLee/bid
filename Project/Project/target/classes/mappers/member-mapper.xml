@@ -17,13 +17,12 @@
 		<result property="memberImg" column="MEMBER_IMAGE" />
 		<result property="memberEmail" column="MEMBER_EMAIL" />
 		<result property="memberGrad" column="MEMBER_GRAD" />
-		<result property="gradName" column="GRAD_NAME" />
 	</resultMap>
 
 	<resultMap type="graduate" id="graduate_rm">
 		<id property="gradNo" column="GRAD_NO" />
 		<result property="memberGrad" column="MEMBER_GRAD" />
-		<result property="memberNo" column="MEBMER_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
 		<result property="gradName" column="GRAD_NAME" />
 		<result property="gradValue" column="GRAD_VALUE" />
 		<result property="gradHsDate" column="GRAD_HSDATE" />
@@ -32,7 +31,7 @@
 
 	<resultMap type="exp" id="exp_rm">
 		<id property="expNo" column="EXP_NO" />
-		<result property="memberNo" column="MEMBMER_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
 		<result property="expName" column="EXP_NAME" />
 		<result property="expDept" column="EXP_DEPT" />
 		<result property="expSDate" column="EXP_SDATE" />
@@ -41,16 +40,38 @@
 
 	<resultMap type="certi" id="certi_rm">
 		<id property="certiNo" column="CERTI_NO" />
-		<result property="memberNo" column="MEBMER_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
 		<result property="certiName" column="CERTI_NAME" />
 		<result property="certiDate" column="CERTI_DATE" />
+	</resultMap>
+
+	<resultMap type="member" id="complexmember">
+		<id property="memberNo" column="MEMBER_NO" />
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="memberPw" column="MEMBER_PW" />
+		<result property="memberName" column="MEMBER_NAME" />
+		<result property="memberGender" column="MEMBER_GENDER" />
+		<result property="memberTel" column="MEMBER_TEL" />
+		<result property="memberBirth" column="MEMBER_BIRTH" />
+		<result property="memberHire" column="MEMBER_HIRE" />
+		<result property="memberSt" column="MEMBER_ST" />
+		<result property="memberLv" column="MEMBER_LV" />
+		<result property="memberAddr" column="MEMBER_ADDR" />
+		<result property="memberImg" column="MEMBER_IMAGE" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="memberGrad" column="MEMBER_GRAD" />
+		<association property="graduate"
+			javaType="com.bid.board.member.model.vo.Graduate"
+			resultMap="graduate_rm" />
+		<association property="exp"
+			javaType="com.bid.board.member.model.vo.Exp" resultMap="exp_rm" />
 	</resultMap>
 
 	<select id="selectMemberNo" resultType="_int">
 		SELECT COUNT(*) FROM
 		MEMBER
 	</select>
-	
+
 	<select id="countSearchMemberList1" resultType="_int">
 		SELECT COUNT(*) FROM
 		MEMBER
@@ -77,7 +98,7 @@
 			TO_DATE(#{endDate}, 'YYYY-MM-DD')
 		</if>
 	</select>
-	
+
 	<select id="countSearchMemberList2" resultType="_int">
 		SELECT COUNT(*) FROM
 		MEMBER
@@ -87,13 +108,13 @@
 					<when test="codeNo == 1">
 					</when>
 					<when test="codeNo == 10">
-						MEMBER_ST = #{codeId} 
+						MEMBER_ST = #{codeId}
 					</when>
 					<when test="codeNo == 11">
-						MEMBER_GENDER = #{codeId} 
+						MEMBER_GENDER = #{codeId}
 					</when>
 					<when test="codeNo == 20">
-						MEMBER_LV = #{codeId} 
+						MEMBER_LV = #{codeId}
 					</when>
 				</choose>
 			</if>
@@ -189,13 +210,10 @@
 		FROM MEMBER
 	</select>
 
-
 	<insert id="setGarduateInfo" parameterType="graduate">
 		INSERT INTO GRADUATE
-<<<<<<< HEAD
 		(
 		GRAD_NO,
-		CODE_NO,
 		MEMBER_NO,
 		GRAD_NAME,
 		GRAD_VALUE,
@@ -203,10 +221,7 @@
 		GRAD_HEDATE,
 		MEMBER_GRAD
 		)
-		 VALUES(
-=======
 		VALUES(
->>>>>>> 876713be643fabc993f1e4dddadd3b7d98aaa004
 		GRADUATE_SEQ.NEXTVAL,
 		#{memberNo},
 		#{gradName},
@@ -216,9 +231,8 @@
 		#{memberGrad}
 		)
 	</insert>
-<<<<<<< HEAD
-	
-		<insert id="getExpInfo" parameterType="exp">
+
+	<insert id="getExpInfo" parameterType="exp">
 		INSERT INTO EXP
 		(
 		EXP_NO,
@@ -228,12 +242,7 @@
 		EXP_SDATE,
 		EXP_EDATE
 		)
-		 VALUES(
-=======
-
-	<insert id="getExpInfo" parameterType="exp">
-		INSERT INTO EXP VALUES(
->>>>>>> 876713be643fabc993f1e4dddadd3b7d98aaa004
+		VALUES(
 		EXP_SEQ.NEXTVAL,
 		#{memberNo},
 		#{expName},
@@ -251,14 +260,13 @@
 		CERTI_NAME,
 		CERTI_DATE
 		)
-		 VALUES(
+		VALUES(
 		CERTI_SEQ.NEXTVAL,
 		#{memberNo},
 		#{certiName},
 		#{certiDate}
 		)
 	</insert>
-
 
 	<select id="searchFormMemberList" resultMap="member_rm">
 		SELECT
@@ -364,13 +372,14 @@
 		ORDER BY m.MEMBER_NO ASC
 	</select>
 
-	<select id="getMemberInfo" resultMap="member_rm">
-		 SELECT
+	<select id="getMemberInfo" resultMap="complexmember">
+		SELECT
 		m.MEMBER_NO,
 		m.MEMBER_ID,
 		m.MEMBER_NAME,
 		m.MEMBER_BIRTH,
-		m2.CODE_NAME AS MEMBER_GENDER,
+		m2.CODE_NAME AS
+		MEMBER_GENDER,
 		m3.CODE_NAME AS MEMBER_LV,
 		m.MEMBER_TEL,
 		m.MEMBER_EMAIL,
@@ -378,29 +387,32 @@
 		m1.CODE_NAME AS MEMBER_GRAD,
 		m4.CODE_NAME AS MEMBER_ST,
 		TO_CHAR(m.MEMBER_HIRE, 'YYYY-MM-DD') AS MEMBER_HIRE,
-		c.CERTI_NAME,
-		TO_CHAR(c.CERTI_DATE, 'YYYY-MM-DD') AS CERTI_DATE,
+		gr.GRAD_NO,
 		gr.GRAD_NAME,
 		gr.GRAD_VALUE,
-		gr.GRAD_HSDATE,
-		gr.GRAD_HEDATE,
+		TO_CHAR(gr.GRAD_HSDATE, 'YYYY-MM-DD') as GRAD_HSDATE,
+		TO_CHAR(gr.GRAD_HEDATE, 'YYYY-MM-DD') as GRAD_HEDATE,
+		e.EXP_NO,
 		e.EXP_NAME,
 		e.EXP_DEPT,
-		e.EXP_SDATE,
-		e.EXP_EDATE
-	FROM MEMBER m
-	LEFT JOIN MASTER_CODETBL m1 ON m.MEMBER_GRAD = m1.CODE_ID
-	LEFT JOIN MASTER_CODETBL m2 ON m.MEMBER_GENDER = m2.CODE_ID
-	LEFT JOIN MASTER_CODETBL m3 ON m.MEMBER_LV = m3.CODE_ID
-	LEFT JOIN MASTER_CODETBL m4 ON m.MEMBER_ST = m4.CODE_ID
-	LEFT JOIN CERTI c ON m.MEMBER_NO = c.MEMBER_NO
-	LEFT JOIN GRADUATE gr ON m.MEMBER_NO = gr.MEMBER_NO
-	LEFT JOIN EXP e ON m.MEMBER_NO = e.MEMBER_NO
-	WHERE m.MEMBER_NO = #{memberNo}
+		TO_CHAR(e.EXP_SDATE, 'YYYY-MM-DD') as EXP_SDATE,
+		TO_CHAR(e.EXP_EDATE, 'YYYY-MM-DD') as EXP_EDATE
+		FROM MEMBER m
+		LEFT JOIN
+		MASTER_CODETBL m1 ON m.MEMBER_GRAD = m1.CODE_ID
+		LEFT JOIN
+		MASTER_CODETBL m2 ON m.MEMBER_GENDER = m2.CODE_ID
+		LEFT JOIN
+		MASTER_CODETBL m3 ON m.MEMBER_LV = m3.CODE_ID
+		LEFT JOIN MASTER_CODETBL
+		m4 ON m.MEMBER_ST = m4.CODE_ID
+		LEFT JOIN GRADUATE gr ON m.MEMBER_NO = gr.MEMBER_NO
+		LEFT
+		JOIN EXP e ON m.MEMBER_NO = e.MEMBER_NO
+		WHERE m.MEMBER_NO = #{memberNo}
 	</select>
 
 	<update id="updateInfos">
-
 		UPDATE MEMBER SET
 		MEMBER_NO = #{memberNo}
 		<if test="memberGender != null and memberGender.trim() != ''">
@@ -425,7 +437,6 @@
 			,MEMBER_GRAD = #{memberGrad}
 		</if>
 		WHERE MEMBER_NO = #{memberNo}
-
 	</update>
 
 	<select id="checkCurrentPassword" resultType="int">
@@ -445,8 +456,14 @@
 		MEMBER_NO = #{memberNo}
 	</update>
 
-
-
-
+	<select id="selectCerti" resultMap="certi_rm">
+		SELECT 
+		CERTI_NO,
+		CERTI_NAME,
+		TO_CHAR(CERTI_DATE, 'YYYY-MM-DD') AS CERTI_DATE
+		FROM CERTI
+		WHERE MEMBER_NO = #{memberNo}
+		ORDER BY CERTI_NO ASC
+	</select>
 
 </mapper>

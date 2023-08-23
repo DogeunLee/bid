@@ -92,22 +92,33 @@ public class MemberImple implements MemberService{
 	}
 
 	@Override
-	public int signUp(Member inputMember, Graduate graduate, Exp exp, Certi certi) {
-		dao.signUp(inputMember);
+	public int signUp(Member inputMember, Graduate graduate, Exp exp) {
+		int result = dao.signUp(inputMember);
 		
 		int memberNo = dao.getNewMemberNo();
 		
 		graduate.setMemberNo(memberNo);
 		exp.setMemberNo(memberNo);
-		certi.setMemberNo(memberNo);
 		
-		int result = dao.setGarduateInfo(graduate);
-		int result2 = dao.getExpInfo(exp);
-		int result3 = dao.setCertiInfo(certi);
+		if ( result >= 1) {
+			dao.setGarduateInfo(graduate);
+			dao.getExpInfo(exp);
+		}
 		
 		return result;
 	}
 
+	@Override
+	public int addCerti(Certi certi) {
+		
+		int memberNo = dao.getNewMemberNo();
+		
+		certi.setMemberNo(memberNo);
+		
+		 return dao.setCertiInfo(certi);
+	}
+
+	
 	@Override
 	public Map<String, Object> searchResultBack(int codeNo, String codeId, String memberName, String startDate,
 			String endDate, String memberSt, String memberGender, String memberLv, int cp) {
@@ -184,6 +195,12 @@ public class MemberImple implements MemberService{
 		
 		return changePw;
 	}
+
+	@Override
+	public List<Certi> selectCerti(int memberNo) {
+		return dao.selectCerti(memberNo);
+	}
+
 
 
 

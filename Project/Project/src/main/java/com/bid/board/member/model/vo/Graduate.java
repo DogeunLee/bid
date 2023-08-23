@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Graduate {
 	
+	private int gradNo;
 	private String memberGrad;
 	private int memberNo;
 	private String gradName;

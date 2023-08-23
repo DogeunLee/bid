@@ -181,6 +181,12 @@ public class MemberDAO {
 	}
 
 
+	public List<Certi> selectCerti(int memberNo) {
+		System.out.println(memberNo);
+		return sqlSession.selectList("memberMapper.selectCerti",memberNo);
+	}
+
+
 	
 
 

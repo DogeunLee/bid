@@ -34,7 +34,7 @@ public class MainController {
 
 	@Autowired
 	private MemberService service;
-	
+
 	@Autowired
 	private BigCategoryService services;
 
@@ -64,9 +64,9 @@ public class MainController {
 
 		if(loginMember != null) { // 로그인 성공 시
 			ra.addFlashAttribute("message", "로그인성공");
-		    session.setAttribute("loginMember", loginMember);
-		    Member checkMember = (Member)session.getAttribute("loginMember");
-		    System.out.println(checkMember + "=========================================="); 
+			session.setAttribute("loginMember", loginMember);
+			Member checkMember = (Member)session.getAttribute("loginMember");
+			System.out.println(checkMember + "=========================================="); 
 			path = "redirect:/main";
 
 		} else {
@@ -77,42 +77,42 @@ public class MainController {
 		return path;
 
 	}
-	
+
 	@RequestMapping("/main")
 	public String main(
 			Model model,
 			@RequestParam(value = "bcategory", required = false) String bcategory,
 			@RequestParam(value = "cp", required = false, defaultValue="1" ) int cp   
 			) {
-		
+
 		Map<String, Object> getMemberList = null;
 		getMemberList = service.getMemberList(cp);
-		
+
 
 		Map<String, Object> bigCategoryList = null;
 		bigCategoryList = services.searchBigCat();
-		
+
 		model.addAttribute("getMemberList", getMemberList);
 		model.addAttribute("bigCategoryList", bigCategoryList);
 
-		
+
 		System.out.println(getMemberList);
-		
+
 		return "common/main";
 	}
-	
+
 	@RequestMapping("/signUp")
 	public String signUp(
 			Model model
 			) {
-		 List<DetailCategory> lvOptions = services.getSubCategorie(20);
-		    List<DetailCategory> gradOptions = services.getSubCategorie(50);
+		List<DetailCategory> lvOptions = services.getSubCategorie(20);
+		List<DetailCategory> gradOptions = services.getSubCategorie(50);
 
-		    model.addAttribute("lvOptions", lvOptions);
-		    model.addAttribute("gradOptions", gradOptions);
+		model.addAttribute("lvOptions", lvOptions);
+		model.addAttribute("gradOptions", gradOptions);
 		return "signUp/signUp";
 	}
-	
+
 	@GetMapping("/searchMembers")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> searchResultBack(
@@ -128,21 +128,21 @@ public class MainController {
 			@RequestParam(value = "all", required = false) String all,
 			@RequestParam(value = "cp", required = false, defaultValue="1" ) int cp 
 			){
-		
+
 		Map<String, Object> bigCategoryList = null;
 		bigCategoryList = services.searchBigCat();
-		
+
 		Integer codeNo = bcategory;
 
 		Map<String, Object> searchResultBack = null;
 		searchResultBack = service.searchResultBack(codeNo, codeId, memberName,startDate,endDate,memberSt,memberGender,memberLv, cp);
 		System.out.println(searchResultBack);
-		
+
 		model.addAttribute("bigCategoryList", bigCategoryList);
 		model.addAttribute("searchResultBack",searchResultBack);
-		 return new ResponseEntity<>(searchResultBack, HttpStatus.OK);
+		return new ResponseEntity<>(searchResultBack, HttpStatus.OK);
 	}
-	
-	
-	
+
+
+
 }

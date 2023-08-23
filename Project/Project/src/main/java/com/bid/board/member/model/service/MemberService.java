@@ -1,5 +1,6 @@
 package com.bid.board.member.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.bid.board.member.model.vo.Certi;
@@ -21,7 +22,9 @@ public interface MemberService {
 
 	int emailDupCheck(String memberEmail);
 
-	int signUp(Member inputMember, Graduate graduate, Exp exp, Certi certi);
+	int signUp(Member inputMember, Graduate graduate, Exp exp);
+	
+	int addCerti(Certi certi);
 
 	Map<String, Object> searchResultBack(int codeNo, String codeId, String memberName, String startDate, String endDate,
 			String memberSt, String memberGender, String memberLv, int cp);
@@ -31,5 +34,7 @@ public interface MemberService {
 	int updateInfos(Member inputMember);
 
 	int changePw(int memberNo, String currentPassword, String newPassword);
+
+	List<Certi> selectCerti(int memberNo);
 	
 }

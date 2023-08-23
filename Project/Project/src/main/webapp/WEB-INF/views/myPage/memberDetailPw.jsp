@@ -37,7 +37,7 @@
 								<div>
 									<div class="content-wrap">
 										<form action="updateInfosPw/${memberNo}" method="post"
-																onsubmit="return checkPwValidation()">
+											onsubmit="return checkPwValidation()">
 											<div>
 												<p>직원 세부정보</p>
 												<div class="btnWrap">
@@ -80,54 +80,142 @@
 													<div class="default-infoWrap">
 
 														<div class="pwInputWrap">
-														
 
-																<div class="pwFormWrap">
-																	<h3>비밀번호 변경</h3>
-																	<div class="pw-input-triple">
-																		<div class="currentPwArea">
-																			<span>현재비밀번호</span><input type="password"
-																				placeholder="비밀번호를 입력해주세요"
-																				name="memberPw">
-																			<p id="currentPwMessage"></p>
-																		</div>
-																		<div class="newPwArea">
-																			<span>새로운비밀번호</span><input type="password"
-																				placeholder="새로운 비밀번호 입력"
-																				class="newPasswordIp"
-																				name="newMemberPw">
-																			<p id="newPwMessage"></p>
-																		</div>
-																		<div class="newPwAreaCheck">
-																			<span>새비밀번호 확인</span><input type="password"
-																				placeholder="새로운 비밀번호 확인"
-																				class="newPasswordIpCheck">
-																			<p id="newPwCheckMessage"></p>
-																		</div>
+
+															<div class="pwFormWrap">
+																<h3>비밀번호 변경</h3>
+																<div class="pw-input-triple">
+																	<div class="currentPwArea">
+																		<span>현재비밀번호</span><input type="password"
+																			placeholder="비밀번호를 입력해주세요" name="memberPw">
+																		<p id="currentPwMessage"></p>
+																	</div>
+																	<div class="newPwArea">
+																		<span>새로운비밀번호</span><input type="password"
+																			placeholder="새로운 비밀번호 입력"
+																			class="newPasswordIp" name="newMemberPw">
+																		<p id="newPwMessage"></p>
+																	</div>
+																	<div class="newPwAreaCheck">
+																		<span>새비밀번호 확인</span><input type="password"
+																			placeholder="새로운 비밀번호 확인"
+																			class="newPasswordIpCheck">
+																		<p id="newPwCheckMessage"></p>
 																	</div>
 																</div>
+															</div>
 														</div>
 
 													</div>
 
 												</div>
 
-												<div class="md-right-side">
+												<div class="md-middle-side">
 													<div>
-														<p>추가정보</p>
+														<div class="image_wrap">
+															<p>세부사항</p>
+														</div>
+														<div class="addtitle">추가정보</div>
+														<div class="addInfoWrap">
+															<div>
+																<p>최종학교</p>
+																<div><input type="text"
+																		value="${memberInfo.graduate.gradName}"
+																		id="gradName" name="gradName" readonly>
+																</div>
+															</div>
+															<div>
+																<p>학과</p>
+																<div><input type="text"
+																		value="${memberInfo.graduate.gradValue}"
+																		id="gradValue" name="gradValue" readonly>
+																</div>
+															</div>
+															<div class="dateArea">
+																<p>재학</p>
+																<div><input type="date" class="dateBtn"
+																		name="gradHsDate" onfocus="this.showPicker()"
+																		value="${memberInfo.graduate.gradHsDate}"
+																		readonly id="gradHsDate"><span
+																		class="dateSep">~</span><input type="date"
+																		name="gradHeDate" class="dateBtn"
+																		onfocus="this.showPicker()"
+																		value="${memberInfo.graduate.gradHeDate}"
+																		id="gradHeDate" readonly></div>
+															</div>
+															<div>
+																<p>경력</p>
+																<div><input type="text"
+																		value="${memberInfo.exp.expName}" id="expName"
+																		name="expName" readonly></div>
+															</div>
+															<div>
+																<p>부서명</p>
+																<div><input type="text"
+																		value="${memberInfo.exp.expDept}" id="expDept"
+																		name="expDept" readonly></div>
+															</div>
+															<div class="dateArea">
+																<p>재직기간</p>
+																<div><input type="date" class="dateBtn" name="expSDate"
+																		onfocus="this.showPicker()"
+																		value="${memberInfo.exp.expSDate}" id="expSDate"
+																		readonly><span class="dateSep">~</span><input
+																		type="date" class="dateBtn" name="expEDate"
+																		onfocus="this.showPicker()" id="expEate"
+																		value="${memberInfo.exp.expEDate}" readonly>
+																</div>
+															</div>
+
+															<c:forEach var="certi" items="${certi}">
+																<div>
+																	<p>자격증</p>
+																	<div><input value="${certi.certiName}"
+																			class="certiName" name="certiName" readonly>
+																	</div>
+																</div>
+																<div>
+																	<p>취득일</p>
+																	<div><input type="date" class="dateBtn certiDate"
+																			name="certiDate" onfocus="this.showPicker()"
+																			value="${certi.certiDate}" readonly>
+																	</div>
+																</div>
+															</c:forEach>
+
+															<div>
+																<p>상태</p>
+																<select class="memLv" name="memberSt">
+																	<option selected disabled>
+																		${memberInfo.memberSt}&nbsp;&nbsp;</option>
+																	<c:forEach var="category" items="${statusOptions}">
+																		<option value="${category.codeId}">
+																			${category.codeName}</option>
+																	</c:forEach>
+																	</select>
+															</div>
+														</div>
+
 													</div>
 												</div>
+
+
+												<div class="md-right-side">
+
+													<div></div>
+												</div>
+												
 											</div>
 										</form>
 									</div>
-								</div>
 
+								</div>
 							</div>
+
+
 
 						</main>
 
-
-						</div>
 
 					</body>
 					<c:if test="${ !empty sessionScope.message }">
