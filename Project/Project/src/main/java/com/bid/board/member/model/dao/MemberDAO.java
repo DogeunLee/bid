@@ -1,5 +1,6 @@
 package com.bid.board.member.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -134,6 +135,7 @@ public class MemberDAO {
 
 
 	public int updateInfos(Member inputMember) {
+		System.out.println(inputMember);
 		return sqlSession.update("memberMapper.updateInfos", inputMember);
 	}
 
@@ -166,18 +168,18 @@ public class MemberDAO {
 
 	public int setGarduateInfo(Graduate graduate) {
 
-		return sqlSession.update("memberMapper.setGarduateInfo",graduate);
+		return sqlSession.insert("memberMapper.setGarduateInfo",graduate);
 	}
 
 
 	public int getExpInfo(Exp exp) {
-		return sqlSession.update("memberMapper.getExpInfo",exp);
+		return sqlSession.insert("memberMapper.getExpInfo",exp);
 	}
 
 
 	public int setCertiInfo(Certi certi) {
 		
-		return sqlSession.update("memberMapper.setCertiInfo",certi);
+		return sqlSession.insert("memberMapper.setCertiInfo",certi);
 	}
 
 
@@ -186,6 +188,36 @@ public class MemberDAO {
 		return sqlSession.selectList("memberMapper.selectCerti",memberNo);
 	}
 
+
+	public int updateGraduate(Graduate graduate) {
+		System.out.println("DAO's graduate update value is = " + graduate);
+		return sqlSession.update("memberMapper.updateGraduate",graduate);
+	}
+
+	public int updateExp(Exp exp) {
+		System.out.println("DAO's exp update value is = " + exp);
+		return sqlSession.update("memberMapper.updatExp",exp);
+	}
+
+
+	public int updateCerti(Map<String, Object> certi) {
+	    List<Integer> certiNos = (List<Integer>) certi.get("certiNo");
+	    List<String> certiDates = (List<String>) certi.get("certiDate");
+	    List<String> certiNames = (List<String>) certi.get("certiName");
+	    
+	    int totalUpdated = 0;
+	    
+	    for (int i = 0; i < certiNos.size(); i++) {
+	        Map<String, Object> singleCerti = new HashMap<>();
+	        singleCerti.put("certiNo", certiNos.get(i));
+	        singleCerti.put("certiDate", certiDates.get(i));
+	        singleCerti.put("certiName", certiNames.get(i));
+
+	        totalUpdated += sqlSession.update("memberMapper.updateCerti", singleCerti);
+	    }
+	    
+	    return totalUpdated;
+	}
 
 	
 

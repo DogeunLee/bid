@@ -209,7 +209,9 @@
 																<div><input type="text"
 																		value="${memberInfo.graduate.gradName}"
 																		id="gradName" name="gradName" readonly>
-																		<input type="text" value="${memberInfo.graduate.gradNo}" style="display:none" name="gradNo">
+																	<input type="text"
+																		value="${memberInfo.graduate.gradNo}"
+																		style="display:none" name="gradNo">
 																</div>
 															</div>
 															<div>
@@ -236,8 +238,9 @@
 																<div><input type="text"
 																		value="${memberInfo.exp.expName}" id="expName"
 																		name="expName" readonly>
-																		<input type="text" value="${memberInfo.exp.expNo}" style="display:none" name="expNo">
-																	</div>
+																	<input type="text" value="${memberInfo.exp.expNo}"
+																		style="display:none" name="expNo">
+																</div>
 															</div>
 															<div>
 																<p>부서명</p>
@@ -261,18 +264,55 @@
 																<div>
 																	<p>자격증</p>
 																	<div><input value="${certi.certiName}"
-																			class="certiName" name="certiName[]" readonly>
-																	<input type="text" value="${certi.certiNo}" style="display:none" name="certiNo[]">
+																			class="certiName" name="certiName" readonly>
+																	<input type="text" value="${certi.certiNo}" style="display:none" name="certiNo">
 																	</div>
 																</div>
 																<div>
 																	<p>취득일</p>
 																	<div><input type="date" class="dateBtn certiDate"
-																			name="certiDate[]" onfocus="this.showPicker()"
+																			name="certiDate" onfocus="this.showPicker()"
 																			value="${certi.certiDate}" readonly>
 																	</div>
 																</div>
 															</c:forEach>
+															<c:choose>
+    <c:when test="${fn:length(certi) == 1}">
+        <!-- 하나의 비어있는 div를 추가 -->
+        <div>
+            <p>자격증</p>
+            <div>
+                <input class="certiName" name="certiName" readonly>
+                <input type="text" style="display:none" name="certiNo">
+            </div>
+        </div>
+        <div>
+            <p>취득일</p>
+            <div>
+                <input type="date" class="dateBtn certiDate" name="certiDate" onfocus="this.showPicker()" readonly>
+            </div>
+        </div>
+    </c:when>
+    <c:when test="${fn:length(certi) == 0}">
+        <!-- 두 개의 비어있는 div를 추가 -->
+        <c:forEach begin="1" end="2">
+            <div>
+                <p>자격증</p>
+                <div>
+                    <input class="certiName" name="certiName" readonly>
+                    <input type="text" style="display:none" name="certiNo">
+                </div>
+            </div>
+            <div>
+                <p>취득일</p>
+                <div>
+                    <input type="date" class="dateBtn certiDate" name="certiDate" onfocus="this.showPicker()" readonly>
+                </div>
+            </div>
+        </c:forEach>
+    </c:when>
+</c:choose>
+
 
 															<div>
 																<p>상태</p>
@@ -283,7 +323,7 @@
 																		<option value="${category.codeId}">
 																			${category.codeName}</option>
 																	</c:forEach>
-																	</select>
+																</select>
 															</div>
 														</div>
 
@@ -296,8 +336,8 @@
 
 											</div>
 
-										
-							
+
+
 										</form>
 									</div>
 								</div>

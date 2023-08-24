@@ -118,6 +118,8 @@ public class MemberController {
 	    List<DetailCategory> genderOptions = services.getSubCategorie(11);
 	    List<DetailCategory> statusOptions = services.getSubCategorie(10);
 	    List<Certi> certis = service.selectCerti(memberNo);
+	    
+	    System.out.println(certis);
 
 	    model.addAttribute("lvOptions", lvOptions);
 	    model.addAttribute("gradOptions", gradOptions);
@@ -128,11 +130,8 @@ public class MemberController {
 	    model.addAttribute("formattedBirth", formattedBirth); 
 	    model.addAttribute("memberInfo", member);
 	    model.addAttribute("certi", certis);
-	    
-	    System.out.println(member);
-		System.out.println(certis);
-	    
-	    
+
+	   	    
 		return  "myPage/memberDetail";
 		
 	}

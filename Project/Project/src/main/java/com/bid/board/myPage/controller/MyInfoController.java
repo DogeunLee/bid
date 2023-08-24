@@ -1,6 +1,8 @@
 package com.bid.board.myPage.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -84,15 +88,19 @@ public class MyInfoController {
 			,RedirectAttributes ra,
 			Graduate graduate,
 			Exp exp,
-			Certi certiTemplate,
+			@RequestParam(value="certiNo",required=false) List<Integer> certiNo, 
+			@RequestParam(value="certiDate",required=false) List<String> certiDate, 
+			@RequestParam(value="certiName",required=false) List<String> certiName, 
 			@PathVariable("memberNo") int memberNo
 			) {
-	
 
-		System.out.println(exp);
-		System.out.println(graduate);
-		System.out.println(certiTemplate);
-
+		
+		 Map<String, Object> certi = new HashMap<>();
+		 certi.put("certiNo", certiNo);
+		 certi.put("certiDate", certiDate);
+		 certi.put("certiName", certiName);
+		
+		
 		inputMember.setMemberAddr( String.join(",,", memberAddr ));
 
 		if (inputMember.getMemberAddr().equals(",,,,")) {
@@ -101,7 +109,7 @@ public class MyInfoController {
 		}
 
 
-		int result = service.updateInfos(inputMember);
+		int result = service.updateInfos(inputMember,graduate, exp, certi);
 
 		System.out.println("업데이트결과 : 0 == 실패 &&&&&&&&& 1 == 성공!");
 
@@ -121,6 +129,7 @@ public class MyInfoController {
 		return path;
 	} 
 
+	// PW 변경
 	@PostMapping("/memberDetailPw/updateInfosPw/{memberNo}")
 	public String updateInfosPw(
 			@PathVariable("memberNo") int memberNo, // URL 경로의 {memberNo} 값을 가져오기 위해 사용

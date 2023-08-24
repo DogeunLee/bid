@@ -390,12 +390,14 @@
 		gr.GRAD_NO,
 		gr.GRAD_NAME,
 		gr.GRAD_VALUE,
-		TO_CHAR(gr.GRAD_HSDATE, 'YYYY-MM-DD') as GRAD_HSDATE,
+		TO_CHAR(gr.GRAD_HSDATE, 'YYYY-MM-DD') as
+		GRAD_HSDATE,
 		TO_CHAR(gr.GRAD_HEDATE, 'YYYY-MM-DD') as GRAD_HEDATE,
 		e.EXP_NO,
 		e.EXP_NAME,
 		e.EXP_DEPT,
-		TO_CHAR(e.EXP_SDATE, 'YYYY-MM-DD') as EXP_SDATE,
+		TO_CHAR(e.EXP_SDATE, 'YYYY-MM-DD') as
+		EXP_SDATE,
 		TO_CHAR(e.EXP_EDATE, 'YYYY-MM-DD') as EXP_EDATE
 		FROM MEMBER m
 		LEFT JOIN
@@ -406,10 +408,12 @@
 		MASTER_CODETBL m3 ON m.MEMBER_LV = m3.CODE_ID
 		LEFT JOIN MASTER_CODETBL
 		m4 ON m.MEMBER_ST = m4.CODE_ID
-		LEFT JOIN GRADUATE gr ON m.MEMBER_NO = gr.MEMBER_NO
+		LEFT JOIN GRADUATE gr ON m.MEMBER_NO =
+		gr.MEMBER_NO
 		LEFT
 		JOIN EXP e ON m.MEMBER_NO = e.MEMBER_NO
-		WHERE m.MEMBER_NO = #{memberNo}
+		WHERE
+		m.MEMBER_NO = #{memberNo}
 	</select>
 
 	<update id="updateInfos">
@@ -436,6 +440,9 @@
 		<if test="memberGrad != null and memberGrad.trim() != ''">
 			,MEMBER_GRAD = #{memberGrad}
 		</if>
+		<if test="memberSt != null and memberSt.trim() != ''">
+			,MEMBER_ST = #{memberSt}
+		</if>
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 
@@ -457,13 +464,45 @@
 	</update>
 
 	<select id="selectCerti" resultMap="certi_rm">
-		SELECT 
+		SELECT
 		CERTI_NO,
+		MEMBER_NO,
 		CERTI_NAME,
 		TO_CHAR(CERTI_DATE, 'YYYY-MM-DD') AS CERTI_DATE
 		FROM CERTI
 		WHERE MEMBER_NO = #{memberNo}
 		ORDER BY CERTI_NO ASC
 	</select>
+
+	<update id="updateGraduate">
+		UPDATE GRADUATE SET
+		GRAD_NAME = #{gradName},
+		GRAD_VALUE = #{gradValue},
+		GRAD_HSDATE = #{gradHsDate},
+		GRAD_HEDATE =
+		#{gradHeDate}
+		WHERE
+		GRAD_NO = #{gradNo}
+	</update>
+
+	<update id="updatExp">
+		UPDATE EXP SET
+		EXP_NAME = #{expName},
+		EXP_DEPT =
+		#{expDept},
+		EXP_SDATE = #{expSDate},
+		EXP_EDATE = #{expEDate}
+		WHERE
+		EXP_NO
+		= #{expNo}
+	</update>
+
+	<update id="updateCerti">
+    UPDATE CERTI SET
+    CERTI_NAME = #{certiName},
+    CERTI_DATE = #{certiDate}
+    WHERE
+    CERTI_NO = #{certiNo}
+</update>
 
 </mapper>

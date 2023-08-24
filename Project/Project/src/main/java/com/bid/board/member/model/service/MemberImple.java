@@ -172,10 +172,19 @@ public class MemberImple implements MemberService{
 	}
 
 	@Override
-	public int updateInfos(Member inputMember) {
+	public int updateInfos(Member inputMember, Graduate graduate, Exp exp, Map<String, Object> certi) {
 		
 		int updateInfos = dao.updateInfos(inputMember);
 
+
+		if ( updateInfos == 1) {
+			dao.updateGraduate(graduate);
+			dao.updateExp(exp);
+			dao.updateCerti(certi);
+		} else {
+			updateInfos = 0;
+		}
+		
 		
 		return updateInfos;
 	}
