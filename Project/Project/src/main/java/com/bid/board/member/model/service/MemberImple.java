@@ -172,7 +172,7 @@ public class MemberImple implements MemberService{
 	}
 
 	@Override
-	public int updateInfos(Member inputMember, Graduate graduate, Exp exp, Map<String, Object> certi) {
+	public int updateInfos(Member inputMember, Graduate graduate, Exp exp, Map<String, Object> certi, int memberNo) {
 		
 		int updateInfos = dao.updateInfos(inputMember);
 
@@ -180,7 +180,7 @@ public class MemberImple implements MemberService{
 		if ( updateInfos == 1) {
 			dao.updateGraduate(graduate);
 			dao.updateExp(exp);
-			dao.updateCerti(certi);
+			dao.updateCerti(certi,memberNo);
 		} else {
 			updateInfos = 0;
 		}

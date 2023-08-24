@@ -112,6 +112,12 @@ public class MainController {
 		model.addAttribute("gradOptions", gradOptions);
 		return "signUp/signUp";
 	}
+	
+	@RequestMapping("/project")
+	public String project(
+			) {
+		return "project/project";
+	}
 
 	@GetMapping("/searchMembers")
 	@ResponseBody

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="memberMapper">
 
 	<resultMap type="member" id="member_rm">
@@ -498,11 +499,27 @@
 	</update>
 
 	<update id="updateCerti">
-    UPDATE CERTI SET
-    CERTI_NAME = #{certiName},
-    CERTI_DATE = #{certiDate}
-    WHERE
-    CERTI_NO = #{certiNo}
-</update>
+		UPDATE CERTI SET
+		CERTI_NAME = #{certiName},
+		CERTI_DATE = #{certiDate}
+		WHERE
+		CERTI_NO = #{certiNo}
+	</update>
+
+	<insert id="insertCerti">
+		INSERT INTO CERTI
+		(
+		CERTI_NO,
+		MEMBER_NO,
+		CERTI_NAME,
+		CERTI_DATE
+		)
+		VALUES(
+		CERTI_SEQ.NEXTVAL,
+		#{memberNo},
+		#{certiName},
+		#{certiDate}
+		)
+	</insert>
 
 </mapper>

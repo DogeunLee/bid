@@ -200,7 +200,7 @@ public class MemberDAO {
 	}
 
 
-	public int updateCerti(Map<String, Object> certi) {
+	public int updateCerti(Map<String, Object> certi, int memberNo) {
 	    List<Integer> certiNos = (List<Integer>) certi.get("certiNo");
 	    List<String> certiDates = (List<String>) certi.get("certiDate");
 	    List<String> certiNames = (List<String>) certi.get("certiName");
@@ -212,8 +212,16 @@ public class MemberDAO {
 	        singleCerti.put("certiNo", certiNos.get(i));
 	        singleCerti.put("certiDate", certiDates.get(i));
 	        singleCerti.put("certiName", certiNames.get(i));
+	        singleCerti.put("memberNo", memberNo);
+	        
+	        if (certiNos.get(i) != null) {
+	            totalUpdated += sqlSession.update("memberMapper.updateCerti", singleCerti);
+	        }
+	        else {
+	            totalUpdated += sqlSession.insert("memberMapper.insertCerti", singleCerti);
+	        }
 
-	        totalUpdated += sqlSession.update("memberMapper.updateCerti", singleCerti);
+	       
 	    }
 	    
 	    return totalUpdated;

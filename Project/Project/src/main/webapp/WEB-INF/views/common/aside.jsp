@@ -20,7 +20,7 @@
                                     조회</a></li>
                               <li><a href="${contextPath}/signUp">직원 등록</a></li>
                               <li><a href="#">프로젝트 목록</a></li>
-                              <li><a href="#">프로젝트 등록</a></li>
+                              <li><a href="${contextPath}/project">프로젝트 등록</a></li>
                            </ul>
 
                         </div>

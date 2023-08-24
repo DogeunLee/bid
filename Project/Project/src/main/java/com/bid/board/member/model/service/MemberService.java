@@ -31,7 +31,7 @@ public interface MemberService {
 
 	Member getMemberInfo(int memberNo);
 
-	int updateInfos(Member inputMember, Graduate graduate, Exp exp, Map<String, Object> certi);
+	int updateInfos(Member inputMember, Graduate graduate, Exp exp, Map<String, Object> certi, int memberNo);
 
 	int changePw(int memberNo, String currentPassword, String newPassword);
 

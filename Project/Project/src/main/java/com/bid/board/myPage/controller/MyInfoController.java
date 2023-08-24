@@ -99,6 +99,8 @@ public class MyInfoController {
 		 certi.put("certiNo", certiNo);
 		 certi.put("certiDate", certiDate);
 		 certi.put("certiName", certiName);
+		 
+		 System.out.println(certi + "새로 입력된 certi의 parameter의 값은?  ");
 		
 		
 		inputMember.setMemberAddr( String.join(",,", memberAddr ));
@@ -108,8 +110,9 @@ public class MyInfoController {
 			inputMember.setMemberAddr(null);
 		}
 
+		
 
-		int result = service.updateInfos(inputMember,graduate, exp, certi);
+		int result = service.updateInfos(inputMember,graduate, exp, certi, memberNo);
 
 		System.out.println("업데이트결과 : 0 == 실패 &&&&&&&&& 1 == 성공!");
 
