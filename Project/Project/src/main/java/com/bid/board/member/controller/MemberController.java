@@ -154,7 +154,7 @@ public class MemberController {
 		String memberGender = inputMember.getMemberBirth();
 
 		int hyphenPosition = memberGender.indexOf('-');
-
+ 
 		if (hyphenPosition != -1 && hyphenPosition + 1 < memberGender.length()) {
 			char numberAfterHyphen = memberGender.charAt(hyphenPosition + 1);
 			System.out.println("하이폰 다음의 숫자: " + numberAfterHyphen); // 출력: 하이폰 다음의 숫자: 1

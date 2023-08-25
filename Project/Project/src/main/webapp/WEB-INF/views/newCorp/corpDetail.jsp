@@ -117,7 +117,7 @@
                                                                 <p>업종</p>
                                                                 <select class="memLv" name="corpUpj">
                                                                     <option selected disabled>
-                                                                        업종&nbsp;&nbsp;</option>
+                                                                        ${corp.corpUpj}&nbsp;&nbsp;</option>
                                                                     <c:forEach var="category" items="${uptOption}">
                                                                         <option value="${category.codeId}">
                                                                             ${category.codeName}</option>
@@ -129,7 +129,7 @@
                                                                 <p>업태</p>
                                                                 <select class="memLv" name="corpUpt">
                                                                     <option selected disabled>
-                                                                        업태&nbsp;&nbsp;</option>
+                                                                        ${corp.corpUpt}&nbsp;&nbsp;</option>
                                                                     <c:forEach var="category" items="${upjOption}">
                                                                         <option value="${category.codeId}">
                                                                             ${category.codeName}</option>
