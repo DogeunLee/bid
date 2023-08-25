@@ -99,7 +99,6 @@ public class MemberController {
 	@RequestMapping("/myPage/memberDetail/{memberNo}")
 	public String memberDetail(
 			@PathVariable("memberNo") int memberNo,
-			
 			Certi certi,
 			Model model
 			) {

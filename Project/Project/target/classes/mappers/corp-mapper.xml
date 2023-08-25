@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="corpMapper">
+
+	<resultMap type="corp" id="corp_rm">
+		<id property="corpNo" column="CORP_NO" />
+		<result property="corpName" column="CORP_NAME" />
+		<result property="corpUpj" column="CORP_UPJ" />
+		<result property="corpUpt" column="CORP_UPT" />
+		<result property="corpAddr" column="CORP_ADDR" />
+		<result property="corpManager" column="CORP_MANAGER" />
+		<result property="corpManagerTel" column="CORP_MANAGERTEL" />
+		<result property="corpTel" column="CORP_TEL" />
+		<result property="corpRegDate" column="CORP_REGDATE" />
+	</resultMap>
+
+	<insert id="inputNewCorp" parameterType="corp">
+
+		INSERT INTO CORPERATION
+		(
+		CORP_NO,
+		CORP_NAME,
+		CORP_UPJ,
+		CORP_UPT,
+		CORP_ADDR,
+		CORP_MANAGER,
+		CORP_MANAGERTEL,
+		CORP_TEL,
+		CORP_REGDATE
+		)
+		VALUES(
+		CORP_SEQ.NEXTVAL,
+		#{corpName},
+		#{corpUpj},
+		#{corpUpt},
+		#{corpAddr},
+		#{corpManager},
+		#{corpManagerTel},
+		#{corpTel},
+		#{corpRegDate}
+		)
+	</insert>
+
+
+	<select id="getCorpListCount" resultType="_int">
+
+		SELECT COUNT(*) FROM CORPERATION
+
+	</select>
+
+	<select id="getCorpList" resultMap="corp_rm">
+		SELECT
+		c.CORP_NO,
+		c.CORP_NAME,
+		m.CODE_NAME AS CORP_UPT,
+		m2.CODE_NAME AS CORP_UPJ,
+		c.CORP_ADDR,
+		c.CORP_MANAGER,
+		c.CORP_MANAGERTEL,
+		c.CORP_TEL,
+		TO_CHAR(c.CORP_REGDATE, 'YYYY-MM-DD') AS CORP_REGDATE
+		FROM CORPERATION c
+		LEFT JOIN
+		MASTER_CODETBL m
+		ON c.CORP_UPT = m.CODE_ID
+		LEFT JOIN
+		MASTER_CODETBL m2
+		ON c.CORP_UPJ = m2.CODE_ID
+		ORDER BY c.CORP_NO ASC
+	</select>
+	
+		<select id="getCorpInfo" resultMap="corp_rm">
+		SELECT
+		c.CORP_NO,
+		c.CORP_NAME,
+		m.CODE_NAME AS CORP_UPT,
+		m2.CODE_NAME AS CORP_UPJ,
+		c.CORP_ADDR,
+		c.CORP_MANAGER,
+		c.CORP_MANAGERTEL,
+		c.CORP_TEL,
+		TO_CHAR(c.CORP_REGDATE, 'YYYY-MM-DD') AS CORP_REGDATE
+		FROM CORPERATION c
+		LEFT JOIN
+		MASTER_CODETBL m
+		ON c.CORP_UPT = m.CODE_ID
+		LEFT JOIN
+		MASTER_CODETBL m2
+		ON c.CORP_UPJ = m2.CODE_ID
+		WHERE CORP_NO = #{corpNo}
+	</select>
+
+
+</mapper>

@@ -10,11 +10,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.bid.board.main.model.MemberPageNation;
 import com.bid.board.member.model.vo.Certi;
 import com.bid.board.member.model.vo.Exp;
 import com.bid.board.member.model.vo.Graduate;
 import com.bid.board.member.model.vo.Member;
+import com.bid.board.member.model.vo.MemberPageNation;
 
 @Repository
 public class MemberDAO {
@@ -189,14 +189,42 @@ public class MemberDAO {
 	}
 
 
-	public int updateGraduate(Graduate graduate) {
+	public int updateGraduate(Graduate graduate, int memberNo) {
+	
 		System.out.println("DAO's graduate update value is = " + graduate);
-		return sqlSession.update("memberMapper.updateGraduate",graduate);
+	    int totalUpdated = 0;
+	    Map<String, Object> singleGrad = new HashMap<>();
+	    
+	    singleGrad.put("memberNo", memberNo);
+	    singleGrad.put("graduate", graduate);
+	    
+	    
+		if ( graduate.getGradNo() == 0) {
+			totalUpdated += sqlSession.insert("memberMapper.setGarduateInfo",singleGrad);
+		} else {
+			totalUpdated += sqlSession.update("memberMapper.updateGraduate",graduate);
+		}
+		
+		return totalUpdated;
 	}
 
-	public int updateExp(Exp exp) {
+	public int updateExp(Exp exp, int memberNo) {
 		System.out.println("DAO's exp update value is = " + exp);
-		return sqlSession.update("memberMapper.updatExp",exp);
+		
+	    int totalUpdated = 0;
+	    Map<String, Object> singleExp = new HashMap<>();
+	    
+	    singleExp.put("memberNo", memberNo);
+	    singleExp.put("graduate", exp);
+	    
+	    
+		if ( exp.getExpNo() == 0) {
+			totalUpdated += sqlSession.insert("memberMapper.getExpInfo",singleExp);
+		} else {
+			totalUpdated += sqlSession.update("memberMapper.updatExp",exp);
+		}
+		
+		return totalUpdated; 
 	}
 
 

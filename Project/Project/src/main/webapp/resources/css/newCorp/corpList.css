@@ -265,7 +265,7 @@ a {
 }
 /* 2 */
 .table-wrap > table > thead > tr> th:nth-child(2){
-    width:5%;
+    width:10%;
 }
 /* 3 */
 .table-wrap > table > thead > tr> th:nth-child(3){
@@ -273,7 +273,7 @@ a {
 }
 /* 4 */
 .table-wrap > table > thead > tr> th:nth-child(4){
-    width:10%;
+    width:5%;
 }
 /* 5 */
 .table-wrap > table > thead > tr> th:nth-child(5){
@@ -281,7 +281,7 @@ a {
 }
 /* 6 */
 .table-wrap > table > thead > tr> th:nth-child(6){
-    width:5%;
+    width:25%;
 }
 /* 7 */
 .table-wrap > table > thead > tr> th:nth-child(7){
@@ -293,17 +293,9 @@ a {
 }
 /* 9 */
 .table-wrap > table > thead > tr> th:nth-child(9){
-    width:22%;
-}
-/* 10 학력 */
-.table-wrap > table > thead > tr> th:nth-child(10){
     width:5%;
 }
 
-/* 10 학력 */
-.table-wrap > table > thead > tr> th:nth-child(12){
-    width:5%;
-}
 
 
 /* tr */

@@ -1,4 +1,4 @@
-package com.bid.board.main.model;
+package com.bid.board.member.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

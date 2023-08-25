@@ -10,6 +10,8 @@ $(document).ready(function() {
     membersTelFunction();
     membersHireDate();
     membersEmailFunction();
+    checkValue(inputElement);
+    sendMemberData(e);
 
 });
 

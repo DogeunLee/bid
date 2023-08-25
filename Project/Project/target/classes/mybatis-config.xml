@@ -19,12 +19,18 @@
 			alias="exp"/>
 			<typeAlias type="com.bid.board.member.model.vo.Certi"
 			alias="certi"/>
+			<typeAlias type="com.bid.board.project.model.vo.Project"
+			alias="project"/>
+			<typeAlias type="com.bid.board.project.model.vo.Corperation"
+			alias="corp"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml" />
 		<mapper resource="/mappers/bigCat-mapper.xml" />
 		<mapper resource="/mappers/detailCat-mapper.xml" />
+		<mapper resource="/mappers/project-mapper.xml" />
+		<mapper resource="/mappers/corp-mapper.xml" />
 	</mappers>
 
 </configuration>

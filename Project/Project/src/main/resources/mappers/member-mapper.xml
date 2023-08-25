@@ -501,7 +501,8 @@
 	<update id="updateCerti">
 		UPDATE CERTI SET
 		CERTI_NAME = #{certiName},
-		CERTI_DATE = #{certiDate}
+		CERTI_DATE
+		= #{certiDate}
 		WHERE
 		CERTI_NO = #{certiNo}
 	</update>

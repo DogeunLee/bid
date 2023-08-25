@@ -4,11 +4,12 @@
     box-sizing: border-box;
     list-style: none;
     font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px !important;
 }
 
 a {
-    text-decoration: none;
-    color: white;
+    text-decoration: none !important;
+    color: white !important;
 }
 
 #wrap {
@@ -17,7 +18,7 @@ a {
 }
 
 main {
-    width: 1920;
+    width: 1920px;
     height: 955px;
     display: flex;
     margin:0 auto;
@@ -55,6 +56,8 @@ main {
     color: white;
     font-weight: bold;
     font-size: 1.2rem;
+    margin-bottom: 10px;
+    height:21px;
 }
 
 /* 사진 바로밑에 리스트 */
@@ -223,6 +226,7 @@ main {
     width:20%;
     padding: 10px;
     line-height: 42px;
+    margin-bottom: 0 !important;
 }
 
 /* 나가기버튼 */

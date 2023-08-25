@@ -14,20 +14,13 @@
                         <title>Document</title>
 
                         <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-                        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-                        crossorigin="anonymous"></script>
-
-                        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
-                            rel="stylesheet" />
-                        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-                        <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-                            rel="stylesheet">
-                        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+                            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                            crossorigin="anonymous"></script>
 
                         <link rel="stylesheet" href="${contextPath}/resources/css/common/aside.css">
-                        <link rel="stylesheet" href="${contextPath}/resources/css/project/project.css">
+                        <link rel="stylesheet" href="${contextPath}/resources/css/newCorp/newCorp.css">
 
-                      
+
                     </head>
 
                     <body>
@@ -48,9 +41,10 @@
 
                                 <div>
                                     <div class="content-wrap">
-                                        <form action="">
+                                        <form action="newCorp" method="POST" name="corp-form">
+                                        <!-- onsubmit="return corpRegValidate()"> -->
                                             <div>
-                                                <p>프로젝트 등록</p>
+                                                <p>회사 등록</p>
                                                 <div class="btnWrap">
                                                     <button class="saveBtn">저장</button>
                                                     <button type="button">삭제</button>
@@ -61,47 +55,34 @@
                                                 <div>
                                                     <div class="image_wrap">
                                                         <div>
-                                                            <p>프로젝트 등록</p>
+                                                            <p>회사 등록</p>
                                                         </div>
                                                     </div>
-                                                    <div class="addtitle">새로운 프로젝트</div>
+                                                    <div class="addtitle">새로운 회사 등록</div>
                                                     <div class="addInfoWrap">
 
                                                         <div>
-                                                            <p>프로젝트명</p>
-                                                            <div><input type="text"></div>
-                                                            <div id="message"></div>
-                                                        </div>
-                                                        <div class="dateArea">
-                                                            <p>기간</p>
-                                                            <div><input type="date" class="dateBtn"
-                                                                 onfocus="this.showPicker()"
-                                                                
-                                                                ><span
-                                                                class="dateSep">~</span><input type="date"
-                                                                 class="dateBtn"
-                                                                onfocus="this.showPicker()"
-                                                                
-                                                                 >
-                                                                </div>
-                                                        </div>
-                                                        <div>
                                                             <p>회사명</p>
-                                                            <div><input type="text"></div>
+                                                            <div><input type="text" name="corpName" placeholder="input New CorpName"></div>
                                                             <div id="message"></div>
                                                         </div>
+
                                                         <div>
-                                                            <p>금액</p>
-                                                            <div><input type="text"></div>
+                                                            <p>회사번호</p>
+                                                            <div><input type="text" name="corpTel" placeholder="input New CorpTel"></div>
                                                             <div id="message"></div>
                                                         </div>
+                                                        
+
+
+
                                                         <div class="input-addr-wrap">
                                                             <p>주소</p>
                                                             <div class="post-detail">
                                                                 <div class="signUp-input-area">
                                                                     <input type="text" id="sample4_postcode"
-                                                                       value="${addr[0]}"
-                                                                        placeholder="우편번호" maxlength="6" readonly>
+                                                                       name="corpAddr" placeholder="우편번호"
+                                                                        maxlength="6" readonly>
 
                                                                     <button type="button" class="post-search-btn"
                                                                         onclick="return sample4_execDaumPostcode()">검색</button>
@@ -109,52 +90,61 @@
 
                                                                 <div class="signUp-input-area">
                                                                     <input type="text" id="sample4_roadAddress"
-                                                                       value="${addr[1]}"
-                                                                        placeholder="도로명주소" readonly>
+                                                                    name="corpAddr" placeholder="도로명주소" readonly>
                                                                 </div>
 
                                                                 <div class="signUp-input-area">
                                                                     <input type="text" id="sample4_detailAddress"
-                                                                       value="${addr[2]}"
-                                                                        placeholder="상세주소" readonly>
+                                                                    name="corpAddr" placeholder="상세주소" >
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                       
-															<div class="mat10">
-																<p>상태</p>
-																<select class="memLv" name="memberSt">
-																	<option selected disabled>
-																		${memberInfo.memberSt}&nbsp;&nbsp;</option>
-																	<c:forEach var="category" items="${statusOptions}">
-																		<option value="${category.codeId}">
-																			${category.codeName}</option>
-																	</c:forEach>
-																</select>
-															</div>
-                                                        
-															<div class="mat10">
-																<p>상태</p>
-																<select class="memLv" name="memberSt">
-																	<option selected disabled>
-																		${memberInfo.memberSt}&nbsp;&nbsp;</option>
-																	<c:forEach var="category" items="${statusOptions}">
-																		<option value="${category.codeId}">
-																			${category.codeName}</option>
-																	</c:forEach>
-																</select>
-															</div>
+
+                                                        <div>
+                                                            <p>계약일자</p>
+                                                            <div><input type="date" class="dateBtn"
+                                                                onfocus="this.showPicker()"
+                                                               name="corpRegDate"
+                                                               ></div>
+                                                            <div id="message"></div>
+                                                        </div>
+
+                                                        <div class="mat10">
+                                                            <p>업종</p>
+                                                            <select class="memLv" name="corpUpj">
+                                                                <option selected disabled>
+                                                                    업종&nbsp;&nbsp;</option>
+                                                                <c:forEach var="category" items="${uptOption}">
+                                                                    <option value="${category.codeId}">
+                                                                        ${category.codeName}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="mat10">
+                                                            <p>업태</p>
+                                                            <select class="memLv" name="corpUpt">
+                                                                <option selected disabled>
+                                                                  업태&nbsp;&nbsp;</option>
+                                                                <c:forEach var="category" items="${upjOption}">
+                                                                    <option value="${category.codeId}">
+                                                                        ${category.codeName}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                        </div>
 
                                                         <div>
                                                             <p>책임자명</p>
-                                                            <div><input type="text"></div>
+                                                            <div><input type="text" name="corpManager" placeholder="input New CorpManager"></div>
                                                             <div id="message"></div>
                                                         </div>
                                                         <div>
                                                             <p>책임자번호</p>
-                                                            <div><input type="text"></div>
+                                                            <div><input type="text" name="corpManagerTel" placeholder="input New CorpManagerTel"></div>
                                                             <div id="message"></div>
                                                         </div>
+
+                                                        
 
 
 
@@ -162,17 +152,7 @@
                                                 </div>
 
                                                 <div class="input-wrap">
-                                                    <div class="image_wrap">
-                                                        <div>
-                                                            <p>프로젝트 세부정보 입력</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="addtitle">세부정보</div>
-                                                    <div class="addInfoWraps">
-                                                  
-														<textarea id="summernote" name="editordata"></textarea>
-												
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </form>
@@ -205,6 +185,6 @@
                         </script>
                     </c:if>
                     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-                    <script src="${contextPath}/resources/js/project/project.js"></script>
+                    <script src="${contextPath}/resources/js/newCorp/newCorp.js"></script>
 
                     </html>

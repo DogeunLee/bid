@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="projectMapper">
+
+	<resultMap type="project" id="project_rm">
+		<id property="projectNo" column="PROJECT_NO" />
+		<result property="corpNo" column="CORP_NO" />
+		<result property="projectValue" column="PROJECT_VALUE" />
+		<result property="porjectDetail" column="PROJECT_DETAIL" />
+		<result property="projectSt" column="PROJECT_ST" />
+		<result property="projectPrice" column="PROJECT_PRICE" />
+		<result property="projectSDate" column="PROJECT_SDATE" />
+		<result property="projectEDate" column="PROJECT_EDATE" />
+	</resultMap>
+
+
+</mapper>

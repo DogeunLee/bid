@@ -7,12 +7,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bid.board.main.model.MemberPageNation;
 import com.bid.board.member.model.dao.MemberDAO;
 import com.bid.board.member.model.vo.Certi;
 import com.bid.board.member.model.vo.Exp;
 import com.bid.board.member.model.vo.Graduate;
 import com.bid.board.member.model.vo.Member;
+import com.bid.board.member.model.vo.MemberPageNation;
 
 @Service
 public class MemberImple implements MemberService{
@@ -178,8 +178,8 @@ public class MemberImple implements MemberService{
 
 
 		if ( updateInfos == 1) {
-			dao.updateGraduate(graduate);
-			dao.updateExp(exp);
+			dao.updateGraduate(graduate, memberNo);
+			dao.updateExp(exp, memberNo);
 			dao.updateCerti(certi,memberNo);
 		} else {
 			updateInfos = 0;

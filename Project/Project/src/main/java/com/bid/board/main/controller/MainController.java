@@ -27,6 +27,7 @@ import com.bid.board.category.model.service.BigCategoryService;
 import com.bid.board.category.model.vo.DetailCategory;
 import com.bid.board.member.model.service.MemberService;
 import com.bid.board.member.model.vo.Member;
+import com.bid.board.project.model.service.ProjectService;
 
 @Controller
 @SessionAttributes({"loginMember"})
@@ -34,6 +35,9 @@ public class MainController {
 
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private ProjectService pservice;
 
 	@Autowired
 	private BigCategoryService services;
@@ -112,13 +116,44 @@ public class MainController {
 		model.addAttribute("gradOptions", gradOptions);
 		return "signUp/signUp";
 	}
-	
+
 	@RequestMapping("/project")
 	public String project(
 			) {
 		return "project/project";
 	}
 
+	@RequestMapping("/corpList")
+	public String corpList(
+			Model model,
+			@RequestParam(value = "cp", required = false, defaultValue="1" ) int cp
+			) {
+		
+		Map<String, Object> getCorpList = null;
+
+		getCorpList = pservice.getCorpList(cp);
+		model.addAttribute("getCorpList", getCorpList);
+		
+		System.out.println(getCorpList);
+		return "newCorp/corpList";
+	}
+
+	@RequestMapping("/newCorp")
+	public String newCorp(
+			Model model
+			) {
+		List<DetailCategory> upjOption = services.getSubCategorie(80);
+		List<DetailCategory> uptOption = services.getSubCategorie(90);
+
+		model.addAttribute("upjOption",upjOption);
+		model.addAttribute("uptOption",uptOption);
+
+
+		return "newCorp/newCorp";
+	}
+
+	
+	
 	@GetMapping("/searchMembers")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> searchResultBack(
