@@ -14,8 +14,8 @@
                         <title>Document</title>
 
                         <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-                        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-                        crossorigin="anonymous"></script>
+                            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                            crossorigin="anonymous"></script>
 
                         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
                             rel="stylesheet" />
@@ -27,7 +27,7 @@
                         <link rel="stylesheet" href="${contextPath}/resources/css/common/aside.css">
                         <link rel="stylesheet" href="${contextPath}/resources/css/project/project.css">
 
-                      
+
                     </head>
 
                     <body>
@@ -48,7 +48,7 @@
 
                                 <div>
                                     <div class="content-wrap">
-                                        <form action="">
+                                        <form action="newProj" method="POST" name="proj-form">
                                             <div>
                                                 <p>프로젝트 등록</p>
                                                 <div class="btnWrap">
@@ -69,30 +69,22 @@
 
                                                         <div>
                                                             <p>프로젝트명</p>
-                                                            <div><input type="text"></div>
+                                                            <div><input type="text" name="projectValue"></div>
                                                             <div id="message"></div>
                                                         </div>
                                                         <div class="dateArea">
                                                             <p>기간</p>
-                                                            <div><input type="date" class="dateBtn"
-                                                                 onfocus="this.showPicker()"
-                                                                
-                                                                ><span
-                                                                class="dateSep">~</span><input type="date"
-                                                                 class="dateBtn"
-                                                                onfocus="this.showPicker()"
-                                                                
-                                                                 >
-                                                                </div>
+                                                            <div><input type="date" class="dateBtn" name="projectSdate"
+                                                                    onfocus="this.showPicker()"><span
+                                                                    class="dateSep">~</span><input type="date"
+                                                                    name="projectEDate" class="dateBtn"
+                                                                    onfocus="this.showPicker()">
+                                                            </div>
                                                         </div>
-                                                        <div>
-                                                            <p>회사명</p>
-                                                            <div><input type="text"></div>
-                                                            <div id="message"></div>
-                                                        </div>
+
                                                         <div>
                                                             <p>금액</p>
-                                                            <div><input type="text"></div>
+                                                            <div><input type="text" name="projectPrice"></div>
                                                             <div id="message"></div>
                                                         </div>
                                                         <div class="input-addr-wrap">
@@ -100,8 +92,8 @@
                                                             <div class="post-detail">
                                                                 <div class="signUp-input-area">
                                                                     <input type="text" id="sample4_postcode"
-                                                                       value="${addr[0]}"
-                                                                        placeholder="우편번호" maxlength="6" readonly>
+                                                                        name="projectAddr" placeholder="우편번호"
+                                                                        maxlength="6" readonly>
 
                                                                     <button type="button" class="post-search-btn"
                                                                         onclick="return sample4_execDaumPostcode()">검색</button>
@@ -109,55 +101,40 @@
 
                                                                 <div class="signUp-input-area">
                                                                     <input type="text" id="sample4_roadAddress"
-                                                                       value="${addr[1]}"
-                                                                        placeholder="도로명주소" readonly>
+                                                                        name="projectAddr" placeholder="도로명주소" readonly>
                                                                 </div>
 
                                                                 <div class="signUp-input-area">
                                                                     <input type="text" id="sample4_detailAddress"
-                                                                       value="${addr[2]}"
-                                                                        placeholder="상세주소" readonly>
+                                                                        name="projectAddr" placeholder="상세주소" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                       
-															<div class="mat10">
-																<p>상태</p>
-																<select class="memLv" name="memberSt">
-																	<option selected disabled>
-																		${memberInfo.memberSt}&nbsp;&nbsp;</option>
-																	<c:forEach var="category" items="${statusOptions}">
-																		<option value="${category.codeId}">
-																			${category.codeName}</option>
-																	</c:forEach>
-																</select>
-															</div>
-                                                        
-															<div class="mat10">
-																<p>상태</p>
-																<select class="memLv" name="memberSt">
-																	<option selected disabled>
-																		${memberInfo.memberSt}&nbsp;&nbsp;</option>
-																	<c:forEach var="category" items="${statusOptions}">
-																		<option value="${category.codeId}">
-																			${category.codeName}</option>
-																	</c:forEach>
-																</select>
-															</div>
+
+
+                                                        <div class="mat10">
+                                                            <p>회사명</p>
+                                                            <select class="memLv" name="corpNo">
+                                                                <option selected disabled>
+                                                                    회사명&nbsp;&nbsp;</option>
+                                                                <c:forEach var="category" items="${corperation}">
+                                                                    <option value="${category.corpNo}">
+                                                                        ${category.corpName}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                        </div>
 
                                                         <div>
                                                             <p>책임자명</p>
-                                                            <div><input type="text"></div>
+                                                            <div><input type="text" name="corpManager" readonly></div>
                                                             <div id="message"></div>
                                                         </div>
                                                         <div>
                                                             <p>책임자번호</p>
-                                                            <div><input type="text"></div>
+                                                            <div><input type="text" name="corpManagerTel" readonly></div>
                                                             <div id="message"></div>
                                                         </div>
-
-
-
+                                                        
                                                     </div>
                                                 </div>
 
@@ -169,9 +146,10 @@
                                                     </div>
                                                     <div class="addtitle">세부정보</div>
                                                     <div class="addInfoWraps">
-                                                  
-														<textarea id="summernote" name="editordata"></textarea>
-												
+
+                                                        <textarea id="summernote"
+                                                            name="editordata projectDetail"></textarea>
+
                                                     </div>
                                                 </div>
                                             </div>

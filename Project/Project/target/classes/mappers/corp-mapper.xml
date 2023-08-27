@@ -89,6 +89,23 @@
 		ON c.CORP_UPJ = m2.CODE_ID
 		WHERE CORP_NO = #{corpNo}
 	</select>
+	
+	<select id="getCorpName" resultMap="corp_rm">
+	
+		SELECT
+		*
+		FROM CORPERATION
+		ORDER BY CORP_NO ASC
+	
+	</select>
 
+
+	<select id="getOtherInfo" resultMap="corp_rm">
+		SELECT
+		*
+		FROM CORPERATION
+		WHERE CORP_NO = #{corpNo}
+		ORDER BY CORP_NO ASC
+	</select>
 
 </mapper>

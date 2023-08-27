@@ -24,6 +24,7 @@ import com.bid.board.member.model.vo.Certi;
 import com.bid.board.member.model.vo.Member;
 import com.bid.board.project.model.service.ProjectService;
 import com.bid.board.project.model.vo.Corperation;
+import com.bid.board.project.model.vo.Project;
 
 @Controller
 public class ProjectController {
@@ -99,4 +100,46 @@ public class ProjectController {
 		return  "newCorp/corpDetail";
 	}
 
+	
+	@RequestMapping("/newProj")
+	public String insertNewProject(
+			
+			Model model,
+			RedirectAttributes ra,
+			Project project,
+			String[] projectAddr
+			
+			) {
+		
+		String path = null;
+		String message = null;
+
+		System.out.println(project);
+
+		if ( project.getProjectValue() == null) {
+			path = "redirect:/project";
+			message = "등록에 실패하였습니다 :)";
+		}
+		else
+		{
+
+			project.setProjectAddr( String.join(",,", projectAddr ));
+
+			if (project.getProjectAddr().equals(",,,,")) {
+
+				project.setProjectAddr(null);
+			}
+
+			service.insertNewProject(project);
+
+			path = "redirect:/projectList";
+			message = "등록하였습니다 :)";
+		}
+
+		ra.addFlashAttribute("message", message);
+
+		return path;
+	
+	}
+	
 }

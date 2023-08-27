@@ -1,4 +1,5 @@
 package com.bid.board.main.controller;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -28,6 +29,7 @@ import com.bid.board.category.model.vo.DetailCategory;
 import com.bid.board.member.model.service.MemberService;
 import com.bid.board.member.model.vo.Member;
 import com.bid.board.project.model.service.ProjectService;
+import com.bid.board.project.model.vo.Corperation;
 
 @Controller
 @SessionAttributes({"loginMember"})
@@ -38,6 +40,9 @@ public class MainController {
 	
 	@Autowired
 	private ProjectService pservice;
+	
+	@Autowired
+	private ProjectService cservice;
 
 	@Autowired
 	private BigCategoryService services;
@@ -119,10 +124,41 @@ public class MainController {
 
 	@RequestMapping("/project")
 	public String project(
+		Model model
 			) {
+		
+		List<Corperation> corperation = cservice.getCorpName();
+		
+		model.addAttribute("corperation",corperation);
+		
 		return "project/project";
 	}
-
+	
+	@ResponseBody
+	@GetMapping("/getCorpManagerInfo")
+	public ResponseEntity<Map<String, String>> getCorpManagerInfo(
+	        @RequestParam(value = "corpNo", required = false) int corpNo
+	) {
+	    System.out.println(corpNo);
+	    
+	    List<Corperation> corpInfoList = cservice.getOtherInfo(corpNo);
+	    
+	    if (corpInfoList == null || corpInfoList.isEmpty()) {
+	        return ResponseEntity.notFound().build(); 
+	    }
+	    
+	    Corperation corpInfo = corpInfoList.get(0); 
+	    
+	    Map<String, String> responseMap = new HashMap<>();
+	    responseMap.put("corpManager", corpInfo.getCorpManager());
+	    responseMap.put("corpManagerTel", corpInfo.getCorpManagerTel());
+	    
+	    System.out.println(responseMap);
+	    
+	    return ResponseEntity.ok(responseMap);
+	}
+	
+	
 	@RequestMapping("/corpList")
 	public String corpList(
 			Model model,

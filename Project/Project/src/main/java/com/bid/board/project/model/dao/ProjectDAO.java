@@ -1,6 +1,7 @@
 package com.bid.board.project.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -35,6 +36,15 @@ public class ProjectDAO {
 
 	public Corperation getCorpInfo(int corpNo) {
 		return sqlSession.selectOne("corpMapper.getCorpInfo", corpNo);
+	}
+
+	public List<Corperation> getCorpName() {
+		return sqlSession.selectList("corpMapper.getCorpName");
+	}
+
+	public List<Corperation> getOtherInfo(int corpNo) {
+		System.out.println(corpNo+"============DAO");
+		return sqlSession.selectList("corpMapper.getOtherInfo", corpNo);
 	}
 	
 }

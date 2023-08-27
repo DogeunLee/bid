@@ -4,6 +4,7 @@ $(document).ready(function() {
 
     initializeFirstItemHighlight();
     summerNotes();
+    chooseAjaxData();
 
 });
 
@@ -73,3 +74,30 @@ function sample4_execDaumPostcode() {
         }
     }).open();
   }
+
+function chooseAjaxData(){
+    $('.memLv').on('change', function() {
+        var selectedCorpName = $(this).val(); 
+        fetchCorpManagerInfo(selectedCorpName); 
+    });
+}
+
+function fetchCorpManagerInfo(corpNo) {
+    $.ajax({
+        type: "GET",
+        url: "getCorpManagerInfo", 
+        data: {
+            corpNo: corpNo
+        },
+        dataType: "json",
+        success: function(response) {
+            if(response) {
+                $('[name="corpManager"]').val(response.corpManager);
+                $('[name="corpManagerTel"]').val(response.corpManagerTel);
+            }
+        },
+        error: function(error) {
+            console.error("Error fetching data:", error);
+        }
+    });
+}

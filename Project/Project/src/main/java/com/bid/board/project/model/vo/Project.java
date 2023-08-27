@@ -17,5 +17,6 @@ public class Project {
 	private int projectPrice;
 	private String projectSDate;
 	private String projectEDate;
+	private String projectAddr;
 	
 }

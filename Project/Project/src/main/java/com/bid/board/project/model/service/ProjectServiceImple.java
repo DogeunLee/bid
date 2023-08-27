@@ -52,6 +52,17 @@ public class ProjectServiceImple implements ProjectService {
 	public Corperation getCorpInfo(int corpNo) {
 		return dao.getCorpInfo(corpNo);
 	}
+
+	@Override
+	public List<Corperation> getCorpName() {
+		return dao.getCorpName();
+	}
+
+	@Override
+	public List<Corperation> getOtherInfo(int corpNo) {
+		System.out.println(corpNo+"============서비스");
+		return dao.getOtherInfo(corpNo);
+	}
 	
 	
 }
