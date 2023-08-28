@@ -328,7 +328,7 @@ a {
 
 
 .default-infoWrap{
-    height:574px;
+    height:574px;overflow-y: auto;
     border-left:2px solid black;
     border-right:2px solid black;
     border-bottom:2px solid black;
@@ -408,4 +408,8 @@ background-color: rgb(251,122,10);
     padding-left: 10px;
     border-radius: 10px;
     width:68%;
+}
+
+.addColor{
+    background-color: orange;
 }

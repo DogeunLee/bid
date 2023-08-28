@@ -13,8 +13,8 @@
 		<result property="projectEDate" column="PROJECT_EDATE" />
 		<result property="projectAddr" column="PROJECT_ADDR" />
 	</resultMap>
-	
-		<resultMap type="corp" id="corp_rm">
+
+	<resultMap type="corp" id="corp_rm">
 		<id property="corpNo" column="CORP_NO" />
 		<result property="corpName" column="CORP_NAME" />
 		<result property="corpUpj" column="CORP_UPJ" />
@@ -38,10 +38,11 @@
 		<result property="projectEDate" column="PROJECT_EDATE" />
 		<result property="projectAddr" column="PROJECT_ADDR" />
 		<association property="corp"
-			javaType="com.bid.board.corperation.model.vo.Corperation" resultMap="corp_rm" />
-	</resultMap>	
+			javaType="com.bid.board.corperation.model.vo.Corperation"
+			resultMap="corp_rm" />
+	</resultMap>
 
-	
+
 	<insert id="insertNewProject" parameterType="project">
 
 		INSERT INTO PROJECT
@@ -68,14 +69,14 @@
 		DEFAULT
 		)
 	</insert>
-	
+
 	<select id="countProjectList" resultType="_int">
-		SELECT COUNT(*) 
+		SELECT COUNT(*)
 		FROM PROJECT
 	</select>
-	
-	<select id="getProjectList" resultMap="project_rm" >
-	
+
+	<select id="getProjectList" resultMap="project_rm">
+
 		SELECT
 		p.PROJECT_NO,
 		p.CORP_NO,
@@ -89,36 +90,39 @@
 		c.CORP_MANAGER,
 		c.CORP_MANAGERTEL
 		FROM PROJECT p
-		LEFT OUTER JOIN 
+		LEFT OUTER
+		JOIN
 		CORPERATION c ON p.CORP_NO = c.CORP_NO
 		ORDER BY p.PROJECT_NO ASC
-	
+
 	</select>
-	
-	
+
+
 	<!--selectProjectDeailValue -->
 
-	<select id="selectProjectDetailValue"  resultMap="complexProject" >
+	<select id="selectProjectDetailValue" resultMap="complexProject">
 		SELECT
 		p.PROJECT_NO,
 		p.CORP_NO,
 		p.PROJECT_VALUE,
 		p.PROJECT_DETAIL,
 		p.PROJECT_PRICE,
-		p.PROJECT_SDATE,
-		p.PROJECT_EDATE,
+		TO_CHAR(p.PROJECT_SDATE, 'YYYY-MM-DD') AS PROJECT_SDATE,
+		TO_CHAR(p.PROJECT_EDATE, 'YYYY-MM-DD') AS PROJECT_EDATE,
 		p.PROJECT_ADDR,
 		c.CORP_NAME,
 		c.CORP_MANAGER,
-		c.CORP_MANAGERTEL
+		c.CORP_MANAGERTEL,
+		c.CORP_TEL
 		FROM PROJECT p
-		LEFT OUTER JOIN 
+		LEFT OUTER JOIN
 		CORPERATION c ON p.CORP_NO = c.CORP_NO
-		WHERE p.PROJECT_NO = #{projectNo}
+		WHERE p.PROJECT_NO =
+		#{projectNo}
 		ORDER BY p.PROJECT_NO ASC
 	</select>
-	
-	
+
+
 
 
 </mapper>

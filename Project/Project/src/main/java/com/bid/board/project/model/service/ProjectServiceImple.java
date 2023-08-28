@@ -73,7 +73,7 @@ public class ProjectServiceImple implements ProjectService {
 		List<Project> selectPDV = dao.selectProjectDetailValue(projectNo);
 		
 	    Map<String, Object> getProjectDetailValue = new HashMap<String, Object>();
-
+	 
 		
 		getProjectDetailValue.put("selectPDV", selectPDV);
 		

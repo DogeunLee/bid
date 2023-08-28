@@ -118,7 +118,7 @@
                                                     <div class="page_Nation" style="display: none;">
                                                         <c:set var="url" value="?cp=" />
                                                         <c:set var="pagination"
-                                                            value="${getMemberList['pagination']}" />
+                                                            value="${getProjectList['pagination']}" />
                                                         <c:set var="currentPage" value="${pagination.currentPage}"
                                                             scope="request" />
                                                         <div>
