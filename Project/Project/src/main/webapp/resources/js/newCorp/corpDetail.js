@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
     console.log("h");
+    initializeFirstItemHighlight();
 
 });
 
@@ -17,3 +18,16 @@ function sample4_execDaumPostcode() {
         }
     }).open();
   }
+
+  function initializeFirstItemHighlight() {
+    var secondItem = $(".myPageWrap > ul > li:nth-child(5)");
+    secondItem.addClass("highlighted");
+
+    $(".myPageWrap > ul > li").hover(
+        function() {
+            secondItem.removeClass("highlighted");
+        }, function() {
+            secondItem.addClass("highlighted");
+        }
+    );
+}

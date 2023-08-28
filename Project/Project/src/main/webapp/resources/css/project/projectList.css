@@ -1,0 +1,411 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+#wrap {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.rightDiv>div:nth-child(2) {
+    width: 100%;
+    height: 93%;
+    background-color: rgb(71, 71, 71);
+    padding: 5px;
+    display: flex;
+}
+
+.content-wrap {
+    flex: 1;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 컨텐츠 최상단 검색area */
+.content-wrap>form>div:nth-child(1) {
+    width: 100%;
+    padding: 0px 10px 10px 10px;
+    height: 50px;
+    color: black;
+    border-bottom: 3px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 타이틀 css */
+.content-wrap>form>div:nth-child(1)>p {
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 35px;
+}
+
+/* 왼쪽 aside */
+.leftSide {
+    width: 13%;
+    height: 100%;
+    background-color: rgb(51, 51, 51);
+    display: flex;
+    flex-direction: column;
+}
+
+.photo-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 15px;
+}
+
+.photo-area>img {
+    width: 80%;
+    height: 150px;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+
+.photo-area>div {
+    padding-top: 15px;
+}
+
+.photo-area p {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* 사진 바로밑에 리스트 */
+.myPageWrap {
+    height: 53%;
+}
+
+/* ul */
+.myPageWrap>ul:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* li */
+.myPageWrap>ul:nth-child(1)>li {
+    height: 66px;
+    text-align: center;
+    line-height: 64px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 10px;
+    display: flex;
+}
+
+.myPageWrap>ul:nth-child(1)>li a {
+    width: 100%;
+    height: 100%;
+}
+
+/* for Js addClass*/
+.highlighted {
+    background-color: rgb(21, 21, 21);
+}
+
+/* li:hover */
+.myPageWrap>ul:nth-child(1)>li:hover {
+    background-color: rgb(21, 21, 21);
+}
+
+/* Left_side 최하단 search_area */
+.search-area {
+    display: flex;
+    border: 2px solid white;
+    border-radius: 10px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 auto 30px auto;
+    width: 95%;
+    padding: 5px;
+}
+
+.search-area p {
+    color: white;
+}
+
+.search-area>input {
+    padding-left: 5px;
+    height: 30%;
+    outline: none;
+    border: none;
+    width: 90%;
+    border-radius: 5px;
+}
+
+.search-area>div {
+    border: none;
+    outline: none;
+    width: 90%;
+    background-color: rgb(91, 91, 91);
+    border-radius: 5px;
+    line-height: 27px;
+    padding: 0 5px;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+}
+
+.search-area>div a {
+    width: 100%;
+    height: 100%;
+}
+
+.search-area>div:hover {
+    background-color: rgb(21, 21, 21);
+    color: white;
+}
+
+
+
+.content-wrap {
+    flex: 1;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 컨텐츠 최상단 검색area */
+.content-wrap>div:nth-child(1) {
+    width: 100%;
+    padding: 0px 10px 10px 10px;
+    height: 66px;
+    color: black;
+    border-bottom: 3px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 타이틀 css */
+.content-wrap>div>p {
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 51px;
+}
+
+/* 검색 에어리어 */
+
+.impl-search-area {
+    display: flex;
+}
+
+.impl-search-area form {
+    display: flex;
+}
+
+#subCategory {
+    width: 161px;
+}
+
+/* 검색에어리어 인풋창 */
+.impl-search-area input {
+    outline: none;
+    border: 1px solid black;
+    border-left: none;
+    padding-left: 10px;
+}
+
+/* 버튼을 대신 할 a태그 */
+.impl-search-area button {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: rgb(91, 91, 91);
+    border: none;
+    outline: none;
+    line-height: 30px;
+    padding: 0 5px;
+    color: white;
+    cursor: pointer;
+}
+
+/* a:hover */
+.impl-search-area button:hover {
+    background-color: rgb(21, 21, 21);
+}
+
+.member-deatil-wrap {
+    width: 100%;
+    height: 91%;
+    border-radius: 10px;
+    margin-top: 10px;
+    background-color: #474747;
+    display: flex;
+    padding: 10px 0;
+    justify-content: space-evenly;
+}
+
+
+.member-deatil-wrap>div:nth-child(1) {
+    width: 32%;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.image_wrap {
+	width: 100%;
+	height: 108px;
+	display: flex;
+	background-color: rgb(91, 91, 91);
+	border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image_wrap > p {
+    font-size: 32px;
+    font-weight: bold;
+    color:white;
+}
+
+
+.changeWrap {
+    margin-top: 10px;
+}
+
+.changeWrap div {
+	display: flex;
+}
+
+.changeWrap a {
+	flex: 1 1 0;
+	text-align: center;
+	line-height: 34px;
+}
+
+.changeWrap>div:nth-child(1)>a {
+	color: rgb(251, 251, 251);
+	font-weight: bold;
+	background-color: rgb(91, 91, 91);
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.member-deatil-wrap>div:nth-child(2) {
+    width: 32%;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.member-deatil-wrap>div:nth-child(3) {
+    width: 32%;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+
+.default-infoWrap{
+    height:574px;
+    border-left:2px solid black;
+    border-right:2px solid black;
+    border-bottom:2px solid black;
+    padding:20px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.project_value{
+    width:100%;
+    height:9%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.project_value a{
+    width:80%;
+    height: 100%;
+    border:1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    color:#222 !important;
+    line-height:38px;
+    cursor: pointer;
+}
+
+.project_value a:hover{
+background-color: rgb(251,122,10);
+
+}
+
+.default-infoWrap >div{
+    display: flex;
+    height:40px;
+}
+
+.dateArea input{
+    width:154px !important;
+}
+
+.dateSep{
+    line-height: 38px;
+    padding:0px 3px;
+}
+
+.input-addr-wrap {
+    height:140px !important;
+}
+
+.post-detail{
+    width:330px;
+}
+
+.post-detail >div > input{
+    margin-bottom: 5px;
+    height:43px;
+    width:280px !important;
+} 
+
+.post-detail >div > button{
+    width:40px;
+    height:40px;
+    line-height: 38px;
+}
+
+
+.default-infoWrap >div p{
+    width:30%;
+    padding-left: 10px;
+    line-height: 38px;
+    font-weight: bold;
+}
+
+.default-infoWrap >div input{
+    padding-left: 10px;
+    border-radius: 10px;
+    width:68%;
+}

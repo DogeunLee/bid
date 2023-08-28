@@ -74,9 +74,12 @@
                                                         </div>
                                                         <div class="dateArea">
                                                             <p>기간</p>
-                                                            <div><input type="date" class="dateBtn" name="projectSdate"
-                                                                    onfocus="this.showPicker()"><span
-                                                                    class="dateSep">~</span><input type="date"
+                                                            <div><input type="date" class="dateBtn" name="projectSDate"
+                                                                    onfocus="this.showPicker()">
+                                                                    <span
+                                                                    class="dateSep">~</span>
+                                                                    
+                                                                    <input type="date"
                                                                     name="projectEDate" class="dateBtn"
                                                                     onfocus="this.showPicker()">
                                                             </div>
@@ -148,7 +151,7 @@
                                                     <div class="addInfoWraps">
 
                                                         <textarea id="summernote"
-                                                            name="editordata projectDetail"></textarea>
+                                                            name="projectDetail"></textarea>
 
                                                     </div>
                                                 </div>

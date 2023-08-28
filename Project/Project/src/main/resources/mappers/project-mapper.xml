@@ -6,7 +6,7 @@
 		<id property="projectNo" column="PROJECT_NO" />
 		<result property="corpNo" column="CORP_NO" />
 		<result property="projectValue" column="PROJECT_VALUE" />
-		<result property="porjectDetail" column="PROJECT_DETAIL" />
+		<result property="projectDetail" column="PROJECT_DETAIL" />
 		<result property="projectSt" column="PROJECT_ST" />
 		<result property="projectPrice" column="PROJECT_PRICE" />
 		<result property="projectSDate" column="PROJECT_SDATE" />
@@ -14,7 +14,109 @@
 		<result property="projectAddr" column="PROJECT_ADDR" />
 	</resultMap>
 	
+		<resultMap type="corp" id="corp_rm">
+		<id property="corpNo" column="CORP_NO" />
+		<result property="corpName" column="CORP_NAME" />
+		<result property="corpUpj" column="CORP_UPJ" />
+		<result property="corpUpt" column="CORP_UPT" />
+		<result property="corpAddr" column="CORP_ADDR" />
+		<result property="corpManager" column="CORP_MANAGER" />
+		<result property="corpManagerTel" column="CORP_MANAGERTEL" />
+		<result property="corpTel" column="CORP_TEL" />
+		<result property="corpRegDate" column="CORP_REGDATE" />
+	</resultMap>
 
+
+	<resultMap type="project" id="complexProject">
+		<id property="projectNo" column="PROJECT_NO" />
+		<result property="corpNo" column="CORP_NO" />
+		<result property="projectValue" column="PROJECT_VALUE" />
+		<result property="projectDetail" column="PROJECT_DETAIL" />
+		<result property="projectSt" column="PROJECT_ST" />
+		<result property="projectPrice" column="PROJECT_PRICE" />
+		<result property="projectSDate" column="PROJECT_SDATE" />
+		<result property="projectEDate" column="PROJECT_EDATE" />
+		<result property="projectAddr" column="PROJECT_ADDR" />
+		<association property="corp"
+			javaType="com.bid.board.corperation.model.vo.Corperation" resultMap="corp_rm" />
+	</resultMap>	
+
+	
+	<insert id="insertNewProject" parameterType="project">
+
+		INSERT INTO PROJECT
+		(
+		PROJECT_NO,
+		CORP_NO,
+		PROJECT_VALUE,
+		PROJECT_PRICE,
+		PROJECT_SDATE,
+		PROJECT_EDATE,
+		PROJECT_ADDR,
+		PROJECT_DETAIL,
+		PROJECT_ST
+		)
+		VALUES(
+		PROJECT_SEQ.NEXTVAL,
+		#{corpNo},
+		#{projectValue},
+		#{projectPrice},
+		#{projectSDate},
+		#{projectEDate},
+		#{projectAddr},
+		#{projectDetail},
+		DEFAULT
+		)
+	</insert>
+	
+	<select id="countProjectList" resultType="_int">
+		SELECT COUNT(*) 
+		FROM PROJECT
+	</select>
+	
+	<select id="getProjectList" resultMap="project_rm" >
+	
+		SELECT
+		p.PROJECT_NO,
+		p.CORP_NO,
+		p.PROJECT_VALUE,
+		p.PROJECT_DETAIL,
+		p.PROJECT_PRICE,
+		p.PROJECT_SDATE,
+		p.PROJECT_EDATE,
+		p.PROJECT_ADDR,
+		c.CORP_NAME,
+		c.CORP_MANAGER,
+		c.CORP_MANAGERTEL
+		FROM PROJECT p
+		LEFT OUTER JOIN 
+		CORPERATION c ON p.CORP_NO = c.CORP_NO
+		ORDER BY p.PROJECT_NO ASC
+	
+	</select>
+	
+	
+	<!--selectProjectDeailValue -->
+
+	<select id="selectProjectDetailValue"  resultMap="complexProject" >
+		SELECT
+		p.PROJECT_NO,
+		p.CORP_NO,
+		p.PROJECT_VALUE,
+		p.PROJECT_DETAIL,
+		p.PROJECT_PRICE,
+		p.PROJECT_SDATE,
+		p.PROJECT_EDATE,
+		p.PROJECT_ADDR,
+		c.CORP_NAME,
+		c.CORP_MANAGER,
+		c.CORP_MANAGERTEL
+		FROM PROJECT p
+		LEFT OUTER JOIN 
+		CORPERATION c ON p.CORP_NO = c.CORP_NO
+		WHERE p.PROJECT_NO = #{projectNo}
+		ORDER BY p.PROJECT_NO ASC
+	</select>
 	
 	
 

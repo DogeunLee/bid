@@ -1,4 +1,4 @@
-package com.bid.board.project.model.vo;
+package com.bid.board.corperation.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

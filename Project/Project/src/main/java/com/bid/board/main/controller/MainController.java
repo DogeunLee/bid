@@ -26,10 +26,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bid.board.category.model.service.BigCategoryService;
 import com.bid.board.category.model.vo.DetailCategory;
+import com.bid.board.corperation.model.service.CorperationService;
+import com.bid.board.corperation.model.vo.Corperation;
 import com.bid.board.member.model.service.MemberService;
 import com.bid.board.member.model.vo.Member;
 import com.bid.board.project.model.service.ProjectService;
-import com.bid.board.project.model.vo.Corperation;
 
 @Controller
 @SessionAttributes({"loginMember"})
@@ -39,10 +40,10 @@ public class MainController {
 	private MemberService service;
 	
 	@Autowired
-	private ProjectService pservice;
+	private CorperationService cservice;
 	
 	@Autowired
-	private ProjectService cservice;
+	private ProjectService pservice;
 
 	@Autowired
 	private BigCategoryService services;
@@ -127,11 +128,28 @@ public class MainController {
 		Model model
 			) {
 		
-		List<Corperation> corperation = cservice.getCorpName();
+		List<Corperation> corperation = pservice.getCorpName();
 		
 		model.addAttribute("corperation",corperation);
 		
 		return "project/project";
+	}
+	
+	@RequestMapping("/projectList")
+	public String projectList(
+			Model model,
+			Corperation corp,
+			@RequestParam(value="cp", required = false, defaultValue="1") int cp
+			) {
+		
+		Map<String, Object> getProjectList = null;
+		getProjectList = pservice.getProjectList(cp);
+		
+		System.out.println(getProjectList);
+		
+		model.addAttribute("getProjectList",getProjectList);
+
+		return "project/projectList";
 	}
 	
 	@ResponseBody
@@ -141,7 +159,7 @@ public class MainController {
 	) {
 	    System.out.println(corpNo);
 	    
-	    List<Corperation> corpInfoList = cservice.getOtherInfo(corpNo);
+	    List<Corperation> corpInfoList = pservice.getOtherInfo(corpNo);
 	    
 	    if (corpInfoList == null || corpInfoList.isEmpty()) {
 	        return ResponseEntity.notFound().build(); 
@@ -158,7 +176,6 @@ public class MainController {
 	    return ResponseEntity.ok(responseMap);
 	}
 	
-	
 	@RequestMapping("/corpList")
 	public String corpList(
 			Model model,
@@ -167,7 +184,7 @@ public class MainController {
 		
 		Map<String, Object> getCorpList = null;
 
-		getCorpList = pservice.getCorpList(cp);
+		getCorpList = cservice.getCorpList(cp);
 		model.addAttribute("getCorpList", getCorpList);
 		
 		System.out.println(getCorpList);
@@ -187,8 +204,6 @@ public class MainController {
 
 		return "newCorp/newCorp";
 	}
-
-	
 	
 	@GetMapping("/searchMembers")
 	@ResponseBody
@@ -219,7 +234,5 @@ public class MainController {
 		model.addAttribute("searchResultBack",searchResultBack);
 		return new ResponseEntity<>(searchResultBack, HttpStatus.OK);
 	}
-
-
 
 }

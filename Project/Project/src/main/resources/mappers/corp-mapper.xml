@@ -44,7 +44,8 @@
 
 	<select id="getCorpListCount" resultType="_int">
 
-		SELECT COUNT(*) FROM CORPERATION
+		SELECT COUNT(*) FROM
+		CORPERATION
 
 	</select>
 
@@ -58,18 +59,20 @@
 		c.CORP_MANAGER,
 		c.CORP_MANAGERTEL,
 		c.CORP_TEL,
-		TO_CHAR(c.CORP_REGDATE, 'YYYY-MM-DD') AS CORP_REGDATE
+		TO_CHAR(c.CORP_REGDATE,
+		'YYYY-MM-DD') AS CORP_REGDATE
 		FROM CORPERATION c
 		LEFT JOIN
 		MASTER_CODETBL m
 		ON c.CORP_UPT = m.CODE_ID
 		LEFT JOIN
 		MASTER_CODETBL m2
-		ON c.CORP_UPJ = m2.CODE_ID
+		ON
+		c.CORP_UPJ = m2.CODE_ID
 		ORDER BY c.CORP_NO ASC
 	</select>
-	
-		<select id="getCorpInfo" resultMap="corp_rm">
+
+	<select id="getCorpInfo" resultMap="corp_rm">
 		SELECT
 		c.CORP_NO,
 		c.CORP_NAME,
@@ -79,24 +82,27 @@
 		c.CORP_MANAGER,
 		c.CORP_MANAGERTEL,
 		c.CORP_TEL,
-		TO_CHAR(c.CORP_REGDATE, 'YYYY-MM-DD') AS CORP_REGDATE
+		TO_CHAR(c.CORP_REGDATE,
+		'YYYY-MM-DD') AS CORP_REGDATE
 		FROM CORPERATION c
 		LEFT JOIN
 		MASTER_CODETBL m
 		ON c.CORP_UPT = m.CODE_ID
 		LEFT JOIN
 		MASTER_CODETBL m2
-		ON c.CORP_UPJ = m2.CODE_ID
+		ON
+		c.CORP_UPJ = m2.CODE_ID
 		WHERE CORP_NO = #{corpNo}
 	</select>
-	
+
 	<select id="getCorpName" resultMap="corp_rm">
-	
+
 		SELECT
 		*
 		FROM CORPERATION
-		ORDER BY CORP_NO ASC
-	
+		ORDER
+		BY CORP_NO ASC
+
 	</select>
 
 
@@ -107,5 +113,36 @@
 		WHERE CORP_NO = #{corpNo}
 		ORDER BY CORP_NO ASC
 	</select>
+
+
+	<update id="updateInfo">
+		UPDATE CORPERATION SET
+		CORP_NO = #{corpNo}
+		<if test="corpName != null and corpName.trim() != ''">
+			,CORP_NAME = #{corpName}
+		</if>
+		<if test="corpUpj != null and corpUpj.trim() != ''">
+			,CORP_UPJ = #{corpUpj}
+		</if>
+		<if test="corpUpt != null and corpUpt.trim() != ''">
+			,CORP_UPT = #{corpUpt}
+		</if>
+		<if test="corpAddr != null and corpAddr.trim() != ''">
+			,CORP_ADDR = #{corpAddr}
+		</if>
+		<if test="corpManager != null and corpManager.trim() != ''">
+			,CORP_MANAGER = #{corpManager}
+		</if>
+		<if test="corpManagerTel != null and corpManagerTel.trim() != ''">
+			,CORP_MANAGERTEL = #{corpManagerTel}
+		</if>
+		<if test="corpTel != null and corpTel.trim() != ''">
+			,CORP_TEL = #{corpTel}
+		</if>
+		<if test="corpRegDate != null and corpRegDate.trim() != ''">
+			,CORP_REGDATE = #{corpRegDate}
+		</if>
+		WHERE CORP_NO = #{corpNo}
+	</update>
 
 </mapper>

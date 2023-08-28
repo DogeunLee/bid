@@ -16,10 +16,9 @@
                         <div class="myPageWrap">
 
                            <ul>
-                              <li><a href="${contextPath}/main">직원
-                                    조회</a></li>
+                              <li><a href="${contextPath}/main">직원 조회</a></li>
                               <li><a href="${contextPath}/signUp">직원 등록</a></li>
-                              <li><a href="#">프로젝트 목록</a></li>
+                              <li><a href="${contextPath}/projectList">프로젝트 목록</a></li>
                               <li><a href="${contextPath}/project">프로젝트 등록</a></li>
                               <li><a href="${contextPath}/corpList">회사 목록</a></li>
                               <li><a href="${contextPath}/newCorp">회사 등록</a></li>

@@ -39,8 +39,7 @@
                                     <div>
 
                                         <div class="content-wrap">
-
-                                            <form action="" method="post">
+                                            <form action="updateInfo/${corpNo}" method="post">
 
                                                 <div>
                                                     <p>회사 세부정보</p>

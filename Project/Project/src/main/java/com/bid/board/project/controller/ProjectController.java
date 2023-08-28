@@ -8,22 +8,26 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bid.board.category.model.service.BigCategoryService;
 import com.bid.board.category.model.vo.DetailCategory;
+import com.bid.board.corperation.model.vo.Corperation;
 import com.bid.board.member.model.service.MemberService;
 import com.bid.board.member.model.vo.Certi;
 import com.bid.board.member.model.vo.Member;
 import com.bid.board.project.model.service.ProjectService;
-import com.bid.board.project.model.vo.Corperation;
 import com.bid.board.project.model.vo.Project;
 
 @Controller
@@ -31,75 +35,6 @@ public class ProjectController {
 
 	@Autowired
 	private ProjectService service;
-
-	@Autowired
-	private BigCategoryService services;
-	
-	@PostMapping("/newCorp")
-	public String insertNewCorp(
-			Model model,
-			RedirectAttributes ra,
-			HttpServletResponse resp,
-			HttpServletRequest req,
-			Corperation corp,
-			String[] corpAddr
-			) {
-
-
-		String path = null;
-		String message = null;
-
-		System.out.println(corp);
-
-		if ( corp.getCorpName() == null) {
-			path = "redirect:/newCorp";
-			message = "등록에 실패하였습니다 :)";
-		}
-		else
-		{
-
-			corp.setCorpAddr( String.join(",,", corpAddr ));
-
-			if (corp.getCorpAddr().equals(",,,,")) {
-
-				corp.setCorpAddr(null);
-			}
-
-			service.inputNewCorp(corp);
-
-			path = "redirect:/corpList";
-			message = "등록하였습니다 :)";
-		}
-
-		ra.addFlashAttribute("message", message);
-
-		return path;
-
-	};
-
-	@RequestMapping("/newCorp/corpDetail/{corpNo}")
-	public String corpDetail(
-			Model model,
-			@PathVariable("corpNo") int corpNo,
-			@RequestParam(value = "cp", required = false, defaultValue="1" ) int cp
-			) {
-
-		Corperation corp = service.getCorpInfo(corpNo);
-		List<DetailCategory> upjOption = services.getSubCategorie(80);
-		List<DetailCategory> uptOption = services.getSubCategorie(90);
-
-		model.addAttribute("upjOption",upjOption);
-		model.addAttribute("uptOption",uptOption);
-		model.addAttribute("corp", corp);
-		
-		System.out.println(upjOption);
-		System.out.println(uptOption);
-		System.out.println(corp);
-
-
-		return  "newCorp/corpDetail";
-	}
-
 	
 	@RequestMapping("/newProj")
 	public String insertNewProject(
@@ -114,7 +49,7 @@ public class ProjectController {
 		String path = null;
 		String message = null;
 
-		System.out.println(project);
+	
 
 		if ( project.getProjectValue() == null) {
 			path = "redirect:/project";
@@ -130,6 +65,8 @@ public class ProjectController {
 				project.setProjectAddr(null);
 			}
 
+			System.out.println(project);
+			
 			service.insertNewProject(project);
 
 			path = "redirect:/projectList";
@@ -141,5 +78,30 @@ public class ProjectController {
 		return path;
 	
 	}
+//	
+//	selectDetailProject
+	
+	@GetMapping("/selectDetailProject")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> selectProjectDeailValue(
+			Model model,
+			@RequestParam(value = "projectNo", required = false) int projectNo
+			){
+		
+		System.out.println(projectNo);
+		
+
+		Map<String, Object> selectProjectDeailValue = null;
+		selectProjectDeailValue = service.selectProjectDeailValue(projectNo);
+
+		
+		System.out.println(selectProjectDeailValue);
+		
+		
+		return new ResponseEntity<>(selectProjectDeailValue, HttpStatus.OK);
+
+	}
+
+
 	
 }

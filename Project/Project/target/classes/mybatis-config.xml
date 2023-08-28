@@ -21,7 +21,7 @@
 			alias="certi"/>
 			<typeAlias type="com.bid.board.project.model.vo.Project"
 			alias="project"/>
-			<typeAlias type="com.bid.board.project.model.vo.Corperation"
+			<typeAlias type="com.bid.board.corperation.model.vo.Corperation"
 			alias="corp"/>
 	</typeAliases>
 
