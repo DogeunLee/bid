@@ -51,6 +51,8 @@ public class ProjectServiceImple implements ProjectService {
 		    
 		    System.out.println(pagination);
 		    
+		  
+		    
 		    for (Project project : projectList) {
 		        String projectAddr = project.getProjectAddr(); 
 		        if (projectAddr != null) {
@@ -58,7 +60,8 @@ public class ProjectServiceImple implements ProjectService {
 		        	project.setProjectAddr(projectAddr);
 		        }
 		    }
-
+	
+		   
 		    Map<String, Object> getProjectList = new HashMap<String, Object>();
 		    getProjectList.put("pagination", pagination);
 		    getProjectList.put("projectList", projectList);
@@ -74,6 +77,15 @@ public class ProjectServiceImple implements ProjectService {
 		
 	    Map<String, Object> getProjectDetailValue = new HashMap<String, Object>();
 	 
+	 
+	    for(Project project : selectPDV) {
+	        if("N".equals(project.getProjectSt())) {
+	            project.setProjectSt("진행중");
+	        } else if("Y".equals(project.getProjectSt())) {
+	            project.setProjectSt("완료");
+	        }
+	    }
+	    
 		
 		getProjectDetailValue.put("selectPDV", selectPDV);
 		

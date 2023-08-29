@@ -78,8 +78,7 @@ public class ProjectController {
 		return path;
 	
 	}
-//	
-//	selectDetailProject
+
 	
 	@GetMapping("/selectDetailProject")
 	@ResponseBody

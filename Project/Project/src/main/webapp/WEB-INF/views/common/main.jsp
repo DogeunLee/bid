@@ -82,7 +82,7 @@
 
 														<input type="text" id="memberName" style="display: none;"
 															name="memberName">
-														<button class="searchBtn">검색하기</button>
+														<button class="searchBtn" type="button">검색하기</button>
 
 													</form>
 

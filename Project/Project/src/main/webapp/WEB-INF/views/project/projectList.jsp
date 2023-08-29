@@ -42,54 +42,6 @@
                                             <!-- 검색 area -->
                                             <div>
                                                 <p>프로젝트 조회</p>
-                                                <div class="impl-search-area">
-
-                                                    <form action="projectList" method="GET" class="search-form">
-
-                                                        <select id="bigCategory" name="bcategory">
-                                                            <option selected value="1">전체</option>
-
-                                                            <c:forEach var="selectCategory"
-                                                                items="${bigCategoryList.searchBigCat}">
-                                                                <option value="${selectCategory.codeNo}">
-                                                                    ${selectCategory.codeId}</option>
-                                                            </c:forEach>
-
-                                                            <option value="9999">이름</option>
-
-                                                            <option value="7942">선택조회</option>
-                                                        </select>
-                                                        <input class="hireDate" type="date" name="startDate"
-                                                            id="startDate" class="dateBtn" onfocus="this.showPicker()"
-                                                            style="display: none;">
-                                                        <div class="waterbooom" style="display: none;">~</div>
-                                                        <input class="hireDate" type="date" name="endDate" id="endDate"
-                                                            class="dateBtn" onfocus="this.showPicker()"
-                                                            style="display: none;">
-
-                                                        <c:forEach var="selectCategory"
-                                                            items="${bigCategoryList.searchBigCat}" varStatus="status">
-                                                            <select name="ssearch" style="display:none"
-                                                                data-codeNo="${selectCategory.codeNo}"
-                                                                class="searchValue${status.index + 1} ssearch-content">
-                                                                <option selected disabled
-                                                                    value="${selectCategory.codeNo}">
-                                                                    ${selectCategory.codeId}&nbsp;&nbsp;
-                                                                </option>
-                                                                <option value="all">전체</option>
-                                                            </select>
-                                                        </c:forEach>
-
-
-
-                                                        <input type="text" id="memberName" style="display: none;"
-                                                            name="memberName">
-                                                        <button class="searchBtn">검색하기</button>
-
-                                                    </form>
-
-
-                                                </div>
                                             </div>
 
                                             <div class="member-deatil-wrap">
@@ -97,28 +49,264 @@
                                                 <div class="md-left-side">
 
                                                     <div class="image_wrap">
-                                           
-                                                            <p>프로젝트 리스트</p>
-                                                   
+
+                                                        <p>프로젝트 리스트</p>
+
                                                     </div>
 
                                                     <div class="changeWrap">
                                                         <div><a>등록된 프로젝트 목록</a>
                                                         </div>
                                                     </div>
+
                                                     <div class="default-infoWrap">
                                                         <c:forEach var="projectList"
                                                             items="${getProjectList.projectList}">
                                                             <div class="project_value">
-                                                                <a data-projectno="${projectList.projectNo}">${projectList.projectValue}</a>
+                                                                <a
+                                                                    data-projectno="${projectList.projectNo}">${projectList.projectValue}</a>
                                                             </div>
-                                                        </c:forEach>    
+                                                        </c:forEach>
                                                     </div>
 
-                                                    <div class="page_Nation" style="display: none;">
+                                                </div>
+
+                                                <div class="md-middle-side">
+                                                    <div>
+                                                        <div class="image_wrap">
+                                                            <p>세부사항</p>
+                                                        </div>
+                                                        <div class="changeWrap">
+                                                            <div><a>프로젝트 세부 사항</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="default-infoWraps">
+                                                            <div class="dateArea">
+                                                                <p>기간</p><input type="date" class="dateBtn"
+                                                                    id="projectSDate" name="projectSDate"
+                                                                    onfocus="this.showPicker()" readonly>
+                                                                <span class="dateSep">~</span>
+
+                                                                <input type="date" name="projectEDate" id="projectEDate"
+                                                                    class="dateBtn" onfocus="this.showPicker()"
+                                                                    readonly>
+                                                            </div>
+                                                            <div>
+                                                                <p>금액</p><input type="text" class="projectPrice"
+                                                                    id="projectPrice" readonly value="">
+                                                            </div>
+                                                            <div class="input-addr-wrap">
+                                                                <p>주소</p>
+                                                                <div class="post-detail">
+                                                                    <div class="signUp-input-area">
+                                                                        <input type="text" id="sample4_postcode"
+                                                                            class="projectAddr" name="projectAddr"
+                                                                            placeholder="우편번호" maxlength="6" readonly>
+
+                                                                        <button type="button" class="post-search-btn"
+                                                                            onclick="return sample4_execDaumPostcode()">검색</button>
+                                                                    </div>
+
+                                                                    <div class="signUp-input-area">
+                                                                        <input type="text" id="sample4_roadAddress"
+                                                                            class="projectAddr" name="projectAddr"
+                                                                            placeholder="도로명주소" readonly>
+                                                                    </div>
+
+                                                                    <div class="signUp-input-area">
+                                                                        <input type="text" id="sample4_detailAddress"
+                                                                            class="projectAddr" name="projectAddr"
+                                                                            placeholder="상세주소" readonly>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <p>회사명</p><input type="text" class="corpName"
+                                                                    id="corpName" readonly value="">
+                                                            </div>
+                                                            <div>
+                                                                <p>회사번호</p><input type="text" class="corpTel"
+                                                                    id="corpTel" readonly value="">
+                                                            </div>
+                                                            <div>
+                                                                <p>책임자명</p><input type="text" class="corpManager"
+                                                                    id="corpManager" readonly value="">
+                                                            </div>
+                                                            <div>
+                                                                <p>책임자번호</p><input type="text" class="corpManagerTel"
+                                                                    id="corpManagerTel" readonly value="">
+                                                            </div>
+                                                            <div>
+                                                                <p>진행상황</p><input type="text" class="" readonly
+                                                                    id="projectSt" value="">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="md-right-side">
+                                                    <div>
+                                                        <div class="image_wrap">
+                                                            <p>세부사항</p>
+                                                        </div>
+                                                        <div class="changeWrap">
+                                                            <div><a>참가중인 인원 ( n명 )</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="default-infoWrap">
+                                                            <div class="tableWrap">
+                                                                <table>
+                                                                    <thead>
+                                                                        <th>사번</th>
+                                                                        <th>이름</th>
+                                                                        <th>레벨</th>
+                                                                        <th>휴대전화</th>
+                                                                        <th>학력</th>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr class="rows">
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                        </tr>
+                                                                        <tr class="rows">
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                        </tr>
+                                                                        <tr class="rows">
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                        </tr>
+                                                                        <tr class="rows">
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="memberBtnWrap">
+                                                                <button type="button"
+                                                                    class="updateMemberSet">인원수정</button>
+                                                                <button type="button">선택인원삭제</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="modals">
+                                    <div class="newMemberInput">
+                                        <div>
+                                            <div>
+                                                <p>프로젝트 멤버 수정</p>
+                                            </div>
+                                            <button class="closeModal">x</button>
+                                        </div>
+                                        <div>
+
+                                            <div>
+                                                <div class="image_wrap">
+                                                    <p>직원목록</p>
+                                                </div>
+                                                <div class="nMI-wrap">
+                                                    <div class="nMI-search-wrap">
+                                                        <p>직원 조회</p>
+                                                        <div class="impl-search-area">
+
+                                                            <form action="projectList" method="GET" class="search-form">
+
+                                                                <select id="bigCategory" name="bcategory">
+                                                                    <option selected value="1">전체</option>
+
+                                                                    <c:forEach var="selectCategory"
+                                                                        items="${bigCategoryList.searchBigCat}">
+                                                                        <option value="${selectCategory.codeNo}">
+                                                                            ${selectCategory.codeId}</option>
+                                                                    </c:forEach>
+
+                                                                    <option value="9999">이름</option>
+
+                                                                    <option value="7942">선택조회</option>
+                                                                </select>
+                                                                <input class="hireDate" type="date" name="startDate"
+                                                                    id="startDate" class="dateBtn"
+                                                                    onfocus="this.showPicker()" style="display: none;">
+                                                                <div class="waterbooom" style="display: none;">~</div>
+                                                                <input class="hireDate" type="date" name="endDate"
+                                                                    id="endDate" class="dateBtn"
+                                                                    onfocus="this.showPicker()" style="display: none;">
+
+                                                                <c:forEach var="selectCategory"
+                                                                    items="${bigCategoryList.searchBigCat}"
+                                                                    varStatus="status">
+                                                                    <select name="ssearch" style="display:none"
+                                                                        data-codeNo="${selectCategory.codeNo}"
+                                                                        class="searchValue${status.index + 1} ssearch-content">
+                                                                        <option selected disabled
+                                                                            value="${selectCategory.codeNo}">
+                                                                            ${selectCategory.codeId}&nbsp;&nbsp;
+                                                                        </option>
+                                                                        <option value="all">전체</option>
+                                                                    </select>
+                                                                </c:forEach>
+
+
+
+                                                                <input type="text" id="memberName"
+                                                                    style="display: none;" name="memberName">
+                                                                <button class="searchBtn">검색하기</button>
+
+                                                            </form>
+
+
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="table-wrap">
+                                                        <table>
+                                                            <thead class="tableHd">
+                                                                <th>ID</th>
+                                                                <th>이름</th>
+                                                                <th>등급</th>
+                                                                <th>연락처</th>
+                                                                <th>학력</th>
+                                                                <th>상태</th>
+                                                            </thead>
+
+                                                            <tbody>
+                                                                <c:forEach var="memberList"
+                                                                    items="${getMemberList.memberList}">
+                                                                    <tr class="row">
+                                                                        <td>${memberList.memberId}</td>
+                                                                        <td>${memberList.memberName}</td>
+                                                                        <td>${memberList.memberLv}</td>
+                                                                        <td>${memberList.memberTel}</td>
+                                                                        <td>${memberList.memberGrad}</td>
+                                                                        <td>${memberList.memberSt}</td>
+                                                                    </tr>
+                                                                </c:forEach>
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div>
+                                                    <div class="page_Nation">
                                                         <c:set var="url" value="?cp=" />
-                                                        <c:set var="pagination"
-                                                            value="${getProjectList['pagination']}" />
+                                                        <c:set var="pagination" value="${getMemberList['pagination']}" />
                                                         <c:set var="currentPage" value="${pagination.currentPage}"
                                                             scope="request" />
                                                         <div>
@@ -149,113 +337,70 @@
                                                             <a href="${url}${pagination.maxPage}">&gt;&gt;</a>
                                                         </div>
                                                     </div>
-
                                                 </div>
-
-                                                <div class="md-middle-side">
-                                                    <div>
-                                                        <div class="image_wrap">
-                                                            <p>세부사항</p>
-                                                        </div>
-                                                        <div class="changeWrap">
-                                                            <div><a>프로젝트 세부 사항</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="default-infoWrap">
-                                                            <div class="dateArea">
-                                                                <p>기간</p><input type="date" class="dateBtn" id="projectSDate"
-                                                                    name="projectSDate" onfocus="this.showPicker()" readonly>
-                                                                <span class="dateSep">~</span>
-
-                                                                <input type="date" name="projectEDate" id="projectEDate" class="dateBtn"
-                                                                    onfocus="this.showPicker()" readonly>
-                                                            </div>
-                                                            <div>
-                                                                <p>금액</p><input type="text" class="projectPrice" id="projectPrice"
-                                                                    readonly value="">
-                                                            </div>
-                                                            <div class="input-addr-wrap">
-                                                                <p>주소</p>
-                                                                <div class="post-detail">
-                                                                    <div class="signUp-input-area">
-                                                                        <input type="text" id="sample4_postcode" class="projectAddr"
-                                                                            name="projectAddr" placeholder="우편번호"
-                                                                            maxlength="6" readonly>
-
-                                                                        <button type="button" class="post-search-btn"
-                                                                            onclick="return sample4_execDaumPostcode()">검색</button>
-                                                                    </div>
-
-                                                                    <div class="signUp-input-area">
-                                                                        <input type="text" id="sample4_roadAddress" class="projectAddr"
-                                                                            name="projectAddr" placeholder="도로명주소"
-                                                                            readonly>
-                                                                    </div>
-
-                                                                    <div class="signUp-input-area">
-                                                                        <input type="text" id="sample4_detailAddress" class="projectAddr"
-                                                                            name="projectAddr" placeholder="상세주소"
-                                                                            readonly>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div>
-                                                                <p>회사명</p><input type="text" class="corpName" id="corpName" readonly
-                                                                    value="">
-                                                            </div>
-                                                            <div>
-                                                                <p>회사번호</p><input type="text" class="corpTel" id="corpTel" readonly
-                                                                    value="">
-                                                            </div>
-                                                            <div>
-                                                                <p>책임자명</p><input type="text" class="corpManager" id="corpManager"
-                                                                    readonly value="">
-                                                            </div>
-                                                            <div>
-                                                                <p>책임자번호</p><input type="text" class="corpManagerTel" id="corpManagerTel"
-                                                                    readonly value="">
-                                                            </div>
-                                                            <div>
-                                                                <p>진행상황</p><input type="text" class="" readonly
-                                                                    value="">
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="md-right-side">
-                                                    <div>
-                                                        <div class="image_wrap">
-                                                            <p>세부사항</p>
-                                                        </div>
-                                                        <div class="changeWrap">
-                                                            <div><a>참가중인 인원</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="default-infoWrap">
-
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
+                                                
 
                                             </div>
 
+                                            <div>
+                                                <div class="image_wrap">
+                                                    <p>프로젝트 인원</p>
+                                                </div>
+                                                <div class="nMI-wrap">
+
+                                                    <div class="nMI-search-wrap"></div>
+                                                    <div class="projectConfirmMember">
+
+                                                        <table>
+                                                            <thead>
+                                                                <tr class="newMemTh">
+                                                                    <th>사번</th>
+                                                                    <th>이름</th>
+                                                                    <th>레벨</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="newMem">
+                                                                    <td>102827</td>
+                                                                    <td>이도근</td>
+                                                                    <td>초급</td>
+                                                                </tr>
+                                                                <tr class="newMem">
+                                                                    <td>102827</td>
+                                                                    <td>이도근</td>
+                                                                    <td>초급</td>
+                                                                </tr>
+                                                                <tr class="newMem">
+                                                                    <td>102827</td>
+                                                                    <td>이도근</td>
+                                                                    <td>초급</td>
+                                                                </tr>
+                                                                <tr class="newMem">
+                                                                    <td>102827</td>
+                                                                    <td>이도근</td>
+                                                                    <td>초급</td>
+                                                                </tr>
+                                                                <tr class="newMem">
+                                                                    <td>102827</td>
+                                                                    <td>이도근</td>
+                                                                    <td>초급</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="confrimBtnWrap"></div>
+                                                </div>
+                                            </div>
+
                                         </div>
-
-
-
-
                                     </div>
-
                                 </div>
+
 
                             </main>
 
                         </div>
+
 
 
 

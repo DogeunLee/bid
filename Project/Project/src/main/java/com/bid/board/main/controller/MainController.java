@@ -135,11 +135,12 @@ public class MainController {
 		return "project/project";
 	}
 	
-	@RequestMapping("/projectList")
+	@GetMapping("/projectList")
 	public String projectList(
 			Model model,
 			Corperation corp,
-			@RequestParam(value="cp", required = false, defaultValue="1") int cp
+			@RequestParam(value="cp", required = false, defaultValue="1") int cp,
+			@RequestParam(value = "bcategory", required = false) String bcategory
 			) {
 		
 		Map<String, Object> getProjectList = null;
@@ -147,10 +148,34 @@ public class MainController {
 		
 		System.out.println(getProjectList);
 		
+// 여기
+		Map<String, Object> getMemberList = null;
+		getMemberList = service.getMemberList(cp);
+
+
+		Map<String, Object> bigCategoryList = null;
+		bigCategoryList = services.searchBigCat();
+
+		model.addAttribute("getMemberList", getMemberList);
+		model.addAttribute("bigCategoryList", bigCategoryList);
+		
+// 여기
 		model.addAttribute("getProjectList",getProjectList);
 
 		return "project/projectList";
 	}
+	
+	@ResponseBody
+	@RequestMapping("/getMoreProjectList")
+	public  ResponseEntity<Map<String, Object>> getMoreProjectList(
+			@RequestParam(value="cp", required = false, defaultValue="1") int cp
+			){
+		
+		Map<String, Object> getProjectList = pservice.getProjectList(cp);
+		return ResponseEntity.ok(getProjectList);
+	}
+	
+
 	
 	@ResponseBody
 	@GetMapping("/getCorpManagerInfo")
