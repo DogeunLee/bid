@@ -26,4 +26,4 @@ replay_pid*
 .metadata
 Servers/
 pom.properties
-.pactorypath
+.factorypath
