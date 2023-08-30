@@ -110,6 +110,19 @@ public class MainController {
 
 		return "common/main";
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/getMoreMemberList")
+	public  ResponseEntity<Map<String, Object>> getMainMemberList(
+			@RequestParam(value="cp", required = false, defaultValue="1") int cp
+			){
+		
+		Map<String, Object> getMemberList =  service.getMemberList(cp);
+		return ResponseEntity.ok(getMemberList);
+	}
+	
+	
 
 	@RequestMapping("/signUp")
 	public String signUp(

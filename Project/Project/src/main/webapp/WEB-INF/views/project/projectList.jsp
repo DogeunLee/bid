@@ -288,10 +288,10 @@
                                                                 <th>상태</th>
                                                             </thead>
 
-                                                            <tbody>
+                                                            <tbody id="memberListTbody">
                                                                 <c:forEach var="memberList"
                                                                     items="${getMemberList.memberList}">
-                                                                    <tr class="row">
+                                                                   <tr class="row ${memberList.memberSt == '투입중' || memberList.memberSt == '휴직' || memberList.memberSt == '퇴사' ? 'involvement' : ''}">
                                                                         <td>${memberList.memberId}</td>
                                                                         <td>${memberList.memberName}</td>
                                                                         <td>${memberList.memberLv}</td>
@@ -302,41 +302,9 @@
                                                                 </c:forEach>
                                                             </tbody>
                                                         </table>
-
                                                     </div>
-                                                    <div class="page_Nation">
-                                                        <c:set var="url" value="?cp=" />
-                                                        <c:set var="pagination" value="${getMemberList['pagination']}" />
-                                                        <c:set var="currentPage" value="${pagination.currentPage}"
-                                                            scope="request" />
-                                                        <div>
-                                                            <a href="${url}1">&lt;&lt;</a>
-                                                        </div>
-                                                        <div>
-                                                            <a href="${url}${pagination.prevPage}">&lt;</a>
-                                                        </div>
-                                                        <c:forEach var="i" begin="${pagination.startPage}"
-                                                            end="${pagination.endPage}" step="1">
-                                                            <c:choose>
-                                                                <c:when test="${i == currentPage}">
-                                                                    <div>
-                                                                        <a class="selected_Cp">${i}</a>
-                                                                    </div>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <div>
-                                                                        <a href="${url}${i}">${i}</a>
-                                                                    </div>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </c:forEach>
-                                                        <div>
-                                                            <a href="${url}${pagination.nextPage}">&gt;</a>
-                                                        </div>
-                                                        <div>
-                                                            <a href="${url}${pagination.maxPage}">&gt;&gt;</a>
-                                                        </div>
-                                                    </div>
+                                                   
+                                                    
                                                 </div>
                                                 
 
@@ -346,50 +314,33 @@
                                                 <div class="image_wrap">
                                                     <p>프로젝트 인원</p>
                                                 </div>
-                                                <div class="nMI-wrap">
+                                                    <div class="nMI-wrap">
 
-                                                    <div class="nMI-search-wrap"></div>
-                                                    <div class="projectConfirmMember">
+                                                        <div class="nMI-search-wrap">
+                                                            <p>투입예정인원</p>
+                                                        </div>
+                                                        <div class="projectConfirmMember">
 
-                                                        <table>
-                                                            <thead>
-                                                                <tr class="newMemTh">
-                                                                    <th>사번</th>
-                                                                    <th>이름</th>
-                                                                    <th>레벨</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr class="newMem">
-                                                                    <td>102827</td>
-                                                                    <td>이도근</td>
-                                                                    <td>초급</td>
-                                                                </tr>
-                                                                <tr class="newMem">
-                                                                    <td>102827</td>
-                                                                    <td>이도근</td>
-                                                                    <td>초급</td>
-                                                                </tr>
-                                                                <tr class="newMem">
-                                                                    <td>102827</td>
-                                                                    <td>이도근</td>
-                                                                    <td>초급</td>
-                                                                </tr>
-                                                                <tr class="newMem">
-                                                                    <td>102827</td>
-                                                                    <td>이도근</td>
-                                                                    <td>초급</td>
-                                                                </tr>
-                                                                <tr class="newMem">
-                                                                    <td>102827</td>
-                                                                    <td>이도근</td>
-                                                                    <td>초급</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                                            <table class="newTbl">
+                                                                <thead>
+                                                                    <tr class="newMemTh">
+                                                                        <th>사번</th>
+                                                                        <th>이름</th>
+                                                                        <th>레벨</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+<!--                                                                     
+                                                                   <tr class="newMem">
+                                                                        <td>102827</td>
+                                                                        <td>이도근</td>
+                                                                        <td>초급</td>
+                                                                    </tr> -->
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="confrimBtnWrap"></div>
                                                     </div>
-                                                    <div class="confrimBtnWrap"></div>
-                                                </div>
                                             </div>
 
                                         </div>

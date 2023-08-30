@@ -556,7 +556,7 @@ font-weight: bold;
 }
 
 .newMemberInput > div:nth-child(2) > div:nth-child(2){
-    width:25%;
+    width:26%;
     height:100%;
     background-color: white;
     border-radius: 10px;
@@ -592,7 +592,8 @@ font-weight: bold;
 }
 
 .table-wrap{
-    height:83%;
+    height:82%;
+    overflow-y: scroll;
 }
 
 .table-wrap table{
@@ -684,6 +685,7 @@ font-weight: bold;
 
 .projectConfirmMember{
     height:83%;
+
 }
 
 .confrimBtnWrap{
@@ -728,3 +730,9 @@ font-weight: bold;
 .newMem:nth-child(odd){
     background-color:lightgray;
 }
+
+.projectConfirmMember{
+    overflow-x:hidden;
+    overflow-y: scroll;
+}
+
