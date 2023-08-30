@@ -158,6 +158,10 @@
 		m4 ON m.MEMBER_ST = m4.CODE_ID
 		LEFT JOIN GRADUATE gr ON gr.MEMBER_NO =
 		m.MEMBER_NO
+		WHERE
+		m.MEMBER_ST != 'STAT03'	
+		AND
+		m.MEMBER_ST != 'STAT04'
 		ORDER BY m.MEMBER_NO ASC
 	</select>
 
@@ -302,16 +306,17 @@
 			<if test="memberName == null or memberName.trim() == ''">
 				<choose>
 					<when test="codeNo == 1">
+						m.MEMBER_ST != 'STAT03'	AND m.MEMBER_ST != 'STAT04'
 					</when>
 					<when test="codeNo == 10">
 						m.MEMBER_ST = #{codeId} ORDER BY m.MEMBER_NO ASC
 					</when>
 					<when test="codeNo == 11">
-						m.MEMBER_GENDER = #{codeId} ORDER BY m.MEMBER_NO
+						m.MEMBER_GENDER = #{codeId} AND m.MEMBER_ST != 'STAT03' AND m.MEMBER_ST != 'STAT04' ORDER BY m.MEMBER_NO
 						ASC
 					</when>
 					<when test="codeNo == 20">
-						m.MEMBER_LV = #{codeId} ORDER BY m.MEMBER_NO ASC
+						m.MEMBER_LV = #{codeId} AND m.MEMBER_ST != 'STAT03'	m.MEMBER_ST != 'STAT04' ORDER BY m.MEMBER_NO ASC
 					</when>
 				</choose>
 			</if>
