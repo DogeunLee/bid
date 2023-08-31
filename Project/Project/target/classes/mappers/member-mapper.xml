@@ -67,6 +67,13 @@
 		<association property="exp"
 			javaType="com.bid.board.member.model.vo.Exp" resultMap="exp_rm" />
 	</resultMap>
+	
+	<resultMap type="reserve" id="reserve_rm">
+		<id property="reserveNo" column="RESERVE_NO" />
+		<result property="projectNo" column="PROJECT_NO" />
+		<result property="memberId" column="MEMBER_ID" />
+	</resultMap>
+	
 
 	<select id="selectMemberNo" resultType="_int">
 		SELECT COUNT(*) FROM
@@ -159,7 +166,7 @@
 		LEFT JOIN GRADUATE gr ON gr.MEMBER_NO =
 		m.MEMBER_NO
 		WHERE
-		m.MEMBER_ST != 'STAT03'	
+		m.MEMBER_ST != 'STAT03'
 		AND
 		m.MEMBER_ST != 'STAT04'
 		ORDER BY m.MEMBER_NO ASC
@@ -306,17 +313,19 @@
 			<if test="memberName == null or memberName.trim() == ''">
 				<choose>
 					<when test="codeNo == 1">
-						m.MEMBER_ST != 'STAT03'	AND m.MEMBER_ST != 'STAT04'
+						m.MEMBER_ST != 'STAT03' AND m.MEMBER_ST != 'STAT04'
 					</when>
 					<when test="codeNo == 10">
 						m.MEMBER_ST = #{codeId} ORDER BY m.MEMBER_NO ASC
 					</when>
 					<when test="codeNo == 11">
-						m.MEMBER_GENDER = #{codeId} AND m.MEMBER_ST != 'STAT03' AND m.MEMBER_ST != 'STAT04' ORDER BY m.MEMBER_NO
+						m.MEMBER_GENDER = #{codeId} AND m.MEMBER_ST !=
+						'STAT03' AND m.MEMBER_ST != 'STAT04' ORDER BY m.MEMBER_NO
 						ASC
 					</when>
 					<when test="codeNo == 20">
-						m.MEMBER_LV = #{codeId} AND m.MEMBER_ST != 'STAT03'	m.MEMBER_ST != 'STAT04' ORDER BY m.MEMBER_NO ASC
+						m.MEMBER_LV = #{codeId} AND m.MEMBER_ST != 'STAT03'
+						m.MEMBER_ST != 'STAT04' ORDER BY m.MEMBER_NO ASC
 					</when>
 				</choose>
 			</if>
@@ -528,4 +537,29 @@
 		)
 	</insert>
 
+	<update id="updateSt">
+		UPDATE MEMBER SET
+		MEMBER_ST = 'STAT02'
+		WHERE
+		MEMBER_ID IN
+		<foreach collection="memberId" item="id" open="("
+			separator="," close=")">
+			#{id}
+		</foreach>
+	</update>
+	
+	<select id="selectProjectMemberList" resultMap="member_rm">
+		SELECT 
+		m.MEMBER_ID,
+		m.MEMBER_NAME,
+		m1.CODE_NAME AS MEMBER_LV,
+		m.MEMBER_TEL,
+		m2.CODE_NAME AS MEMBER_GRAD
+		FROM MEMBER m
+		LEFT OUTER JOIN RESERVE r ON m.MEMBER_ID = r.MEMBER_ID
+		LEFT OUTER JOIN MASTER_CODETBL m1 ON m.MEMBER_LV = m1.CODE_ID
+		LEFT OUTER JOIN	MASTER_CODETBL m2 ON m.MEMBER_GRAD = m2.CODE_ID
+		WHERE PROJECT_NO = #{projectNo}
+	</select>
+	
 </mapper>

@@ -484,7 +484,7 @@ a {
     background-color: #151515;
 }
 
-.modals {
+.modals{
     top: 0;
     bottom: 0;
     left: 0;
@@ -494,7 +494,7 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* display: none; */
+    display: none;
 }
 
 .displayHidden {
@@ -683,16 +683,13 @@ font-weight: bold;
     line-height: 23px !important;
 }
 
-.projectConfirmMember{
+.nMI-wrap > form {
     height:83%;
-
 }
 
-.confrimBtnWrap{
-    height:10%;
-    display: flex;
-    border:1px solid black;
-    justify-content: space-evenly;
+.projectConfirmMember{
+    height:100%;
+
 }
 
 
@@ -735,4 +732,30 @@ font-weight: bold;
     overflow-x:hidden;
     overflow-y: scroll;
 }
+
+
+.confrimBtnWrap{
+    height:10%;
+    display: flex;
+    align-items: center;
+}
+
+
+.confrimBtnWrap button {
+    width:90%;
+    height:90%;
+    margin:0 auto;
+    border:none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: #5b5b5b;
+    color:white;
+    font-weight: bold;
+}
+
+.confrimBtnWrap button:hover {
+    background-color: rgb(21, 21, 21);
+}
+
 

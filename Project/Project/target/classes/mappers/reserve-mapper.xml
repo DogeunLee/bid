@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="reserveMapper">
+
+	<resultMap type="reserve" id="reserve_rm">
+		<id property="reserveNo" column="RESERVE_NO" />
+		<result property="projectNo" column="PROJECT_NO" />
+		<result property="memberId" column="MEMBER_ID" />
+	</resultMap>
+
+
+	<insert id="insertNewMember" parameterType="reserve">
+		INSERT ALL
+		<foreach collection="memberId" item="id">
+			INTO RESERVE (RESERVE_NO, PROJECT_NO, MEMBER_ID) VALUES
+			(RESERVE_SEQ.NEXTVAL, #{projectNo}, #{id})
+		</foreach>
+		SELECT * FROM dual
+	</insert>
+
+</mapper>

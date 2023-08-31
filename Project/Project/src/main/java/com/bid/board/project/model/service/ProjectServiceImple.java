@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bid.board.corperation.model.vo.CorpPagination;
 import com.bid.board.corperation.model.vo.Corperation;
+import com.bid.board.member.model.dao.MemberDAO;
 import com.bid.board.member.model.vo.Member;
 import com.bid.board.member.model.vo.MemberPageNation;
 import com.bid.board.project.model.dao.ProjectDAO;
@@ -21,6 +22,8 @@ public class ProjectServiceImple implements ProjectService {
 	@Autowired
 	private ProjectDAO dao;
 
+	@Autowired
+	private MemberDAO mdao;
 	
 
 	@Override
@@ -74,6 +77,7 @@ public class ProjectServiceImple implements ProjectService {
 	public Map<String, Object> selectProjectDeailValue(int projectNo) {
 		
 		List<Project> selectPDV = dao.selectProjectDetailValue(projectNo);
+		List<Member> selectPMemberList = mdao.selectProjectMemberList(projectNo);
 		
 	    Map<String, Object> getProjectDetailValue = new HashMap<String, Object>();
 	 
@@ -88,6 +92,7 @@ public class ProjectServiceImple implements ProjectService {
 	    
 		
 		getProjectDetailValue.put("selectPDV", selectPDV);
+		getProjectDetailValue.put("selectPMemberList", selectPMemberList);
 		
 		return getProjectDetailValue;
 	}

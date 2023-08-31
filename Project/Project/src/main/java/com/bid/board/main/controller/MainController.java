@@ -153,11 +153,14 @@ public class MainController {
 			Model model,
 			Corperation corp,
 			@RequestParam(value="cp", required = false, defaultValue="1") int cp,
+			@RequestParam(value="projectNo", required = false, defaultValue="1") int projectNo,
 			@RequestParam(value = "bcategory", required = false) String bcategory
 			) {
 		
 		Map<String, Object> getProjectList = null;
 		getProjectList = pservice.getProjectList(cp);
+		
+		System.out.println(projectNo+"=============================== 프로젝트메인페이지 등 ===============================");
 		
 		System.out.println(getProjectList);
 		
@@ -173,6 +176,9 @@ public class MainController {
 		model.addAttribute("bigCategoryList", bigCategoryList);
 		
 // 여기
+		
+
+		
 		model.addAttribute("getProjectList",getProjectList);
 
 		return "project/projectList";

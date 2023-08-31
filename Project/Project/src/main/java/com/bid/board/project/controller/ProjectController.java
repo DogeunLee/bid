@@ -80,6 +80,7 @@ public class ProjectController {
 	}
 
 	
+//	여기라고 ?
 	@GetMapping("/selectDetailProject")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> selectProjectDeailValue(
@@ -92,7 +93,7 @@ public class ProjectController {
 
 		Map<String, Object> selectProjectDeailValue = null;
 		selectProjectDeailValue = service.selectProjectDeailValue(projectNo);
-
+		
 		
 		System.out.println(selectProjectDeailValue);
 		
@@ -100,7 +101,7 @@ public class ProjectController {
 		return new ResponseEntity<>(selectProjectDeailValue, HttpStatus.OK);
 
 	}
-
+	
 
 	
 }

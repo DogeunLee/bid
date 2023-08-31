@@ -165,26 +165,15 @@
                                                                         <th>학력</th>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr class="rows">
+                                                                        <!-- <tr class="rows">
                                                                             <td></td>
                                                                             <td></td>
                                                                             <td></td>
-                                                                        </tr>
-                                                                        <tr class="rows">
                                                                             <td></td>
                                                                             <td></td>
-                                                                            <td></td>
-                                                                        </tr>
-                                                                        <tr class="rows">
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                        </tr>
-                                                                        <tr class="rows">
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                        </tr>
+                                                                        </tr> -->
+
+                                                                        <!-- 메인화면 foreach -->
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -277,6 +266,7 @@
                                                         </div>
 
                                                     </div>
+
                                                     <div class="table-wrap">
                                                         <table>
                                                             <thead class="tableHd">
@@ -291,7 +281,8 @@
                                                             <tbody id="memberListTbody">
                                                                 <c:forEach var="memberList"
                                                                     items="${getMemberList.memberList}">
-                                                                   <tr class="row ${memberList.memberSt == '투입중' || memberList.memberSt == '휴직' || memberList.memberSt == '퇴사' ? 'involvement' : ''}">
+                                                                    <tr
+                                                                        class="row data-id='${memberList.memberId}' ${memberList.memberSt == '투입중' || memberList.memberSt == '휴직' || memberList.memberSt == '퇴사' ? 'involvement' : ''}">
                                                                         <td>${memberList.memberId}</td>
                                                                         <td>${memberList.memberName}</td>
                                                                         <td>${memberList.memberLv}</td>
@@ -303,22 +294,24 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                   
-                                                    
+
+
                                                 </div>
-                                                
+
 
                                             </div>
 
                                             <div>
+
                                                 <div class="image_wrap">
                                                     <p>프로젝트 인원</p>
                                                 </div>
-                                                    <div class="nMI-wrap">
+                                                <div class="nMI-wrap">
 
-                                                        <div class="nMI-search-wrap">
-                                                            <p>투입예정인원</p>
-                                                        </div>
+                                                    <div class="nMI-search-wrap">
+                                                        <p>투입예정인원</p>
+                                                    </div>
+                                                    <form action="insertNewMember" method="POST" >
                                                         <div class="projectConfirmMember">
 
                                                             <table class="newTbl">
@@ -330,17 +323,17 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-<!--                                                                     
-                                                                   <tr class="newMem">
-                                                                        <td>102827</td>
-                                                                        <td>이도근</td>
-                                                                        <td>초급</td>
-                                                                    </tr> -->
+                                                                    <!-- 프로젝트모달팝업 -->
                                                                 </tbody>
                                                             </table>
                                                         </div>
-                                                        <div class="confrimBtnWrap"></div>
-                                                    </div>
+                                                        <div class="confrimBtnWrap">
+                                                            <input type="hidden" name='projectNo' >
+                                                            <button type="submit">저장하기</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
                                             </div>
 
                                         </div>

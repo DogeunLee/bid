@@ -36,7 +36,9 @@ function selectProjectsDetail() {
 
     var projectNo = $(this).data("projectno");
 
-    console.log(projectNo);
+    $(".memberBtnWrap button").attr("data-projectno", projectNo);
+    $(".confrimBtnWrap button").attr("data-projectno", projectNo);
+    $(".confrimBtnWrap input").attr("value", projectNo);
 
     var data = {
       projectNo: projectNo,
@@ -63,6 +65,22 @@ function selectProjectsDetail() {
         $("#corpManager").val(corpData.corpManager);
         $("#corpManagerTel").val(corpData.corpManagerTel);
         $("#projectSt").val(projectData.projectSt);
+
+        var members = response.selectPMemberList;
+        var tbody = $(".tableWrap tbody");
+    
+        tbody.empty(); 
+    
+        $.each(members, function(index, member) {
+            var tr = $("<tr>");
+            tr.append($("<td>").text(member.memberId));
+            tr.append($("<td>").text(member.memberName));
+            tr.append($("<td>").text(member.memberLv));
+            tr.append($("<td>").text(member.memberTel));
+            tr.append($("<td>").text(member.memberGrad));
+            tbody.append(tr);
+        });
+
       },
       error: function (error) {
         console.error("Request failed:", error);
@@ -115,22 +133,29 @@ function infinityScrollMember() {
   var currentPage = 1;
 
   $(".table-wrap").scroll(function () {
-      var wrap = $(this);
+    var wrap = $(this);
 
-      if (wrap.scrollTop() + wrap.innerHeight() >= wrap[0].scrollHeight - 100 && !isLoading) {
-          isLoading = true;
-          currentPage++;
+    if (
+      wrap.scrollTop() + wrap.innerHeight() >= wrap[0].scrollHeight - 100 &&
+      !isLoading
+    ) {
+      isLoading = true;
+      currentPage++;
 
-          $.ajax({
-              type: "GET",
-              url: "getMoreMemberList?cp=" + currentPage,
-              dataType: "json",
-              success: function (response) {
-                  if (response && response.memberList) {
-                      $.each(response.memberList, function (index, member) {
-                          var rowClass = (member.memberSt == '투입중' || member.memberSt == '휴직' || member.memberSt == '퇴사') ? 'involvement' : '';
-                          var newRow = 
-                              `<tr class="row ${rowClass}">
+      $.ajax({
+        type: "GET",
+        url: "getMoreMemberList?cp=" + currentPage,
+        dataType: "json",
+        success: function (response) {
+          if (response && response.memberList) {
+            $.each(response.memberList, function (index, member) {
+              var rowClass =
+                member.memberSt == "투입중" ||
+                member.memberSt == "휴직" ||
+                member.memberSt == "퇴사"
+                  ? "involvement"
+                  : "";
+              var newRow = `<tr class="row ${rowClass}">
                                   <td>${member.memberId}</td>
                                   <td>${member.memberName}</td>
                                   <td>${member.memberLv}</td>
@@ -138,21 +163,20 @@ function infinityScrollMember() {
                                   <td>${member.memberGrad}</td>
                                   <td>${member.memberSt}</td>
                               </tr>`;
-                          
-                          $("#memberListTbody").append(newRow);
-                      });
-                  }
-                  isLoading = false;
-              },
-              error: function (error) {
-                  console.error("Error fetching data:", error);
-                  isLoading = false;
-              },
-          });
-      }
+
+              $("#memberListTbody").append(newRow);
+            });
+          }
+          isLoading = false;
+        },
+        error: function (error) {
+          console.error("Error fetching data:", error);
+          isLoading = false;
+        },
+      });
+    }
   });
 }
-
 
 function changeOrange() {
   $(".default-infoWrap").on("click", ".project_value a", function () {
@@ -176,9 +200,52 @@ function modalClose() {
   });
 }
 
+
 function updateMemberSet() {
-  $(".updateMemberSet").on("click", function () {
+  $(document).on("click", ".updateMemberSet", function() {
+
+    let projectNo = $(this).attr("data-projectno");
+    console.log(projectNo);
+
+    if (typeof projectNo === 'undefined' || !projectNo) {
+      alert("프로젝트를 선택해주세요");
+      return; 
+    }
+    
+
+
     $(".modals").addClass("displayFlex");
+
+     var data = {
+      projectNo: projectNo,
+    };
+
+    $.ajax({
+      url: "selectDetailProject",
+      type: "Get",
+      data: data,
+      dataType: "json",
+      success: function (response) {
+
+        var members = response.selectPMemberList;
+        var tbody = $(".newTbl tbody");
+    
+        tbody.empty(); 
+    
+        $.each(members, function(index, member) {
+            var tr = $("<tr class='newMem'  data-id='" + member.memberId + "'>");
+            tr.append($("<td>").text(member.memberId));
+            tr.append($("<td>").text(member.memberName));
+            tr.append($("<td>").text(member.memberLv));
+            tbody.append(tr);
+        });
+
+      },
+      error: function (error) {
+        console.error("Request failed:", error);
+      },
+    });
+
   });
 }
 
@@ -251,12 +318,18 @@ function updateTable(data) {
   tbody.empty();
 
   data.searchMemberList.forEach(function (member) {
-
-      var involvementClass = (member.memberSt === "투입중" || member.memberSt === "휴직" || member.memberSt === "퇴사") ? "involvement" : "";
+    var involvementClass =
+      member.memberSt === "투입중" ||
+      member.memberSt === "휴직" ||
+      member.memberSt === "퇴사"
+        ? "involvement"
+        : "";
 
     var contextPath = "${contextPath}";
     var row =
-    '<tr class="row ' + involvementClass + '">'+
+      '<tr class="row' +
+      involvementClass +
+      '">' +
       "<td>" +
       member.memberId +
       "</td>" +
@@ -284,7 +357,6 @@ function updateTable(data) {
         cell.textContent = "";
       }
     });
-
   });
   infinityScrollMember();
 }
@@ -388,12 +460,12 @@ function fetchDataForPage(page) {
       updateTable(data);
       updatePagination(data.pagination);
 
-      $("tbody .row").each(function () {
-        var memberId = $(this).find("td:eq(0)").text();
-        if (selectedRows.includes(memberId)) {
-          $(this).addClass("selected");
-        }
-      });
+      // $("tbody .row").each(function () {
+      //   var memberId = $(this).find("td:eq(0)").text();
+      //   if (selectedRows.includes(memberId)) {
+      //     $(this).addClass("selected");
+      //   }
+      // });
     },
     error: function (error) {
       console.error("Error fetching data", error);
@@ -405,12 +477,14 @@ function initializeSearchButton() {
   $(".searchBtn").on("click", function (e) {
     e.preventDefault();
 
-    var userConfirmation = confirm("선택한 멤버가 초기화됩니다. 계속하시겠습니까?");
-    
-    if (!userConfirmation) {
-      return; 
+    if ($(".newTbl tbody").children().length > 0) {
+      var userConfirmation = confirm(
+        "선택한 멤버가 초기화됩니다. 계속하시겠습니까?"
+      );
+      if (!userConfirmation) {
+        return;
+      }
     }
-
 
     resetAllSelections();
     var data = {
@@ -438,7 +512,7 @@ function initializeSearchButton() {
         console.log(data);
         updateTable(data); // 테이블 업데이트
         updatePagination(data.pagination);
-      
+
         setSelectedProjectsByIds(selectedIds);
       },
       error: function (error) {
@@ -448,18 +522,20 @@ function initializeSearchButton() {
   });
 }
 
-function getSelectedProjectIds() {
-  return $(".row.selected").map(function() {
-    return $(this).find("td:eq(0)").text();
-  }).get();
-}
+// function getSelectedProjectIds() {
+//   return $(".row.selected")
+//     .map(function () {
+//       return $(this).find("td:eq(0)").text();
+//     })
+//     .get();
+// }
 
 function setSelectedProjectsByIds(ids) {
-  $(".row").each(function() {
+  $(".row").each(function () {
     var projectId = $(this).find("td:eq(0)").text();
-    if (ids.includes(projectId)) {
-      $(this).addClass("selected");
-    }
+    // if (ids.includes(projectId)) {
+    //   $(this).addClass("selected");
+    // }
   });
 }
 
@@ -469,26 +545,23 @@ function initializeSsearchContentClick() {
 
 function addProjectList() {
   $("tbody").on("click", ".row", function () {
-
     if ($(this).hasClass("involvement")) {
       alert("해당 인원은 참여가 불가능합니다.");
-      return; 
+      return;
     }
 
     $(this).toggleClass("selected");
 
     var memberId = $(this).find("td:eq(0)").text();
 
-    
-
     if ($(this).hasClass("selected")) {
       var memberName = $(this).find("td:eq(1)").text();
       var memberLevel = $(this).find("td:eq(2)").text();
 
       var newRow = "<tr class='newMem' data-id='" + memberId + "'>";
-      newRow += "<td>" + memberId + "</td>";
-      newRow += "<td>" + memberName + "</td>";
-      newRow += "<td>" + memberLevel + "</td>";
+      newRow += "<td>" + memberId + "<input type='hidden' name='memberId' value='" + memberId + "'></td>";
+      newRow += "<td>" + memberName;
+      newRow += "<td>" + memberLevel;
       newRow += "</tr>";
 
       $(".newTbl tbody").append(newRow);
@@ -501,9 +574,6 @@ function addProjectList() {
       $(".newTbl tbody .newMem[data-id='" + memberId + "']").remove();
     }
   });
-
-
-
 }
 
 function pageNationPrevent() {
@@ -514,15 +584,14 @@ function pageNationPrevent() {
   });
 }
 
-
 function removeNewMember() {
   $(".newTbl tbody").on("click", ".newMem", function (e) {
-    e.stopPropagation();  // 버블링을 중단
-    
+    e.stopPropagation(); // 버블링을 중단
+
     console.log("h");
     var memberId = $(this).data("id");
     var originalRow = $(".row td:contains('" + memberId + "')").parent();
-    originalRow.toggleClass("selected");
+    // originalRow.toggleClass("selected");
 
     var index = selectedRows.indexOf(memberId);
     if (index > -1) {
@@ -535,11 +604,11 @@ function removeNewMember() {
 
 function resetAllSelections() {
   // table-wrap 내의 모든 선택된 항목 초기화
-  $(".table-wrap .row.selected").removeClass('selected');
-  
+  $(".table-wrap .row.selected").removeClass("selected");
+
   // projectConfirmMember 내의 모든 선택된 항목 초기화 (필요한 경우)
   $(".newTbl tbody").empty();
-  
+
   // 추가로 localStorage에서 선택 항목 삭제 (이전 답변에서 localStorage를 사용한 경우)
-  localStorage.removeItem('selectedIds');
+  localStorage.removeItem("selectedIds");
 }
