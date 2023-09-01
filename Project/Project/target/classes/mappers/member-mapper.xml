@@ -545,7 +545,7 @@
 		<foreach collection="memberId" item="id" open="("
 			separator="," close=")">
 			#{id}
-		</foreach>
+		</foreach> 
 	</update>
 	
 	<select id="selectProjectMemberList" resultMap="member_rm">

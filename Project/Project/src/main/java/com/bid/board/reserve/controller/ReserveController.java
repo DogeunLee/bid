@@ -28,6 +28,8 @@ public class ReserveController {
 	
 		 int result = service.insertNewMember(projectNo,memberId);
 		 
+		 
+		 
 		
 		return 0;
 		

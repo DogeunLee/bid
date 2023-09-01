@@ -80,7 +80,6 @@ public class ProjectController {
 	}
 
 	
-//	여기라고 ?
 	@GetMapping("/selectDetailProject")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> selectProjectDeailValue(

@@ -281,8 +281,7 @@
                                                             <tbody id="memberListTbody">
                                                                 <c:forEach var="memberList"
                                                                     items="${getMemberList.memberList}">
-                                                                    <tr
-                                                                        class="row data-id='${memberList.memberId}' ${memberList.memberSt == '투입중' || memberList.memberSt == '휴직' || memberList.memberSt == '퇴사' ? 'involvement' : ''}">
+                                                                    <tr class="row" data-id='${memberList.memberId}'>
                                                                         <td>${memberList.memberId}</td>
                                                                         <td>${memberList.memberName}</td>
                                                                         <td>${memberList.memberLv}</td>
