@@ -11,9 +11,16 @@ $(document).ready(function () {
   initializeSearchButton();
   initializeSsearchContentClick();
   addProjectList();
-  infinityScrollMember();
+  // infinityScrollMember();
   removeNewMember();
   addSelected();
+
+  $(".page_Nation").find('a').on('click', function(e) {
+    e.preventDefault();
+    var page = $(this).data('page'); // Get the page number
+    fetchDataForPage(page);
+  });
+
 });
 
 // aside 태그색상변경
@@ -109,7 +116,7 @@ function infinityScroll() {
 
     if (
       wrap.scrollTop() + wrap.innerHeight() >= wrap[0].scrollHeight - 100 &&
-      !isLoading
+      !isLoading 
     ) {
       isLoading = true;
       currentPage++;
@@ -170,7 +177,9 @@ function updateMemberSet() {
         tbody.empty(); 
     
         $.each(members, function(index, member) {
+       
             var tr = $("<tr class='newMem' data-id='" + member.memberId + "'>");
+            tr.append($("<input type='hidden' name='memberId' value='" + member.memberId + "'>"));
             tr.append($("<td>").text(member.memberId));
             tr.append($("<td>").text(member.memberName));
             tr.append($("<td>").text(member.memberLv));
@@ -187,54 +196,60 @@ function updateMemberSet() {
 }
 
 // 모달팝업 멤버리스트 무한스크롤
-function infinityScrollMember() {
-  var isLoading = false;
-  var currentPage = 1;
+// function infinityScrollMember() {
+//   var isLoading = false;
+//   var currentPage = 1;
+//   var pagination;  // 여기에 변수를 선언합니다.
 
-  $(".table-wrap").scroll(function () {
-    var wrap = $(this);
 
-    if (
-      wrap.scrollTop() + wrap.innerHeight() >= wrap[0].scrollHeight - 100 &&
-      !isLoading
-    ) {
-      isLoading = true;
-      currentPage++;
+//   $(".table-wrap").scroll(function () {
+//     var wrap = $(this);
 
-      $.ajax({
-        type: "GET",
-        url: "getMoreMemberList?cp=" + currentPage,
-        dataType: "json",
-        success: function (response) {
-          if (response && response.memberList) {
-            $.each(response.memberList, function (index, member) {
+//     if (
+//       wrap.scrollTop() + wrap.innerHeight() >= wrap[0].scrollHeight - 100 &&
+//       !isLoading
+//     ) {
+//       isLoading = true;
+
+//       $.ajax({
+//         type: "GET",
+//         url: "getMoreMemberList?cp=" + currentPage,
+//         dataType: "json",
+//         success: function (response) {
+//           console.log("Current pagination:", pagination);
+//           console.log(response);
+
+//           if (response && response.memberList) {
+//             pagination = response.pagination;
+//             $.each(response.memberList, function (index, member) {
            
-              var newRow = `<tr class="row" data-id="${member.memberId}">
-                                  <td>${member.memberId}</td>
-                                  <td>${member.memberName}</td>
-                                  <td>${member.memberLv}</td>
-                                  <td>${member.memberTel}</td>
-                                  <td>${member.memberGrad}</td>
-                                  <td>${member.memberSt}</td>
-                              </tr>`;
+//               var newRow = `<tr class="row" data-id="${member.memberId}">
+//                                   <td>${member.memberId}</td>
+//                                   <td>${member.memberName}</td>
+//                                   <td>${member.memberLv}</td>
+//                                   <td>${member.memberTel}</td>
+//                                   <td>${member.memberGrad}</td>
+//                                   <td>${member.memberSt}</td>
+//                               </tr>`;
 
-              $("#memberListTbody").append(newRow);
-              addSelected();
-            });
-          }
-          isLoading = false;
-        },
-        error: function (error) {
-          console.error("Error fetching data:", error);
-          isLoading = false;
-        },
-      });
-    }
-  });
-  addSelected();
-}
+//               $("#memberListTbody").append(newRow);
+//               addSelected();
+//             });
+//             pagination = response.pagination;
+//           }
+//           isLoading = false;
+//         },
+//         error: function (error) {
+//           console.error("Error fetching data:", error);
+//           isLoading = false;
+//         },
+//       });
+//     }
+//   });
+// }
 
 // 모달팝업 검색기능 카테고리변경시 작동
+
 function initializeBigCategoryChange() {
   $(document).on("change", "#bigCategory", function () {
     var selectedValue = $(this).val();
@@ -355,11 +370,11 @@ function updateTable(data) {
     });
     
   });
-  infinityScrollMember();
+  // infinityScrollMember();
 
 }
 
-// ajax 페이지네이션 업데이트
+// // ajax 페이지네이션 업데이트
 function updatePagination(pagination) {
   var pageNationDiv = $(".page_Nation");
   pageNationDiv.empty();
@@ -367,7 +382,6 @@ function updatePagination(pagination) {
   var url = "?cp=";
   var content = "";
 
-  // Create anchors with data-page attribute to store the page number
   content += '<div><a href="#" data-page="1">&lt;&lt;</a></div>';
   content +=
     '<div><a href="#" data-page="' + pagination.prevPage + '">&lt;</a></div>';
@@ -559,5 +573,37 @@ function addSelected() {
               $('#memberListTbody .row[data-id="' + firstTableDataId + '"]').addClass('selected');
           }
       });
+  });
+}
+
+
+function fetchDataForPage(page) {
+  var data = {
+      bcategory: $('#bigCategory').val(),
+      subCategory: $('#subCategory').val(),
+      startDate: $('#startDate').val(),
+      endDate: $('#endDate').val(),
+      memberName: $('#memberName').val(),
+      cp: page // Include the current page in the request
+  };
+
+  $('.ssearch-content').each(function(index) {
+      if ($(this).val()) {
+          var key = 'searchValue' + (index + 1);
+          data[key] = $(this).val();
+      }
+  });
+
+  $.ajax({
+      type: 'GET',
+      url: 'searchMembers',
+      data: data,
+      success: function(data) {
+          updateTable(data);
+          updatePagination(data.pagination);
+      },
+      error: function(error) {
+          console.error('Error fetching data', error);
+      }
   });
 }
