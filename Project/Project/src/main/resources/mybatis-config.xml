@@ -23,6 +23,8 @@
 			alias="project"/>
 			<typeAlias type="com.bid.board.corperation.model.vo.Corperation"
 			alias="corp"/>
+			<typeAlias type="com.bid.board.reserve.model.vo.Reserve"
+			alias="reserve"/>
 	</typeAliases>
 
 	<mappers>
@@ -31,6 +33,7 @@
 		<mapper resource="/mappers/detailCat-mapper.xml" />
 		<mapper resource="/mappers/project-mapper.xml" />
 		<mapper resource="/mappers/corp-mapper.xml" />
+		<mapper resource="/mappers/reserve-mapper.xml" />
 	</mappers>
 
 </configuration>

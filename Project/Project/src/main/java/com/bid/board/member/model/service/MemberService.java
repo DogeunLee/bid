@@ -36,5 +36,6 @@ public interface MemberService {
 	int changePw(int memberNo, String currentPassword, String newPassword);
 
 	List<Certi> selectCerti(int memberNo);
+
 	
 }

@@ -92,7 +92,7 @@ public class ProjectController {
 
 		Map<String, Object> selectProjectDeailValue = null;
 		selectProjectDeailValue = service.selectProjectDeailValue(projectNo);
-
+		
 		
 		System.out.println(selectProjectDeailValue);
 		
@@ -100,7 +100,7 @@ public class ProjectController {
 		return new ResponseEntity<>(selectProjectDeailValue, HttpStatus.OK);
 
 	}
-
+	
 
 	
 }

@@ -11,11 +11,19 @@ $(document).ready(function () {
   initializeSearchButton();
   initializeSsearchContentClick();
   addProjectList();
-  pageNationPrevent();
-  infinityScrollMember();
+  // infinityScrollMember();
   removeNewMember();
+  addSelected();
+
+  $(".page_Nation").find('a').on('click', function(e) {
+    e.preventDefault();
+    var page = $(this).data('page'); // Get the page number
+    fetchDataForPage(page);
+  });
+
 });
 
+// aside 태그색상변경
 function initializeFirstItemHighlight() {
   var secondItem = $(".myPageWrap > ul > li:nth-child(3)");
   secondItem.addClass("highlighted");
@@ -30,13 +38,24 @@ function initializeFirstItemHighlight() {
   );
 }
 
+// 선택된 프로젝트 불켜기
+function changeOrange() {
+  $(".default-infoWrap").on("click", ".project_value a", function () {
+    $(".project_value a").css("background-color", "");
+    $(this).css("background-color", "rgb(251,122,10)");
+  });
+}
+
+// 기본화면 정보출력 + ajax
 function selectProjectsDetail() {
   $(".default-infoWrap").on("click", ".project_value a", function (e) {
     e.preventDefault();
 
     var projectNo = $(this).data("projectno");
 
-    console.log(projectNo);
+    $(".memberBtnWrap button").attr("data-projectno", projectNo);
+    $(".confrimBtnWrap button").attr("data-projectno", projectNo);
+    $(".confrimBtnWrap input").attr("value", projectNo);
 
     var data = {
       projectNo: projectNo,
@@ -63,6 +82,22 @@ function selectProjectsDetail() {
         $("#corpManager").val(corpData.corpManager);
         $("#corpManagerTel").val(corpData.corpManagerTel);
         $("#projectSt").val(projectData.projectSt);
+
+        var members = response.selectPMemberList;
+        var tbody = $(".tableWrap tbody");
+    
+        tbody.empty(); 
+    
+        $.each(members, function(index, member) {
+            var tr = $("<tr>");
+            tr.append($("<td>").text(member.memberId));
+            tr.append($("<td>").text(member.memberName));
+            tr.append($("<td>").text(member.memberLv));
+            tr.append($("<td>").text(member.memberTel));
+            tr.append($("<td>").text(member.memberGrad));
+            tbody.append(tr);
+        });
+
       },
       error: function (error) {
         console.error("Request failed:", error);
@@ -71,6 +106,7 @@ function selectProjectsDetail() {
   });
 }
 
+// 기본화면 프로젝트 무한스크롤
 function infinityScroll() {
   var isLoading = false;
   var currentPage = 1;
@@ -80,7 +116,7 @@ function infinityScroll() {
 
     if (
       wrap.scrollTop() + wrap.innerHeight() >= wrap[0].scrollHeight - 100 &&
-      !isLoading
+      !isLoading 
     ) {
       isLoading = true;
       currentPage++;
@@ -110,77 +146,109 @@ function infinityScroll() {
   });
 }
 
-function infinityScrollMember() {
-  var isLoading = false;
-  var currentPage = 1;
-
-  $(".table-wrap").scroll(function () {
-      var wrap = $(this);
-
-      if (wrap.scrollTop() + wrap.innerHeight() >= wrap[0].scrollHeight - 100 && !isLoading) {
-          isLoading = true;
-          currentPage++;
-
-          $.ajax({
-              type: "GET",
-              url: "getMoreMemberList?cp=" + currentPage,
-              dataType: "json",
-              success: function (response) {
-                  if (response && response.memberList) {
-                      $.each(response.memberList, function (index, member) {
-                          var rowClass = (member.memberSt == '투입중' || member.memberSt == '휴직' || member.memberSt == '퇴사') ? 'involvement' : '';
-                          var newRow = 
-                              `<tr class="row ${rowClass}">
-                                  <td>${member.memberId}</td>
-                                  <td>${member.memberName}</td>
-                                  <td>${member.memberLv}</td>
-                                  <td>${member.memberTel}</td>
-                                  <td>${member.memberGrad}</td>
-                                  <td>${member.memberSt}</td>
-                              </tr>`;
-                          
-                          $("#memberListTbody").append(newRow);
-                      });
-                  }
-                  isLoading = false;
-              },
-              error: function (error) {
-                  console.error("Error fetching data:", error);
-                  isLoading = false;
-              },
-          });
-      }
-  });
-}
-
-
-function changeOrange() {
-  $(".default-infoWrap").on("click", ".project_value a", function () {
-    $(".project_value a").css("background-color", "");
-    $(this).css("background-color", "rgb(251,122,10)");
-  });
-}
-
-function modalClose() {
-  $(".closeModal").click(function () {
-    $(".modals").addClass("displayHidden").removeClass("displayFlex");
-  });
-
-  $(".modals").click(function (e) {
-    if (
-      !$(e.target).hasClass("newMemberInput") &&
-      $(e.target).parents(".newMemberInput").length === 0
-    ) {
-      $(".modals").addClass("displayHidden").removeClass("displayFlex");
-    }
-  });
-}
-
+// 모달팝업 시작 + 선택된멤버 AJAX
 function updateMemberSet() {
-  $(".updateMemberSet").on("click", function () {
+  $(document).on("click", ".updateMemberSet", function() {
+
+    let projectNo = $(this).attr("data-projectno");
+    console.log(projectNo);
+
+    if (typeof projectNo === 'undefined' || !projectNo) {
+      alert("프로젝트를 선택해주세요");
+      return; 
+    }
+    
     $(".modals").addClass("displayFlex");
+
+     var data = {
+      projectNo: projectNo,
+    };
+
+    $.ajax({
+      url: "selectDetailProject",
+      type: "Get",
+      data: data,
+      dataType: "json",
+      success: function (response) {
+
+        var members = response.selectPMemberList;
+        var tbody = $(".newTbl tbody");
+    
+        tbody.empty(); 
+    
+        $.each(members, function(index, member) {
+       
+            var tr = $("<tr class='newMem' data-id='" + member.memberId + "'>");
+            tr.append($("<input type='hidden' name='memberId' value='" + member.memberId + "'>"));
+            tr.append($("<td>").text(member.memberId));
+            tr.append($("<td>").text(member.memberName));
+            tr.append($("<td>").text(member.memberLv));
+            tbody.append(tr);
+        });
+        addSelected();
+      },
+      error: function (error) {
+        console.error("Request failed:", error);
+      },
+    });
+
   });
 }
+
+// 모달팝업 멤버리스트 무한스크롤
+// function infinityScrollMember() {
+//   var isLoading = false;
+//   var currentPage = 1;
+//   var pagination;  // 여기에 변수를 선언합니다.
+
+
+//   $(".table-wrap").scroll(function () {
+//     var wrap = $(this);
+
+//     if (
+//       wrap.scrollTop() + wrap.innerHeight() >= wrap[0].scrollHeight - 100 &&
+//       !isLoading
+//     ) {
+//       isLoading = true;
+
+//       $.ajax({
+//         type: "GET",
+//         url: "getMoreMemberList?cp=" + currentPage,
+//         dataType: "json",
+//         success: function (response) {
+//           console.log("Current pagination:", pagination);
+//           console.log(response);
+
+//           if (response && response.memberList) {
+//             pagination = response.pagination;
+//             $.each(response.memberList, function (index, member) {
+           
+//               var newRow = `<tr class="row" data-id="${member.memberId}">
+//                                   <td>${member.memberId}</td>
+//                                   <td>${member.memberName}</td>
+//                                   <td>${member.memberLv}</td>
+//                                   <td>${member.memberTel}</td>
+//                                   <td>${member.memberGrad}</td>
+//                                   <td>${member.memberSt}</td>
+//                               </tr>`;
+
+//               $("#memberListTbody").append(newRow);
+//               addSelected();
+//             });
+//             pagination = response.pagination;
+//           }
+//           isLoading = false;
+//         },
+//         error: function (error) {
+//           console.error("Error fetching data:", error);
+//           isLoading = false;
+//         },
+//       });
+//     }
+//   });
+// }
+
+// 모달팝업 검색기능 카테고리변경시 작동
 
 function initializeBigCategoryChange() {
   $(document).on("change", "#bigCategory", function () {
@@ -244,19 +312,35 @@ function initializeBigCategoryChange() {
       $(".waterbooom").hide();
     }
   });
+  addSelected();
 }
 
+// 모달팝업 종료
+function modalClose() {
+  $(".closeModal").click(function () {
+    $(".modals").addClass("displayHidden").removeClass("displayFlex");
+  });
+
+  $(".modals").click(function (e) {
+    if (
+      !$(e.target).hasClass("newMemberInput") &&
+      $(e.target).parents(".newMemberInput").length === 0
+    ) {
+      $(".modals").addClass("displayHidden").removeClass("displayFlex");
+    }
+  });
+}
+
+// 검색 후 멤버리스트 업데이트
 function updateTable(data) {
   var tbody = $(".table-wrap tbody");
   tbody.empty();
 
   data.searchMemberList.forEach(function (member) {
-
-      var involvementClass = (member.memberSt === "투입중" || member.memberSt === "휴직" || member.memberSt === "퇴사") ? "involvement" : "";
-
+  
     var contextPath = "${contextPath}";
     var row =
-    '<tr class="row ' + involvementClass + '">'+
+    '<tr class="row" data-id="' + member.memberId + '">'+
       "<td>" +
       member.memberId +
       "</td>" +
@@ -284,11 +368,13 @@ function updateTable(data) {
         cell.textContent = "";
       }
     });
-
+    
   });
-  infinityScrollMember();
+  // infinityScrollMember();
+
 }
 
+// // ajax 페이지네이션 업데이트
 function updatePagination(pagination) {
   var pageNationDiv = $(".page_Nation");
   pageNationDiv.empty();
@@ -296,7 +382,6 @@ function updatePagination(pagination) {
   var url = "?cp=";
   var content = "";
 
-  // Create anchors with data-page attribute to store the page number
   content += '<div><a href="#" data-page="1">&lt;&lt;</a></div>';
   content +=
     '<div><a href="#" data-page="' + pagination.prevPage + '">&lt;</a></div>';
@@ -319,14 +404,14 @@ function updatePagination(pagination) {
 
   pageNationDiv.append(content);
 
-  // Attach click event to anchor tags
   pageNationDiv.find("a").on("click", function (e) {
     e.preventDefault();
-    var page = $(this).data("page"); // Get the page number
+    var page = $(this).data("page"); 
     fetchDataForPage(page);
   });
 }
 
+// 검색기능 옵션 변경하기
 function fetchOptions(e) {
   var selectedValue = $(this).data("codeno");
 
@@ -341,11 +426,7 @@ function fetchOptions(e) {
       var subOptions = response.subCategories;
       var selectBox = $(e.currentTarget);
       if (subOptions && subOptions.length > 0) {
-        // 기존 옵션을 삭제합니다.
-        // selectBox.find("option:not(:first)").remove();
-
-        // 새로운 하위 옵션들을 추가합니다.
-
+       
         $.each(subOptions, function (index, item) {
           selectBox.append(
             $("<option></option>")
@@ -354,15 +435,16 @@ function fetchOptions(e) {
           );
         });
       }
-      // AJAX 호출 후 새로운 option 요소들이 추가되었으므로, 클릭 이벤트를 비활성화합니다.
       selectBox.off("click", fetchOptions);
     },
     error: function (error) {
       console.error("Error fetching sub-options:", error);
     },
   });
+  addSelected();
 }
 
+// 검색기능 멤버옵션 변경하기
 function fetchDataForPage(page) {
   var data = {
     bcategory: $("#bigCategory").val(),
@@ -387,32 +469,19 @@ function fetchDataForPage(page) {
     success: function (data) {
       updateTable(data);
       updatePagination(data.pagination);
-
-      $("tbody .row").each(function () {
-        var memberId = $(this).find("td:eq(0)").text();
-        if (selectedRows.includes(memberId)) {
-          $(this).addClass("selected");
-        }
-      });
     },
     error: function (error) {
       console.error("Error fetching data", error);
     },
   });
+
 }
 
+// 검색기능 검색버튼 클릭 시 
 function initializeSearchButton() {
   $(".searchBtn").on("click", function (e) {
     e.preventDefault();
 
-    var userConfirmation = confirm("선택한 멤버가 초기화됩니다. 계속하시겠습니까?");
-    
-    if (!userConfirmation) {
-      return; 
-    }
-
-
-    resetAllSelections();
     var data = {
       bcategory: $("#bigCategory").val(),
       subCategory: $("#subCategory").val(),
@@ -428,7 +497,6 @@ function initializeSearchButton() {
       }
     });
 
-    var selectedIds = getSelectedProjectIds();
 
     $.ajax({
       type: "GET",
@@ -438,28 +506,13 @@ function initializeSearchButton() {
         console.log(data);
         updateTable(data); // 테이블 업데이트
         updatePagination(data.pagination);
-      
-        setSelectedProjectsByIds(selectedIds);
+        addSelected();
       },
       error: function (error) {
         console.error("Error fetching data", error);
       },
     });
-  });
-}
 
-function getSelectedProjectIds() {
-  return $(".row.selected").map(function() {
-    return $(this).find("td:eq(0)").text();
-  }).get();
-}
-
-function setSelectedProjectsByIds(ids) {
-  $(".row").each(function() {
-    var projectId = $(this).find("td:eq(0)").text();
-    if (ids.includes(projectId)) {
-      $(this).addClass("selected");
-    }
   });
 }
 
@@ -467,79 +520,90 @@ function initializeSsearchContentClick() {
   $(".ssearch-content").on("click", fetchOptions);
 }
 
+// 프로젝트 멤버 추가관련
 function addProjectList() {
   $("tbody").on("click", ".row", function () {
 
-    if ($(this).hasClass("involvement")) {
-      alert("해당 인원은 참여가 불가능합니다.");
-      return; 
-    }
-
-    $(this).toggleClass("selected");
-
     var memberId = $(this).find("td:eq(0)").text();
+    var memberName = $(this).find("td:eq(1)").text();
+    var memberLevel = $(this).find("td:eq(2)").text();
 
-    
-
-    if ($(this).hasClass("selected")) {
-      var memberName = $(this).find("td:eq(1)").text();
-      var memberLevel = $(this).find("td:eq(2)").text();
-
-      var newRow = "<tr class='newMem' data-id='" + memberId + "'>";
-      newRow += "<td>" + memberId + "</td>";
-      newRow += "<td>" + memberName + "</td>";
-      newRow += "<td>" + memberLevel + "</td>";
-      newRow += "</tr>";
-
-      $(".newTbl tbody").append(newRow);
-      selectedRows.push(memberId);
-    } else {
-      var index = selectedRows.indexOf(memberId);
-      if (index > -1) {
-        selectedRows.splice(index, 1);
-      }
-      $(".newTbl tbody .newMem[data-id='" + memberId + "']").remove();
+    if ($(this).hasClass('selected')) {
+      alert("멤버제거는 오른쪽에서 진행해주세요");
+      return;
     }
+    
+    var newRow = "<tr class='newMem'" + 'data-id=' + memberId + ">";
+    newRow += "<td>" + memberId + "<input type='hidden' name='memberId' value='" + memberId + "'></td>";
+    newRow += "<td>" + memberName;
+    newRow += "<td>" + memberLevel;
+    newRow += "</tr>";
+
+    $(".newTbl tbody").append(newRow);
+    selectedRows.push(memberId);
+
+    $('#memberListTbody .row').removeClass('selected');
+
+    addSelected();
   });
-
-
-
 }
-
-function pageNationPrevent() {
-  $(document).on("click", ".page_Nation a", function (e) {
-    e.preventDefault();
-    let page = $(this).data("page");
-    fetchDataForPage(page);
-  });
-}
-
 
 function removeNewMember() {
   $(".newTbl tbody").on("click", ".newMem", function (e) {
-    e.stopPropagation();  // 버블링을 중단
-    
-    console.log("h");
-    var memberId = $(this).data("id");
-    var originalRow = $(".row td:contains('" + memberId + "')").parent();
-    originalRow.toggleClass("selected");
-
-    var index = selectedRows.indexOf(memberId);
-    if (index > -1) {
-      selectedRows.splice(index, 1);
-    }
-
+    e.stopPropagation();
+  
     $(this).remove();
+
+    console.log("================ 리무브 적용?");
+    addSelected();
+  });
+
+}
+
+function addSelected() {
+  $('#memberListTbody .row').each(function() {
+      var firstTableDataId = $(this).data('id');
+
+      $(this).removeClass('selected');
+
+      $('.newTbl .newMem').each(function() {
+          var secondTableDataId = $(this).data('id');
+
+          if (firstTableDataId == secondTableDataId) {
+              $('#memberListTbody .row[data-id="' + firstTableDataId + '"]').addClass('selected');
+          }
+      });
   });
 }
 
-function resetAllSelections() {
-  // table-wrap 내의 모든 선택된 항목 초기화
-  $(".table-wrap .row.selected").removeClass('selected');
-  
-  // projectConfirmMember 내의 모든 선택된 항목 초기화 (필요한 경우)
-  $(".newTbl tbody").empty();
-  
-  // 추가로 localStorage에서 선택 항목 삭제 (이전 답변에서 localStorage를 사용한 경우)
-  localStorage.removeItem('selectedIds');
+
+function fetchDataForPage(page) {
+  var data = {
+      bcategory: $('#bigCategory').val(),
+      subCategory: $('#subCategory').val(),
+      startDate: $('#startDate').val(),
+      endDate: $('#endDate').val(),
+      memberName: $('#memberName').val(),
+      cp: page // Include the current page in the request
+  };
+
+  $('.ssearch-content').each(function(index) {
+      if ($(this).val()) {
+          var key = 'searchValue' + (index + 1);
+          data[key] = $(this).val();
+      }
+  });
+
+  $.ajax({
+      type: 'GET',
+      url: 'searchMembers',
+      data: data,
+      success: function(data) {
+          updateTable(data);
+          updatePagination(data.pagination);
+      },
+      error: function(error) {
+          console.error('Error fetching data', error);
+      }
+  });
 }

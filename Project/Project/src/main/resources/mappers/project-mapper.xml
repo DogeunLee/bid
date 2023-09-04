@@ -43,6 +43,7 @@
 	</resultMap>
 
 
+
 	<insert id="insertNewProject" parameterType="project">
 
 		INSERT INTO PROJECT

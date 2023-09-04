@@ -255,6 +255,17 @@ public class MemberDAO {
 	    return totalUpdated;
 	}
 
+	public int updateMemberSt(List<String> memberId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("memberId", memberId);
+		return sqlSession.update("memberMapper.updateSt", params);
+	}
+
+
+	public List<Member> selectProjectMemberList(int projectNo) {
+		return sqlSession.selectList("memberMapper.selectProjectMemberList",projectNo);
+	}
+
 	
 
 
