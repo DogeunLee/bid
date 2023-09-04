@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bid.board.member.model.vo.Member;
 import com.bid.board.reserve.model.service.ReserveService;
 
 @Controller
@@ -26,6 +27,7 @@ public class ReserveController {
 		System.out.println(memberId);
 		
 		int result = 0;
+		
 	
 		result = service.insertNewMember(projectNo,memberId);
 		

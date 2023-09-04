@@ -255,16 +255,35 @@ public class MemberDAO {
 	    return totalUpdated;
 	}
 
-	public int updateMemberSt(List<String> memberId) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("memberId", memberId);
-		return sqlSession.update("memberMapper.updateSt", params);
-	}
 
 
-	public List<Member> selectProjectMemberList(int projectNo) {
-		return sqlSession.selectList("memberMapper.selectProjectMemberList",projectNo);
-	}
+//	
+//	public List<Member> selectPMemberList(int projectNo, List<String> memberId) {
+//		Map<String, Object> params = new HashMap<>();
+//		params.put("projectNo", projectNo);
+//		params.put("memberId", memberId);
+//		return sqlSession.selectList("memberMapper.selectProjectMemberList", params);
+//	}
+//	
+//
+//	public List<Member> selectProjectMemberList(int projectNo) {
+//		return sqlSession.selectList("memberMapper.selectProjectMemberList",projectNo);
+//	}
+//	
+//
+//	public int updateMemberSt(List<String> memberId) {
+//		Map<String, Object> params = new HashMap<>();
+//		params.put("memberId", memberId);
+//		return sqlSession.update("memberMapper.updateSt", params);
+//	}
+//
+//	
+	
+
+
+
+
+
 
 	
 
