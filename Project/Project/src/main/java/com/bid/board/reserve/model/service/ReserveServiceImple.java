@@ -19,7 +19,12 @@ public class ReserveServiceImple implements ReserveService {
 
 	@Override
 	public int insertNewMember(int projectNo, List<String> memberId) {
+		
+		
 		int result =  dao.insertNewMember(projectNo,memberId);
+		
+		// 만약 memberId가 selectMemberId의 값과 다르다면
+		
 		
 		System.out.println(result+"프로젝트의 삽입결과를 보여주세요!");
 		

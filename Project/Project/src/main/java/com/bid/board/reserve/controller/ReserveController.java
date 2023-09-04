@@ -26,12 +26,9 @@ public class ReserveController {
 		System.out.println(memberId);
 		
 		int result = 0;
+	
+		result = service.insertNewMember(projectNo,memberId);
 		
-		if ( memberId == null ) {
-//			result = service.deleteNewMember(projectNo,memberId);
-		} else {
-			result = service.insertNewMember(projectNo,memberId);
-		}
 	
 		
 	
