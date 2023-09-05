@@ -14,14 +14,25 @@ public class ReserveDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+ 
 
-	public int insertNewMember(int projectNo, List<String> memberId) {
+
+	public int deleteFromReserveTable(String id) {
+
+		return sqlSession.delete("reserveMapper.deleteRMember",id);
+		
+	}
+
+	public int insertToReserveTable(List<String> idsToAdd, int projectNo) {
+		
+		System.out.println("daoInsertToReserveMemberId"+idsToAdd);
+		
 		Map<String, Object> params = new HashMap<>();
 		params.put("projectNo", projectNo);
-		params.put("memberId", memberId);
+		params.put("memberId", idsToAdd);
 		return sqlSession.insert("reserveMapper.insertNewMember",params);
 	}
-	
+
 	
 	
 	

@@ -30,12 +30,6 @@ public class ReserveController {
 		
 	
 		result = service.insertNewMember(projectNo,memberId);
-		
-	
-		
-	
-		 
-		 
 		 
 		
 		return 0;

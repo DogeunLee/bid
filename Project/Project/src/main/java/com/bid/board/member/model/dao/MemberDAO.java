@@ -255,20 +255,9 @@ public class MemberDAO {
 	    return totalUpdated;
 	}
 
-
-
-//	
-//	public List<Member> selectPMemberList(int projectNo, List<String> memberId) {
-//		Map<String, Object> params = new HashMap<>();
-//		params.put("projectNo", projectNo);
-//		params.put("memberId", memberId);
-//		return sqlSession.selectList("memberMapper.selectProjectMemberList", params);
-//	}
-//	
-//
-//	public List<Member> selectProjectMemberList(int projectNo) {
-//		return sqlSession.selectList("memberMapper.selectProjectMemberList",projectNo);
-//	}
+	public List<Member> selectProjectMemberList(int projectNo) {
+		return sqlSession.selectList("memberMapper.selectProjectMemberList",projectNo);
+	}
 //	
 //
 //	public int updateMemberSt(List<String> memberId) {
@@ -277,8 +266,47 @@ public class MemberDAO {
 //		return sqlSession.update("memberMapper.updateSt", params);
 //	}
 //
-//	
+//	//	public List<Member> selectPMemberList(int projectNo, List<String> memberId) {
+//	Map<String, Object> params = new HashMap<>();
+//	params.put("projectNo", projectNo);
+//	params.put("memberId", memberId);
+//	return sqlSession.selectList("memberMapper.selectProjectMemberList", params);
+//}
+//
+//
+
+	// 현재 선택되어있는 멤버 리스트 조회
+	public List<Member> selectReservePMemberList(int projectNo) {
+		
+		System.out.println("선택되어있는 멤버 리스트 조회 프로젝트넘버"+projectNo);
+		
+		
+		 Map<String, Object> params = new HashMap<>();
+		 
+		 params.put("projectNo", projectNo);
+		 
+		return sqlSession.selectList("memberMapper.selectReservePMemberList",params);
+	}
+
+
+	public int setMemberStN(List<String> id) {
+		
+		System.out.println("SetMemberSt를 N으로바꿀 STAT!"+id);
+		
+		return  sqlSession.update("memberMapper.setMemberStN",id);
+		
+	}
+
+
+	public int setMemberStY(List<String> idsToAdd) {
+		
+		System.out.println("SetMemberSt를 N으로바꿀 (STAT2)아이디는!"+idsToAdd);
+		
+		return sqlSession.update("memberMapper.setMemberStY",idsToAdd);
+	}
 	
+	
+
 
 
 

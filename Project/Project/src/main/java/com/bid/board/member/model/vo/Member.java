@@ -2,6 +2,8 @@ package com.bid.board.member.model.vo;
 
 import java.util.List;
 
+import com.bid.board.reserve.model.vo.Reserve;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,4 +31,5 @@ public class Member {
 	private Graduate graduate;
 	private Exp exp;
 	private Certi certi;
+	private Reserve reserve;
 }

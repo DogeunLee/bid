@@ -67,13 +67,13 @@
 		<association property="exp"
 			javaType="com.bid.board.member.model.vo.Exp" resultMap="exp_rm" />
 	</resultMap>
-	
+
 	<resultMap type="reserve" id="reserve_rm">
 		<id property="reserveNo" column="RESERVE_NO" />
 		<result property="projectNo" column="PROJECT_NO" />
 		<result property="memberId" column="MEMBER_ID" />
 	</resultMap>
-	
+
 
 	<select id="selectMemberNo" resultType="_int">
 		SELECT COUNT(*) FROM
@@ -318,10 +318,10 @@
 						m.MEMBER_ST = #{codeId}
 					</when>
 					<when test="codeNo == 11">
-						m.MEMBER_GENDER = #{codeId} 
+						m.MEMBER_GENDER = #{codeId}
 					</when>
 					<when test="codeNo == 20">
-						m.MEMBER_LV = #{codeId} 
+						m.MEMBER_LV = #{codeId}
 					</when>
 				</choose>
 			</if>
@@ -533,29 +533,52 @@
 		)
 	</insert>
 
-	<update id="updateSt">
-		UPDATE MEMBER SET
-		MEMBER_ST = 'STAT02'
-		WHERE
-		MEMBER_ID IN
-		<foreach collection="memberId" item="id" open="("
-			separator="," close=")">
-			#{id}
-		</foreach> 
-	</update>
-	
 	<select id="selectProjectMemberList" resultMap="member_rm">
-		SELECT 
+		SELECT
 		m.MEMBER_ID,
 		m.MEMBER_NAME,
 		m1.CODE_NAME AS MEMBER_LV,
 		m.MEMBER_TEL,
 		m2.CODE_NAME AS MEMBER_GRAD
 		FROM MEMBER m
-		LEFT OUTER JOIN RESERVE r ON m.MEMBER_ID = r.MEMBER_ID
-		LEFT OUTER JOIN MASTER_CODETBL m1 ON m.MEMBER_LV = m1.CODE_ID
-		LEFT OUTER JOIN	MASTER_CODETBL m2 ON m.MEMBER_GRAD = m2.CODE_ID
+		LEFT OUTER JOIN RESERVE r ON
+		m.MEMBER_ID = r.MEMBER_ID
+		LEFT OUTER JOIN MASTER_CODETBL m1 ON
+		m.MEMBER_LV = m1.CODE_ID
+		LEFT OUTER JOIN MASTER_CODETBL m2 ON
+		m.MEMBER_GRAD = m2.CODE_ID
 		WHERE PROJECT_NO = #{projectNo}
 	</select>
-	
+
+	<select id="selectReservePMemberList" resultMap="member_rm">
+		SELECT
+		m.MEMBER_ID
+		FROM MEMBER m
+		LEFT OUTER JOIN RESERVE r ON m.MEMBER_ID =
+		r.MEMBER_ID
+		WHERE PROJECT_NO = #{projectNo}
+	</select>
+
+	<update id="setMemberStN">
+		UPDATE MEMBER
+		SET MEMBER_ST = 'STAT01'
+		WHERE MEMBER_ID IN
+		<foreach item="id" index="index" collection="list" open="("
+			separator="," close=")">
+			#{id}
+		</foreach>
+	</update>
+
+	<update id="setMemberStY">
+		UPDATE MEMBER
+		SET MEMBER_ST = 'STAT02'
+		WHERE MEMBER_ID IN
+		<foreach item="idsToAdd" index="index" collection="list"
+			open="(" separator="," close=")">
+			#{idsToAdd}
+		</foreach>
+	</update>
+
+
+
 </mapper>

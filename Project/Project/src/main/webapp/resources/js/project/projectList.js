@@ -170,14 +170,19 @@ function updateMemberSet() {
       data: data,
       dataType: "json",
       success: function (response) {
+        console.log(response);
 
         var members = response.selectPMemberList;
+        var projectValue = response.selectPDV[0].projectValue;
+
+        $(".image_wrap .projectValue").text(projectValue);
+
         var tbody = $(".newTbl tbody");
-    
+
         tbody.empty(); 
     
         $.each(members, function(index, member) {
-       
+          
             var tr = $("<tr class='newMem' data-id='" + member.memberId + "'>");
             tr.append($("<input type='hidden' name='memberId' value='" + member.memberId + "'>"));
             tr.append($("<td>").text(member.memberId));

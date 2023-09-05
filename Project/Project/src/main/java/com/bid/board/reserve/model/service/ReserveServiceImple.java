@@ -42,49 +42,48 @@ public class ReserveServiceImple implements ReserveService {
 	@Override
 	public int insertNewMember(int projectNo, List<String> memberId) {
 	    
-	    // DB에서 현재 projectNo에 해당하는 memberId 리스트를 가져옵니다.
-	    List<Member> currentMembers = mdao.selectProjectMemberList(projectNo, memberId);
-	    
+	    List<Member> currentMembers = mdao.selectReservePMemberList(projectNo);
 	    List<String> existingMemberIds = new ArrayList<>();
 	    for (Member m : currentMembers) {
 	        existingMemberIds.add(m.getMemberId());
 	    }
 
-	    // 삭제할 memberId
-	    List<String> idsToDelete = new ArrayList<>(existingMemberIds);
-	    for (String existingId : existingMemberIds) {
-	        if (!memberId.contains(existingId)) {
-	            idsToDelete.add(existingId);
+	    List<String> idsToDelete = new ArrayList<>();
+
+	    // 만약 memberId가 null이거나 비어있으면 모든 existingMemberIds를 삭제
+	    if (memberId == null || memberId.isEmpty()) {
+	        idsToDelete.addAll(existingMemberIds);
+	    } else {
+	        for (String existingId : existingMemberIds) {
+	            if (!memberId.contains(existingId)) {
+	                idsToDelete.add(existingId);
+	            }
 	        }
 	    }
 	    for (String id : idsToDelete) {
 	        dao.deleteFromReserveTable(id); // reserveTable에서 삭제
-	        mdao.updateMemberSt(id); // memberSt 상태 변경
-	    }
-
-	    // 추가할 memberId
-	    List<String> idsToAdd = new ArrayList<>();
-	    for (String newId : memberId) {
-	        if (!existingMemberIds.contains(newId)) {
-	            idsToAdd.add(newId);
-	        }
-	    }
-	    for (String id : idsToAdd) {
-	        dao.insertToReserveTable(id, projectNo); // reserveTable에 추가
-	        mdao.updateMemberSt(id); // memberSt 상태 변경
-	    }
-
-	    // 변경할 memberId
-	    List<String> idsToUpdate = new ArrayList<>(memberId);
-	    for (String id : idsToUpdate) {
-	        if (existingMemberIds.contains(id)) {
-	            dao.updateReserveTable(id, projectNo); // reserveTable에서 수정
-	            mdao.updateMemberSt(id); // memberSt 상태 변경
-	        }
+	        mdao.setMemberStN(idsToDelete); // reserveTable에서 삭제
 	    }
 	    
+	    // 추가할 memberId
+	    List<String> idsToAdd = new ArrayList<>();
+	    if (memberId != null) {
+	        for (String newId : memberId) {
+	            if (!existingMemberIds.contains(newId)) {
+	                idsToAdd.add(newId);
+	            }
+	        }
+	    }
+
+	    // reserveTable에 모든 idsToAdd 항목을 한 번의 호출로 추가
+	    if (!idsToAdd.isEmpty()) {
+	        dao.insertToReserveTable(idsToAdd, projectNo);
+	        mdao.setMemberStY(idsToAdd); // reserveTable에서 삭제
+	    }
+
 	    return 0;
 	}
+
 
 	
 	

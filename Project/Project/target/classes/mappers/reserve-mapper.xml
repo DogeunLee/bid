@@ -9,13 +9,20 @@
 	</resultMap>
 
 
-	<insert id="insertNewMember" parameterType="reserve">
+	<insert id="insertNewMember">
 		INSERT ALL
 		<foreach collection="memberId" item="id">
-			INTO RESERVE (RESERVE_NO, PROJECT_NO, MEMBER_ID) VALUES
-			(RESERVE_SEQ.NEXTVAL, #{projectNo}, #{id})
+			INTO RESERVE (RESERVE_NO,
+			PROJECT_NO, MEMBER_ID) VALUES
+			(RESERVE_SEQ.NEXTVAL, #{projectNo},
+			#{id})
 		</foreach>
 		SELECT * FROM dual
 	</insert>
+
+	<delete id="deleteRMember">
+		DELETE FROM RESERVE
+		WHERE MEMBER_ID=#{memberId}
+	</delete>
 
 </mapper>

@@ -148,7 +148,7 @@
                                                 <div class="md-right-side">
                                                     <div>
                                                         <div class="image_wrap">
-                                                            <p>세부사항</p>
+                                                            <p class="sebusahang" data-id="">세부사항</p>
                                                         </div>
                                                         <div class="changeWrap">
                                                             <div><a>참가중인 인원 ( n명 )</a>
@@ -209,7 +209,7 @@
 
                                             <div>
                                                 <div class="image_wrap">
-                                                    <p>직원목록</p>
+                                                    <p class="projectValue"></p>
                                                 </div>
                                                 <div class="nMI-wrap">
                                                     <div class="nMI-search-wrap">

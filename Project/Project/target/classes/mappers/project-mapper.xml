@@ -73,7 +73,8 @@
 
 	<select id="countProjectList" resultType="_int">
 		SELECT COUNT(*)
-		FROM PROJECT
+		FROM
+		PROJECT
 	</select>
 
 	<select id="getProjectList" resultMap="project_rm">
@@ -108,7 +109,8 @@
 		p.PROJECT_VALUE,
 		p.PROJECT_DETAIL,
 		p.PROJECT_PRICE,
-		TO_CHAR(p.PROJECT_SDATE, 'YYYY-MM-DD') AS PROJECT_SDATE,
+		TO_CHAR(p.PROJECT_SDATE, 'YYYY-MM-DD') AS
+		PROJECT_SDATE,
 		TO_CHAR(p.PROJECT_EDATE, 'YYYY-MM-DD') AS PROJECT_EDATE,
 		p.PROJECT_ADDR,
 		p.PROJECT_ST,
@@ -118,10 +120,12 @@
 		c.CORP_TEL
 		FROM PROJECT p
 		LEFT OUTER JOIN
-		CORPERATION c ON p.CORP_NO = c.CORP_NO
+		CORPERATION c
+		ON p.CORP_NO = c.CORP_NO
 		WHERE p.PROJECT_NO =
 		#{projectNo}
-		ORDER BY p.PROJECT_NO ASC
+		ORDER BY
+		p.PROJECT_NO ASC
 	</select>
 
 

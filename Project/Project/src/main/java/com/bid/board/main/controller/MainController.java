@@ -66,9 +66,7 @@ public class MainController {
 
 		System.out.println(inputMember);
 
-
 		Member loginMember = service.login(inputMember);
-
 
 		String path = null;
 
