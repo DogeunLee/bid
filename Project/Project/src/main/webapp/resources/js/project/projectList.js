@@ -183,7 +183,7 @@ function updateMemberSet() {
     
         $.each(members, function(index, member) {
           
-            var tr = $("<tr class='newMem' data-id='" + member.memberId + "'>");
+            var tr = $("<tr class='newMem' data-id='" + member.memberId +"'" + "data-projectno="+projectNo+ ">");
             tr.append($("<input type='hidden' name='memberId' value='" + member.memberId + "'>"));
             tr.append($("<td>").text(member.memberId));
             tr.append($("<td>").text(member.memberName));
@@ -532,13 +532,14 @@ function addProjectList() {
     var memberId = $(this).find("td:eq(0)").text();
     var memberName = $(this).find("td:eq(1)").text();
     var memberLevel = $(this).find("td:eq(2)").text();
+    var projectNo = $(this).data("projectno");
 
     if ($(this).hasClass('selected')) {
       alert("멤버제거는 오른쪽에서 진행해주세요");
       return;
     }
     
-    var newRow = "<tr class='newMem'" + 'data-id=' + memberId + ">";
+    var newRow = "<tr class='newMem'" + 'data-id=' + memberId + "data-projectNo="+projectNo+ ">";
     newRow += "<td>" + memberId + "<input type='hidden' name='memberId' value='" + memberId + "'></td>";
     newRow += "<td>" + memberName;
     newRow += "<td>" + memberLevel;

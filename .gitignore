@@ -23,7 +23,7 @@
 hs_err_pid*
 replay_pid*
 
-.metadata
+*.metadata
 Servers/
-pom.properties
-.factorypath
+*pom.properties
+*.factorypath
