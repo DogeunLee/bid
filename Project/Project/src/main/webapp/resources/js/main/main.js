@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     initializeFirstItemHighlight();
     initializeSearchInputFocus();
     initializeBigCategoryChange();
@@ -13,23 +13,23 @@ function initializeFirstItemHighlight() {
     firstItem.addClass("highlighted");
 
     $(".myPageWrap > ul > li").hover(
-        function() {
+        function () {
             firstItem.removeClass("highlighted");
         },
-        function() {
+        function () {
             firstItem.addClass("highlighted");
         }
     );
 }
 
 function initializeSearchInputFocus() {
-    $('#searchInput').on('focus', function() {
+    $('#searchInput').on('focus', function () {
         $(this).select();
     });
 }
 
 function initializeBigCategoryChange() {
-    $("#bigCategory").change(function() {
+    $("#bigCategory").change(function () {
         var selectedValue = $(this).val();
 
         if (selectedValue === "9999") {
@@ -45,7 +45,7 @@ function initializeBigCategoryChange() {
         }
 
         if (selectedValue !== "7942") {
-     
+
             $("#subCategory").remove();
             $('.hireDate').hide();
             $('.waterbooom').hide();
@@ -54,44 +54,44 @@ function initializeBigCategoryChange() {
                 url: "getSubCategories",
                 type: "GET",
                 data: { codeNo: selectedValue },
-                success: function(response) {
+                success: function (response) {
                     var subCategories = response.subCategories;
                     if (subCategories && subCategories.length > 0) {
                         var subCategorySelect = $("<select></select>").attr("id", "subCategory").attr("name", "subCategory");
-                
-                        $.each(subCategories, function(index, item) {
+
+                        $.each(subCategories, function (index, item) {
                             subCategorySelect.append($("<option></option>").attr("value", item.codeId).text(item.codeName));
                         });
 
                         $("#bigCategory").after(subCategorySelect);
-                  
+
                     }
                 },
-                error: function(error) {
+                error: function (error) {
                     console.error("Error fetching sub-categories:", error);
                 }
             });
-        }  
-           else if ($(this).val() == "7942") {
+        }
+        else if ($(this).val() == "7942") {
             $("#subCategory").remove();
-                $('.hireDate').show();
-                $('select[name="ssearch"]').css('display', 'block');
-                $("#memberName").show();
-                $('.waterbooom').show();
-            } else {
-                $('.hireDate').hide();
-                $('select[name="ssearch"]').css('display', 'none');
-                $("#memberName").hide();
-                $('.waterbooom').hide();
-            }
-       
+            $('.hireDate').show();
+            $('select[name="ssearch"]').css('display', 'block');
+            $("#memberName").show();
+            $('.waterbooom').show();
+        } else {
+            $('.hireDate').hide();
+            $('select[name="ssearch"]').css('display', 'none');
+            $("#memberName").hide();
+            $('.waterbooom').hide();
+        }
+
     });
 }
 
 function initializeSearchButton() {
-    $('.searchBtn').click(function(e) {
+    $('.searchBtn').click(function (e) {
         e.preventDefault();
-    
+
         var data = {
             bcategory: $('#bigCategory').val(),
             subCategory: $('#subCategory').val(),
@@ -99,26 +99,26 @@ function initializeSearchButton() {
             endDate: $('#endDate').val(),
             memberName: $('#memberName').val()
         };
-    
-        $('.ssearch-content').each(function(index) {
+
+        $('.ssearch-content').each(function (index) {
             if ($(this).val()) {
                 var key = 'searchValue' + (index + 1);
                 data[key] = $(this).val();
             }
         });
-    
+
         console.log(data);
-    
+
         $.ajax({
             type: 'GET',
             url: 'searchMembers',
             data: data,
-            success: function(data) {
+            success: function (data) {
                 console.log(data);
                 updateTable(data);
                 updatePagination(data.pagination);
             },
-            error: function(error) {
+            error: function (error) {
                 console.error('Error fetching data', error);
             }
         });
@@ -126,7 +126,7 @@ function initializeSearchButton() {
 }
 
 function initializeRowClick() {
-    $(document).on('click', '.row', function(e) {
+    $(document).on('click', '.row', function (e) {
         var url = $(this).data("url");
         window.location.href = url;
     });
@@ -137,7 +137,7 @@ function initializeSsearchContentClick() {
 }
 
 function initializeHireDateChange() {
-    $('.hireDate').on('change', function() {
+    $('.hireDate').on('change', function () {
         let startDate = new Date($('#startDate').val());
         let endDate = new Date($('#endDate').val());
         let currentDate = new Date();
@@ -177,23 +177,23 @@ function updateTable(data) {
     var tbody = $('.table-wrap tbody');
     tbody.empty();
 
-    data.searchMemberList.forEach(function(member) {
+    data.searchMemberList.forEach(function (member) {
         var contextPath = "${contextPath}";
         var row = '<tr class="row" data-url="/board/myPage/memberDetail/' + member.memberNo + '">' +
-        '<td>' + member.memberId + '</td>' +
-        '<td>' + member.memberName + '</td>' +
-        '<td>' + member.memberGender + '</td>' +
-        '<td>' + member.memberBirth + '</td>' +
-        '<td>' + member.memberHire + '</td>' +
-        '<td>' + member.memberLv + '</td>' +
-        '<td>' + member.memberTel + '</td>' +
-        '<td>' + member.memberEmail + '</td>' +
-        '<td>' + member.memberAddr + '</td>' +
-        '<td>' + member.memberGrad + '</td>' +
-        '<td>' + member.memberSt + '</td>' +
-        '</tr>';
+            '<td>' + member.memberId + '</td>' +
+            '<td>' + member.memberName + '</td>' +
+            '<td>' + member.memberGender + '</td>' +
+            '<td>' + member.memberBirth + '</td>' +
+            '<td>' + member.memberHire + '</td>' +
+            '<td>' + member.memberLv + '</td>' +
+            '<td>' + member.memberTel + '</td>' +
+            '<td>' + member.memberEmail + '</td>' +
+            '<td>' + member.memberAddr + '</td>' +
+            '<td>' + member.memberGrad + '</td>' +
+            '<td>' + member.memberSt + '</td>' +
+            '</tr>';
         tbody.append(row);
-        const tableCells = document.querySelectorAll("td"); 
+        const tableCells = document.querySelectorAll("td");
 
         tableCells.forEach(cell => {
             if (cell.textContent.trim() === "undefined") {
@@ -228,7 +228,7 @@ function updatePagination(pagination) {
     pageNationDiv.append(content);
 
     // Attach click event to anchor tags
-    pageNationDiv.find('a').on('click', function(e) {
+    pageNationDiv.find('a').on('click', function (e) {
         e.preventDefault();
         var page = $(this).data('page'); // Get the page number
         fetchDataForPage(page);
@@ -237,7 +237,7 @@ function updatePagination(pagination) {
 
 function fetchOptions(e) {
     var selectedValue = $(this).data("codeno");
-        
+
     console.log("==================== ajax Test");
     console.log(selectedValue);
 
@@ -245,23 +245,23 @@ function fetchOptions(e) {
         url: "getSubOptions",
         type: "GET",
         data: { codeNo: selectedValue },
-        success: function(response) {
+        success: function (response) {
             var subOptions = response.subCategories;
             var selectBox = $(e.currentTarget);
             if (subOptions && subOptions.length > 0) {
                 // 기존 옵션을 삭제합니다.
                 // selectBox.find("option:not(:first)").remove();
-                
+
                 // 새로운 하위 옵션들을 추가합니다.
-                
-                $.each(subOptions, function(index, item) {
+
+                $.each(subOptions, function (index, item) {
                     selectBox.append($("<option></option>").attr("value", item.codeId).text(item.codeName));
                 });
             }
             // AJAX 호출 후 새로운 option 요소들이 추가되었으므로, 클릭 이벤트를 비활성화합니다.
             selectBox.off('click', fetchOptions);
         },
-        error: function(error) {
+        error: function (error) {
             console.error("Error fetching sub-options:", error);
         }
     });
@@ -277,7 +277,7 @@ function fetchDataForPage(page) {
         cp: page // Include the current page in the request
     };
 
-    $('.ssearch-content').each(function(index) {
+    $('.ssearch-content').each(function (index) {
         if ($(this).val()) {
             var key = 'searchValue' + (index + 1);
             data[key] = $(this).val();
@@ -288,11 +288,11 @@ function fetchDataForPage(page) {
         type: 'GET',
         url: 'searchMembers',
         data: data,
-        success: function(data) {
+        success: function (data) {
             updateTable(data);
             updatePagination(data.pagination);
         },
-        error: function(error) {
+        error: function (error) {
             console.error('Error fetching data', error);
         }
     });

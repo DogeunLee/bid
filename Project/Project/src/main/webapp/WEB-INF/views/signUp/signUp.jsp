@@ -78,8 +78,8 @@
 
                                                                 <div>
                                                                     <p>주민번호</p>
-                                                                    <input type="text" name="memberBirth" placeholder="' - '를 포함해서 입력해주세요"
-                                                                        maxlength="14">
+                                                                    <input type="text" name="memberBirth"
+                                                                        placeholder="' - '를 포함해서 입력해주세요" maxlength="14">
                                                                 </div>
 
                                                                 <div class="member-tel">
@@ -92,7 +92,8 @@
 
                                                                 <div>
                                                                     <p>이메일</p>
-                                                                    <input type="text" id="memberEmail" placeholder="input your Email include ' @ '"
+                                                                    <input type="text" id="memberEmail"
+                                                                        placeholder="input your Email include ' @ '"
                                                                         name="memberEmail">
                                                                     <div id="emailMessage"></div>
 
@@ -110,8 +111,7 @@
                                                                     <select id="mLevel" name="memberLv">
                                                                         <option disabled selected>레벨</option>
                                                                         <c:forEach var="category" items="${lvOptions}">
-                                                                            <option
-                                                                                value="${category.codeId}">
+                                                                            <option value="${category.codeId}">
                                                                                 ${category.codeName}</option>
                                                                         </c:forEach>
                                                                     </select>
@@ -166,12 +166,14 @@
 
                                                                 <div>
                                                                     <p>학교이름</p>
-                                                                    <input type="text" name="gradName" placeholder="input member's School">
+                                                                    <input type="text" name="gradName"
+                                                                        placeholder="input member's School">
                                                                 </div>
 
                                                                 <div>
                                                                     <p>학과이름</p>
-                                                                    <input type="text" name="gradValue" placeholder="학과이름 입력">
+                                                                    <input type="text" name="gradValue"
+                                                                        placeholder="학과이름 입력">
                                                                 </div>
 
                                                                 <div>
@@ -187,11 +189,13 @@
 
                                                                 <div>
                                                                     <p>경력 회사명</p>
-                                                                    <input type="text" name="expName" placeholder="경력회사이름 입력">
+                                                                    <input type="text" name="expName"
+                                                                        placeholder="경력회사이름 입력">
                                                                 </div>
                                                                 <div>
                                                                     <p>부서명</p>
-                                                                    <input type="text" name="expDept" placeholder="부서이름 입력">
+                                                                    <input type="text" name="expDept"
+                                                                        placeholder="부서이름 입력">
                                                                 </div>
                                                                 <div>
                                                                     <p>근무기간</p>
@@ -205,21 +209,23 @@
                                                                 </div>
                                                                 <div>
                                                                     <p>자격증1</p>
-                                                                   <input type="text" name="certiName" placeholder="자격증 입력">
+                                                                    <input type="text" name="certiName"
+                                                                        placeholder="자격증 입력">
                                                                 </div>
                                                                 <div>
                                                                     <p>취득일자</p>
-                                                                    <input  type="date" name="certiDate"
+                                                                    <input type="date" name="certiDate"
                                                                         placeholder=" 입사 날짜를 입력해 주세요." class="dateBtn"
                                                                         onfocus="this.showPicker()">
                                                                 </div>
                                                                 <div>
                                                                     <p>자격증2</p>
-                                                                   <input type="text" name="certiName" placeholder="자격증 입력">
+                                                                    <input type="text" name="certiName"
+                                                                        placeholder="자격증 입력">
                                                                 </div>
                                                                 <div>
                                                                     <p>취득일자</p>
-                                                                    <input  type="date" name="certiDate"
+                                                                    <input type="date" name="certiDate"
                                                                         placeholder=" 입사 날짜를 입력해 주세요." class="dateBtn"
                                                                         onfocus="this.showPicker()">
                                                                 </div>

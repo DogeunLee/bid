@@ -84,7 +84,7 @@ public class MainController {
 
 		return path;
 
-	}
+	}`
 
 	@RequestMapping("/main")
 	public String main(
